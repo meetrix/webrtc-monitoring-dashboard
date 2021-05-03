@@ -1,0 +1,11 @@
+package.json
+package-lock.json
+*.png
+*.jpg
+*.jpeg
+*.scss
+.prettierignore
+*.test.*
+.env*
+public/*
+*tsconfig.json

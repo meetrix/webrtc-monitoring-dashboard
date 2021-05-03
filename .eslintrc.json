@@ -1,0 +1,56 @@
+{
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "plugins": ["react", "jsx-a11y", "import", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "import/no-extraneous-dependencies": 0,
+    "react/prefer-stateless-function": 0,
+    "no-underscore-dangle": 0,
+    "no-console": 1,
+    "react/no-array-index-key": 0,
+    "max-len": 0,
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
+      }
+    ],
+    "linebreak-style": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "mjs": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "prettier/prettier": "error"
+  },
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "localStorage": true,
+    "document": true,
+    "window": true,
+    "URLSearchParams": true,
+    "Headers": true,
+    "fetch": true
+  },
+  "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "import/ignore": {
+      "extensions": [".png", "jpg"]
+    }
+  }
+}

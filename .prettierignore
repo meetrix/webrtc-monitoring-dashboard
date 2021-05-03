@@ -1,0 +1,12 @@
+# Ignore artifacts:
+build
+coverage
+node_modules
+.eslintignore
+*.png
+*.jpg
+*ignore
+*css
+*scss
+.env*
+*tsconfig.json
