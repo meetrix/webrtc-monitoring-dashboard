@@ -1,6 +1,6 @@
 {
-  "extends": ["airbnb", "plugin:prettier/recommended"],
-  "plugins": ["react", "jsx-a11y", "import", "prettier"],
+  "extends": ["react-app","react-app/jest", "airbnb", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["react", "jsx-a11y", "import", "prettier", "@typescript-eslint"],
   "rules": {
     "react/jsx-filename-extension": 0,
     "import/no-extraneous-dependencies": 0,
@@ -10,6 +10,10 @@
     "react/no-array-index-key": 0,
     "max-len": 0,
     "no-param-reassign": 0,
+    "jsx-a11y/media-has-caption": 0,
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-props-no-spreading": 0,
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
@@ -43,7 +47,7 @@
     "Headers": true,
     "fetch": true
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "settings": {
     "import/resolver": {
       "node": {
