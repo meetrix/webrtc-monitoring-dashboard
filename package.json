@@ -1,5 +1,5 @@
 {
-  "name": "meetrix-meet",
+  "name": "meetrix-project-boilerplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -70,5 +70,17 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  }
+  },
+  "description": "## Development",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/meetrix/general/project-templates/react-redux-toolkit-typescript.git"
+  },
+  "author": "Buddhika Jayawardhana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/meetrix/general/project-templates/react-redux-toolkit-typescript/issues"
+  },
+  "homepage": "https://gitlab.com/meetrix/general/project-templates/react-redux-toolkit-typescript#readme"
 }
