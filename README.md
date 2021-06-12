@@ -1,8 +1,9 @@
 # Meetrix React Template
 
-## Development
+## Project setup
 
-1. `npm start`
+1. `rm -rf .git && git init`
+2. `npm init`
 
 ### UI Component development with [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
 
