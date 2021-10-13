@@ -1,15 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import App from './App';
 import { store } from './app/store';
+import { theme } from './app/theme';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+
+// declare module '@mui/styles' {
+//   // eslint-disable-next-line
+//   interface DefaultTheme extends Theme {}
+// }
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
