@@ -1,6 +1,6 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/styles';
 import { theme } from '../src/app/theme';
 
 

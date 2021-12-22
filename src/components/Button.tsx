@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Button, ButtonProps, Theme } from '@material-ui/core';
-import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import { Button, ButtonProps, Theme } from '@mui/material';
+import { withStyles, createStyles, WithStyles } from '@mui/styles';
 
 type Color = 'primary' | 'secondary';
 
