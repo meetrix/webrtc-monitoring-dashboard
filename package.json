@@ -1,5 +1,5 @@
 {
-  "name": "meetrix-project-boilerplate",
+  "name": "@meetrix/call-quality-monitoring-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,8 +15,12 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
+    "axios": "^0.24.0",
+    "debug": "^4.3.3",
+    "qs": "^6.10.2",
     "react": "^17.0.2",
     "react-scripts": "4.0.3",
+    "socket.io-client": "^4.4.0",
     "typescript": "~4.1.5"
   },
   "scripts": {
@@ -61,6 +65,7 @@
     "@storybook/node-logger": "^6.2.9",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
+    "@types/debug": "^4.1.7",
     "@types/react": "^16.14.5",
     "@types/react-dom": "^16.9.12",
     "@types/react-redux": "^7.1.16",
@@ -71,6 +76,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
+    "moxios": "^0.4.0",
     "prettier": "2.2.1",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4"

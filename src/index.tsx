@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
-import { Theme } from '@mui/material/styles';
 import App from './App';
 import { store } from './app/store';
 import { theme } from './app/theme';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { URLParametersProvider } from './app/providers/URLParameters';
+import { AuthProvider } from './app/providers/AuthProvider';
 
 // declare module '@mui/styles' {
 //   // eslint-disable-next-line
@@ -17,11 +18,15 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <URLParametersProvider>
+        <AuthProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </StyledEngineProvider>
+        </AuthProvider>
+      </URLParametersProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
