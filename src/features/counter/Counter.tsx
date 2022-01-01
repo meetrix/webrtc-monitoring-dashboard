@@ -53,7 +53,7 @@ export const Counter: React.FC = () => {
         >
           Add Amount
         </button>
-        <button
+        {/* <button
           className={styles.asyncButton}
           onClick={() => dispatch(incrementAsync(incrementValue))}
           type="button"
@@ -66,7 +66,7 @@ export const Counter: React.FC = () => {
           type="button"
         >
           Add If Odd
-        </button>
+        </button> */}
       </div>
     </div>
   );
