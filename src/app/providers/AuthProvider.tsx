@@ -49,7 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setAPI(api);
     };
     getProfile();
-  });
+  }, []);
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
