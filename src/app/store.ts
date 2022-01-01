@@ -1,11 +1,13 @@
 /* eslint-disable */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
+import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/api';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    debugger: debuggerSlice,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
