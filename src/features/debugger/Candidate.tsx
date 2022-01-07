@@ -29,8 +29,6 @@ export const Candidate: React.FC<CandidateProps> = ({
           type.split('-')[0]
         }: ${ip}:${port} ${protocol} ${candidateType}`}
       />
-      <p>{`${type}: `}</p>
-      <p>{`${ip}:${port} ${protocol} ${candidateType}`}</p>
     </div>
   );
 };

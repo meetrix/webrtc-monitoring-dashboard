@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import { Box } from '@mui/material';
 import ButtonComponent, { ButtonComponentProps } from '../components/Button';
 
 export default {
@@ -8,7 +9,13 @@ export default {
 } as Meta;
 
 const Template: Story<ButtonComponentProps> = (args) => (
-  <ButtonComponent color="primary" {...args} />
+  <Box
+    sx={{
+      maxWidth: '5rem',
+    }}
+  >
+    <ButtonComponent color="primary" {...args} />
+  </Box>
 );
 
 export const Primary = Template.bind({});
