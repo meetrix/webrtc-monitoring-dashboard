@@ -1,40 +1,19 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  SOCKET_CLIENT_JOINED,
-  SOCKET_CLIENT_LEFT,
-  SOCKET_ROOM_JOIN,
   ClientType,
   ResponseType,
+  SOCKET_CLIENT_JOINED,
+  SOCKET_CLIENT_LEFT,
 } from '@meetrix/webrtc-monitoring-common-lib';
 import debugLib from 'debug';
-import getSocket from './socketService';
-import { getToken } from '../utils/localStorageUtils';
-import config from '../config';
-import { getUrlParams } from '../utils/urlUtils';
+import { api } from '../api';
+import getSocket from '../../socketService';
 
-const debug = debugLib('services:api');
+const debug = debugLib('services:api:clients');
+const socket = getSocket();
 
 export type Domain = string;
 
-const socket = getSocket();
-const { clientId } = getUrlParams();
-
-if (clientId) {
-  socket.emit(SOCKET_ROOM_JOIN, { room: clientId });
-}
-
-// Refer to: https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery
-const baseQuery = fetchBaseQuery({
-  baseUrl: config.api.baseURL,
-  prepareHeaders: (headers) => {
-    headers.set('authorization', `Bearer ${getToken()}`);
-    return headers;
-  },
-});
-
-// Refer to : https://redux-toolkit.js.org/rtk-query/usage/streaming-updates
-export const api = createApi({
-  baseQuery,
+export const clientsApi = api.injectEndpoints({
   endpoints: (build) => ({
     listActiveClients: build.query<ResponseType<ClientType[]>, Domain>({
       query: (domain) => `clients/${domain}`,
@@ -74,4 +53,6 @@ export const api = createApi({
   }),
 });
 
-export const { useListActiveClientsQuery } = api;
+export const { useListActiveClientsQuery } = clientsApi;
+
+export default clientsApi;

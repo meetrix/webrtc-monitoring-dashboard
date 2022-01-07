@@ -2,7 +2,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
-import { api } from '../services/api';
+import { api } from '../services/apiService/api';
 
 export const store = configureStore({
   reducer: {
