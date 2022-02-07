@@ -91,7 +91,7 @@ export const Tracks: React.FC<TracksPropType> = (props: TracksPropType) => {
     <Box>
       <TableContainer component={Paper}>
         <Typography
-          variant="caption"
+          variant="h6"
           sx={{
             margin: '1rem',
           }}

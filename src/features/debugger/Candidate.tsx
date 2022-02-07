@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/css';
+import  css  from '@emotion/css';
 import { Chip } from '@mui/material';
 
 export interface CandidateProps {
@@ -19,10 +19,6 @@ export const Candidate: React.FC<CandidateProps> = ({
 }: CandidateProps) => {
   return (
     <div
-      className={css({
-        display: 'flex',
-        justifyContent: 'space-between',
-      })}
     >
       <Chip
         label={`${

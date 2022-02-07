@@ -203,6 +203,65 @@ export default {
         payloadType: 96,
       },
     ],
+    browserInfo: {
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+      platform: 'Win32',
+    },
+    mediaDeviceInfo: [
+      {
+        deviceId: 'default',
+        kind: 'audioinput',
+        label: 'Default - Microphone (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+      {
+        deviceId: 'communications',
+        kind: 'audioinput',
+        label: 'Communications - Microphone (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+      {
+        deviceId:
+          'bf9278d5073affee199981650dad03a3e63317db278fd9d938e8fed2b6a233dc',
+        kind: 'audioinput',
+        label: 'Microphone (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+      {
+        deviceId:
+          '97b840c0d99a9a3067a35034d4a845f6ab2228347761e95b4454e618019aef3a',
+        kind: 'videoinput',
+        label: 'USB2.0 HD IR UVC WebCam (13d3:56cb)',
+        groupId:
+          '5ca8c3dba1d20cf4bffbbb3875ced754be7882822c2e7fa42d5a98fc9bb5a229',
+      },
+      {
+        deviceId: 'default',
+        kind: 'audiooutput',
+        label: 'Default - Speakers (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+      {
+        deviceId: 'communications',
+        kind: 'audiooutput',
+        label: 'Communications - Speakers (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+      {
+        deviceId:
+          '16e1990338181941712c830854bea5c894750e49a86ffdbf23958e96fa936c07',
+        kind: 'audiooutput',
+        label: 'Speakers (Realtek(R) Audio)',
+        groupId:
+          'd1f428c1c487daa43e5793356f4c38bb1dfd856a5c82c7e7fa4e7c9d579bf276',
+      },
+    ],
   },
   rawStats: {},
   timestamp: '2022-01-03T13:16:41.309Z',
