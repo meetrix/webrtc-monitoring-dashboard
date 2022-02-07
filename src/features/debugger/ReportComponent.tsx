@@ -4,7 +4,7 @@ import {
   Other,
   Report,
 } from '@meetrix/webrtc-monitoring-common-lib';
-import { Box, Card } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useRef } from 'react';
 import DataCard from '../../components/DataCard';
 import Logger from '../../components/Logger';
@@ -16,13 +16,8 @@ export type PeerComponentProps = {
   otherInfo: Other;
 };
 
-interface LogEntry {
+interface LogEntry extends Other {
   key: string;
-  peerId: string;
-  timestamp: string;
-  event: string;
-  tag: string;
-  logData: any;
 }
 
 interface LogEntryData {
@@ -64,7 +59,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
       peerId: 'peerId',
       event: 'event',
       tag: 'tag',
-      logData: 'logData',
+      data: 'logData',
     },
   });
   const getConnectionLog = () => {
@@ -74,7 +69,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
       peerId: otherInfo.peerId || '',
       event: otherInfo.event || '',
       tag: otherInfo.tag || '',
-      logData: JSON.stringify(otherInfo.data) || '',
+      data: JSON.stringify(otherInfo.data) || '',
     };
     log.current[JSON.stringify(connectionStatus)] = {
       key: JSON.stringify(connectionStatus) || '',
@@ -82,7 +77,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
       peerId: connectionStatus.peerId || '',
       event: connectionStatus.event || '',
       tag: connectionStatus.tag || '',
-      logData: JSON.stringify(connectionStatus.data) || '',
+      data: JSON.stringify(connectionStatus.data) || '',
     };
     log.current[JSON.stringify(report)] = {
       key: JSON.stringify(report) || '',
@@ -90,7 +85,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
       peerId: report.peerId || '',
       event: report.event || '',
       tag: report.tag || '',
-      logData: JSON.stringify(report.data) || '',
+      data: JSON.stringify(report.data) || '',
     };
 
     return log.current;

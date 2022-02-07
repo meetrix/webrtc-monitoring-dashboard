@@ -1,13 +1,9 @@
 import React from 'react';
 import { Paper, Typography, Box, TypographyProps } from '@mui/material';
+import { Other } from '@meetrix/webrtc-monitoring-common-lib';
 
-interface LogEntry {
+interface LogEntry extends Other {
   key: string;
-  peerId: string;
-  timestamp: string;
-  event: string;
-  tag: string;
-  logData: any;
 }
 
 interface LogEntryData {
@@ -50,26 +46,24 @@ export const Logger: React.FC<LoggerComponentPropsType> = ({
             rowGap="1rem"
           >
             {renderStringOrComponent(title, { variant: 'h6' })}
-            {Object.values(body).map(
-              ({ key, timestamp, peerId, event, tag, logData }) => {
-                return (
-                  <Box
-                    key={key}
-                    sx={{
-                      display: 'grid',
-                      gridTemplateColumns: '200px 50px 200px 100px 1fr',
-                      marginTop: '0.25rem',
-                    }}
-                  >
-                    {renderStringOrComponent(timestamp)}
-                    {renderStringOrComponent(peerId)}
-                    {renderStringOrComponent(event)}
-                    {renderStringOrComponent(tag)}
-                    {renderStringOrComponent(logData)}
-                  </Box>
-                );
-              }
-            )}
+            {Object.values(body).map((row) => {
+              return (
+                <Box
+                  key={row.key}
+                  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '200px 50px 200px 100px 1fr',
+                    marginTop: '0.25rem',
+                  }}
+                >
+                  {renderStringOrComponent(row.timestamp)}
+                  {renderStringOrComponent(row.peerId)}
+                  {renderStringOrComponent(row.event)}
+                  {renderStringOrComponent(row.tag)}
+                  {renderStringOrComponent(row.data)}
+                </Box>
+              );
+            })}
           </Box>
         );
       })}
