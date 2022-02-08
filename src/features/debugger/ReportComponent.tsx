@@ -18,6 +18,7 @@ export type PeerComponentProps = {
 
 interface LogEntry extends Other {
   key: string;
+  tag: any;
 }
 
 interface LogEntryData {
