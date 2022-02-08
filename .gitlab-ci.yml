@@ -3,7 +3,9 @@ package:
   image: node:12-bullseye-slim
   script:
     - apt update
-    - apt install bzip2
+    - apt install bzip2 git
+    - git config --global credential.helper store
+    - echo "https://$GITLAB_DEPLOY_TOKEN_USER:$GITLAB_DEPLOY_TOKEN_PASSWORD@gitlab.com" > ~/.git-credentials
     - npm install
     - CI=false npm run build
     - cd build
