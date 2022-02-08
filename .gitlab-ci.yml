@@ -1,0 +1,46 @@
+package:
+  stage: build
+  image: node:12-bullseye-slim
+  script:
+    - apt update
+    - apt install -y bzip2 git
+    - git config --global credential.helper store
+    - echo "https://$GITLAB_DEPLOY_TOKEN_USER:$GITLAB_DEPLOY_TOKEN_PASSWORD@gitlab.com" > ~/.git-credentials
+    - npm install
+    - CI=false npm run build
+    - cd build
+    - tar -cjSf webrtc-dashboard.tar.bz2 *
+  artifacts:
+    paths:
+      - build/webrtc-dashboard.tar.bz2
+  only:
+    - feat/dashboard-log-devices-browserinfo
+    - tags
+
+before_script:
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+staging_deploy:
+  stage: deploy
+  image: kroniak/ssh-client
+  environment:
+    name: staging
+  script:
+    - scp -o StrictHostKeyChecking=no build/webrtc-dashboard.tar.bz2 $STAGING_SSH_USER@$STAGING_SSH_HOST:/var/www/webrtc-dashboard/releases/
+    - ssh $STAGING_SSH_USER@$STAGING_SSH_HOST "cd /var/www/webrtc-dashboard/releases && mkdir $CI_PIPELINE_ID && tar -xf webrtc-dashboard.tar.bz2 -C $CI_PIPELINE_ID"
+    - ssh $STAGING_SSH_USER@$STAGING_SSH_HOST "cd /var/www/webrtc-dashboard && ln -sfn releases/$CI_PIPELINE_ID current"
+  only:
+    - feat/dashboard-log-devices-browserinfo
+
+production_deploy:
+  stage: deploy
+  image: kroniak/ssh-client
+  environment:
+    name: production
+  script:
+    - echo dummy echo
+  only:
+    - tags
