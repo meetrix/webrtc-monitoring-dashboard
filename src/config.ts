@@ -1,9 +1,10 @@
 export default {
   api: {
-    baseURL: 'http://localhost:9100/v1',
+    baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:9100/v1',
   },
   socket: {
-    url: 'http://localhost:9100/users',
+    url:
+      process.env.REACT_APP_API_BASE_USER_URL || 'http://localhost:9100/users',
     options: {
       path: '/stats',
       auth: {
