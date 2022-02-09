@@ -3,7 +3,7 @@ export default {
     baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:9100/v1',
   },
   socket: {
-    url: process.env.REACT_APP_API_BASE_USER_URL || 'http://localhost:9100',
+    url: process.env.REACT_APP_SOCKET_BASE_URL || 'http://localhost:9100',
     options: {
       path: '/stats',
       auth: {
