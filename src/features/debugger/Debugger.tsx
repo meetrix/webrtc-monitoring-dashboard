@@ -33,10 +33,6 @@ export const Debugger: React.FC = () => {
   const report = mockStats ? mockReport : data;
 
   if (report && report.data && connectionStatus && otherInfo) {
-    // if (!connectionStatus.data) {
-    //   const temp = { data: 'undefined' };
-    //   connectionStatus = temp;
-    // }
     return (
       <ReportComponent
         report={report}
