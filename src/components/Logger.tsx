@@ -1,9 +1,11 @@
 import React from 'react';
 import { Paper, Typography, Box, TypographyProps } from '@mui/material';
-import { Other } from '@meetrix/webrtc-monitoring-common-lib';
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
 
-interface LogEntry extends Other {
+interface LogEntry extends TimelineEvent {
   key: string;
+  peerId: any;
+  timestamp: any;
 }
 
 interface LogEntryData {

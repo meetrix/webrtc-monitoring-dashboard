@@ -1,12 +1,11 @@
 import {
-  Connection,
-  Other,
   Report,
   SOCKET_CONNECTION_INFO,
   SOCKET_OTHER,
   SOCKET_REPORT_STATS,
   SOCKET_ROOM_JOIN,
 } from '@meetrix/webrtc-monitoring-common-lib';
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
 import debugLib from 'debug';
 import { getUrlParams } from '../../../utils/urlUtils';
 import getSocket from '../../socketService';
@@ -54,13 +53,13 @@ export const clientsApi = api.injectEndpoints({
       },
     }),
 
-    getConnectionInfo: build.query<Connection, Options>({
+    getConnectionInfo: build.query<TimelineEvent, Options>({
       query: ({ domain, clientId }) => `report/${domain}/${clientId}`,
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const onConnectionInfo = (connectionInfo: Connection) => {
+        const onConnectionInfo = (connectionInfo: TimelineEvent) => {
           updateCachedData((draft) => {
             draft.event = connectionInfo.event;
             draft.tag = connectionInfo.tag;
@@ -81,13 +80,13 @@ export const clientsApi = api.injectEndpoints({
       },
     }),
 
-    getOtherInfo: build.query<Other, Options>({
+    getOtherInfo: build.query<TimelineEvent, Options>({
       query: ({ domain, clientId }) => `report/${domain}/${clientId}`,
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const onOtherInfo = (otherInfo: Other) => {
+        const onOtherInfo = (otherInfo: TimelineEvent) => {
           updateCachedData((draft) => {
             draft.event = otherInfo.event;
             draft.tag = otherInfo.tag;

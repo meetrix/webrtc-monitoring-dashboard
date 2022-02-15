@@ -1,10 +1,6 @@
-import {
-  CandidateType,
-  Connection,
-  Other,
-  Report,
-} from '@meetrix/webrtc-monitoring-common-lib';
+import { CandidateType, Report } from '@meetrix/webrtc-monitoring-common-lib';
 import { Box } from '@mui/material';
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
 import React, { useRef } from 'react';
 import DataCard from '../../components/DataCard';
 import Logger from '../../components/Logger';
@@ -12,12 +8,14 @@ import Tracks from './Tracks';
 
 export type PeerComponentProps = {
   report: Report;
-  connectionStatus: Connection;
-  otherInfo: Other;
+  connectionStatus: TimelineEvent;
+  otherInfo: TimelineEvent;
 };
 
-interface LogEntry extends Other {
+interface LogEntry extends TimelineEvent {
   key: string;
+  peerId: any;
+  timestamp: any;
   tag: any;
 }
 
