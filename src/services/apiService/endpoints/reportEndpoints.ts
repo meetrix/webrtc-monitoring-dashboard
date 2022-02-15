@@ -1,7 +1,7 @@
 import {
   Report,
   SOCKET_CONNECTION_INFO,
-  SOCKET_OTHER,
+  SOCKET_OTHER_INFO,
   SOCKET_REPORT_STATS,
   SOCKET_ROOM_JOIN,
 } from '@meetrix/webrtc-monitoring-common-lib';
@@ -98,12 +98,12 @@ export const clientsApi = api.injectEndpoints({
 
         try {
           await cacheDataLoaded;
-          socket.on(SOCKET_OTHER, onOtherInfo);
+          socket.on(SOCKET_OTHER_INFO, onOtherInfo);
         } catch (e) {
           debug('Error', e);
         }
         await cacheEntryRemoved;
-        socket.off(SOCKET_OTHER, onOtherInfo);
+        socket.off(SOCKET_OTHER_INFO, onOtherInfo);
       },
     }),
   }),
