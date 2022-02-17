@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Report } from '@meetrix/webrtc-monitoring-common-lib';
-import report from '../../mocks/report';
+import { mockReport } from '../../mocks/report';
 import { RootState } from '../../app/store';
 import { getUrlParams } from '../../utils/urlUtils';
 
 const { mockStats } = getUrlParams();
 const initialState = {
-  reports: mockStats ? [report] : undefined,
+  reports: mockStats ? [mockReport] : undefined,
 };
 
 export type ReportType = Report[] | undefined;

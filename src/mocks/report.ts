@@ -1,4 +1,6 @@
-export default {
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
+
+export const mockReport = {
   type: 'stats',
   event: 'stats',
   tag: 'stats',
@@ -263,4 +265,93 @@ export default {
   },
   rawStats: {},
   timestamp: '2022-01-03T13:16:41.309Z',
+} as any;
+
+export const mockConnectionStatus = {
+  type: 'stats',
+  event: 'onconnectionstatechange',
+  tag: 'connection',
+  peerId: '1',
+  data: 'connected',
+  timestamp: '2022-02-17T07:15:19.212Z',
+} as any;
+
+export const mockOtherInfo = {
+  event: 'onicecandidate',
+  tag: 'connection',
+  peerId: '1',
+  data: {
+    candidate:
+      'candidate:1269041106 1 udp 2122260223 192.168.160.1 51266 typ host generation 0 ufrag 0scE network-id 1',
+    sdpMid: '0',
+    sdpMLineIndex: 0,
+  },
+  timestamp: '2022-02-17T07:24:50.466Z',
+} as any;
+
+export const mockMediaInfo = {
+  event: 'mediaInfo',
+  tag: 'getUserMedia',
+  data: {
+    browserInfo: {
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
+      platform: 'Win32',
+    },
+    mediaDeviceInfo: [
+      {
+        deviceId: 'default',
+        kind: 'audioinput',
+        label: 'Default - Microphone (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+      {
+        deviceId: 'communications',
+        kind: 'audioinput',
+        label: 'Communications - Microphone (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+      {
+        deviceId:
+          'e9c5b5e46f97c5f97a551776e5575c37ae269ffb57b5b2eadc8f5cd7f02cd732',
+        kind: 'audioinput',
+        label: 'Microphone (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+      {
+        deviceId:
+          'fd6368f0cf8fbc4f6a1a269f03de30fdfe82e8007fe17fb98d426b5160f1ba3f',
+        kind: 'videoinput',
+        label: 'USB2.0 HD IR UVC WebCam (13d3:56cb)',
+        groupId:
+          '4bbe6f298d4da3f5bed0be33c59bc14cc46d256c64b62526ad26a294cc927bc6',
+      },
+      {
+        deviceId: 'default',
+        kind: 'audiooutput',
+        label: 'Default - Speakers (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+      {
+        deviceId: 'communications',
+        kind: 'audiooutput',
+        label: 'Communications - Speakers (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+      {
+        deviceId:
+          '30ee2bd0e381d462127cc9859adb3eb7fb9de757ffd972d5c3baaba06c7f2a2d',
+        kind: 'audiooutput',
+        label: 'Speakers (Realtek(R) Audio)',
+        groupId:
+          '985cc04c20eaeb14a89cc0a7a394ae1ab6c714352eb58f9a6423725d9172c443',
+      },
+    ],
+  },
+  timestamp: '2022-02-17T07:15:19.212Z',
 } as any;
