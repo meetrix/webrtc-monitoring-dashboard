@@ -10,6 +10,7 @@ export type PeerComponentProps = {
   report: Report;
   connectionStatus: TimelineEvent;
   otherInfo: TimelineEvent;
+  mediaInfo: TimelineEvent;
 };
 
 interface LogEntry extends TimelineEvent {
@@ -26,11 +27,14 @@ interface LogEntryData {
 export const PeerComponent: React.FC<PeerComponentProps> = ({
   report: {
     peerId,
-    data: { inbound, outbound, connection, browserInfo, mediaDeviceInfo },
+    data: { inbound, outbound, connection },
   },
   report,
   connectionStatus,
   otherInfo,
+  mediaInfo: {
+    data: { browserInfo, mediaDeviceInfo },
+  },
 }: PeerComponentProps) => {
   // eslint-disable-next-line no-bitwise
   const getKiliBytesFromBytes = (bytes: number) => bytes >> 10;
@@ -43,7 +47,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
   }: CandidateType) => `${ip}:${port} ${protocol} ${candidateType}`;
 
   const getMediaDeviceInfo = () => {
-    return mediaDeviceInfo.map((mediaDevice) => {
+    return mediaDeviceInfo.map((mediaDevice: MediaDeviceInfo) => {
       return {
         key: `(${mediaDevice.kind}) ${mediaDevice.deviceId}`,
         value: mediaDevice.label,

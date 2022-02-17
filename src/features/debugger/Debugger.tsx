@@ -3,6 +3,7 @@ import {
   useGetReportQuery,
   useGetConnectionInfoQuery,
   useGetOtherInfoQuery,
+  useGetMediaInfoQuery,
 } from '../../services/apiService/endpoints/reportEndpoints';
 import { getUrlParams } from '../../utils/urlUtils';
 import ReportComponent from './ReportComponent';
@@ -30,14 +31,29 @@ export const Debugger: React.FC = () => {
   const otherInfo = data3.data;
   // console.log(otherInfo);
 
+  const data4 = useGetMediaInfoQuery({
+    domain: 'meetrix.io',
+    clientId: clientId || '1234',
+  });
+  const mediaInfo = data4.data;
+  // console.log(mediaInfo);
+
   const report = mockStats ? mockReport : data;
 
-  if (report && report.data && connectionStatus && otherInfo) {
+  if (
+    report &&
+    report.data &&
+    mediaInfo &&
+    mediaInfo.data &&
+    connectionStatus &&
+    otherInfo
+  ) {
     return (
       <ReportComponent
         report={report}
         connectionStatus={connectionStatus}
         otherInfo={otherInfo}
+        mediaInfo={mediaInfo}
       />
     );
   }

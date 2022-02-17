@@ -1,5 +1,3 @@
-import { Report } from '@meetrix/webrtc-monitoring-common-lib';
-
 export default {
   type: 'stats',
   event: 'stats',

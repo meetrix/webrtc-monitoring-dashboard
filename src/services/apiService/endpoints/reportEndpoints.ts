@@ -100,11 +100,27 @@ export const clientsApi = api.injectEndpoints({
         );
       },
     }),
+
+    getMediaInfo: build.query<TimelineEvent, Options>({
+      query: ({ domain, clientId }) => `report/${domain}/${clientId}`,
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        onCacheEntryAddedBody(
+          'mediaInfo',
+          updateCachedData,
+          cacheDataLoaded,
+          cacheEntryRemoved
+        );
+      },
+    }),
   }),
 });
 
 export const { useGetReportQuery } = clientsApi;
 export const { useGetConnectionInfoQuery } = clientsApi;
 export const { useGetOtherInfoQuery } = clientsApi;
+export const { useGetMediaInfoQuery } = clientsApi;
 
 export default clientsApi;
