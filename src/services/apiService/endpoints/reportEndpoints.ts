@@ -24,6 +24,36 @@ if (_clientId) {
   socket.emit(SOCKET_ROOM_JOIN, { room: _clientId });
 }
 
+const onUpdateCachedData = (event: TimelineEvent, draft: any) => {
+  draft.peerId = event.peerId;
+  draft.event = event.event;
+  draft.tag = event.tag;
+  draft.data = event.data;
+  draft.timestamp = event.timestamp;
+};
+
+const onCacheEntryAddedBody = async (
+  event: string,
+  updateCachedData: any,
+  cacheDataLoaded: any,
+  cacheEntryRemoved: any
+) => {
+  const onStats = (report: Report) => {
+    updateCachedData((draft: any) => {
+      onUpdateCachedData(report, draft);
+    });
+  };
+
+  try {
+    await cacheDataLoaded;
+    socket.on(event, onStats);
+  } catch (e) {
+    debug('Error', e);
+  }
+  await cacheEntryRemoved;
+  socket.off(event, onStats);
+};
+
 export const clientsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getReport: build.query<Report, Options>({
@@ -32,24 +62,12 @@ export const clientsApi = api.injectEndpoints({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const onStats = (report: Report) => {
-          updateCachedData((draft) => {
-            draft.event = report.event;
-            draft.tag = report.tag;
-            draft.peerId = report.peerId;
-            draft.data = report.data;
-            draft.timestamp = report.timestamp;
-          });
-        };
-
-        try {
-          await cacheDataLoaded;
-          socket.on(SOCKET_REPORT_STATS, onStats);
-        } catch (e) {
-          debug('Error', e);
-        }
-        await cacheEntryRemoved;
-        socket.off(SOCKET_REPORT_STATS, onStats);
+        onCacheEntryAddedBody(
+          SOCKET_REPORT_STATS,
+          updateCachedData,
+          cacheDataLoaded,
+          cacheEntryRemoved
+        );
       },
     }),
 
@@ -59,24 +77,12 @@ export const clientsApi = api.injectEndpoints({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const onConnectionInfo = (connectionInfo: TimelineEvent) => {
-          updateCachedData((draft) => {
-            draft.event = connectionInfo.event;
-            draft.tag = connectionInfo.tag;
-            draft.peerId = connectionInfo.peerId;
-            draft.data = connectionInfo.data;
-            draft.timestamp = connectionInfo.timestamp;
-          });
-        };
-
-        try {
-          await cacheDataLoaded;
-          socket.on(SOCKET_CONNECTION_INFO, onConnectionInfo);
-        } catch (e) {
-          debug('Error', e);
-        }
-        await cacheEntryRemoved;
-        socket.off(SOCKET_CONNECTION_INFO, onConnectionInfo);
+        onCacheEntryAddedBody(
+          SOCKET_CONNECTION_INFO,
+          updateCachedData,
+          cacheDataLoaded,
+          cacheEntryRemoved
+        );
       },
     }),
 
@@ -86,24 +92,12 @@ export const clientsApi = api.injectEndpoints({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const onOtherInfo = (otherInfo: TimelineEvent) => {
-          updateCachedData((draft) => {
-            draft.event = otherInfo.event;
-            draft.tag = otherInfo.tag;
-            draft.peerId = otherInfo.peerId;
-            draft.data = otherInfo.data;
-            draft.timestamp = otherInfo.timestamp;
-          });
-        };
-
-        try {
-          await cacheDataLoaded;
-          socket.on(SOCKET_OTHER_INFO, onOtherInfo);
-        } catch (e) {
-          debug('Error', e);
-        }
-        await cacheEntryRemoved;
-        socket.off(SOCKET_OTHER_INFO, onOtherInfo);
+        onCacheEntryAddedBody(
+          SOCKET_OTHER_INFO,
+          updateCachedData,
+          cacheDataLoaded,
+          cacheEntryRemoved
+        );
       },
     }),
   }),
