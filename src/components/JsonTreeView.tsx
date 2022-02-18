@@ -19,10 +19,19 @@ const getRowsFromObject = (treeItem: any) => {
       {Object.entries(treeItem).map(([treeItemRowKey, treeItemRowValue]) => {
         let children;
         let treeItemRowlabel;
-        if (Array.isArray(treeItemRowValue) && treeItemRowValue.length > 0) {
+        if (treeItemRowKey === 'sdp' && typeof treeItemRowValue === 'string') {
+          treeItemRowValue = treeItemRowValue.split('\r\n');
+        }
+        if (
+          Array.isArray(treeItemRowValue) &&
+          treeItemRowValue[0] instanceof Object
+        ) {
           children = getObjectsRowsFromArray(treeItemRowValue);
           treeItemRowlabel = treeItemRowKey;
-        } else if (treeItemRowValue instanceof Object) {
+        } else if (
+          treeItemRowValue instanceof Object ||
+          Array.isArray(treeItemRowValue)
+        ) {
           children = getRowsFromObject(treeItemRowValue);
           treeItemRowlabel = treeItemRowKey;
         } else {
