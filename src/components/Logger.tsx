@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Typography, Box, TypographyProps } from '@mui/material';
 import { TimelineEvent } from '@peermetrics/webrtc-stats';
+import JsonTreeView from './JsonTreeView';
 
 interface LogEntry extends TimelineEvent {
   key: string;
@@ -11,8 +12,10 @@ interface LogEntry extends TimelineEvent {
 interface LogEntryData {
   [datasetKey: string]: LogEntry;
 }
+
 interface DataSet {
   title: string;
+  columns: string[];
   body: LogEntryData;
 }
 
@@ -38,7 +41,7 @@ export const Logger: React.FC<LoggerComponentPropsType> = ({
 
   return (
     <Paper>
-      {data.map(({ title, body }) => {
+      {data.map(({ title, columns, body }) => {
         return (
           <Box
             key={title}
@@ -48,6 +51,20 @@ export const Logger: React.FC<LoggerComponentPropsType> = ({
             rowGap="1rem"
           >
             {renderStringOrComponent(title, { variant: 'h6' })}
+            <Box
+              key="columns"
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: '200px 50px 200px 100px 1fr',
+                marginTop: '0.25rem',
+              }}
+            >
+              {renderStringOrComponent(columns[0])}
+              {renderStringOrComponent(columns[1])}
+              {renderStringOrComponent(columns[2])}
+              {renderStringOrComponent(columns[3])}
+              {renderStringOrComponent(columns[4])}
+            </Box>
             {Object.values(body).map((row) => {
               return (
                 <Box
@@ -62,7 +79,9 @@ export const Logger: React.FC<LoggerComponentPropsType> = ({
                   {renderStringOrComponent(row.peerId)}
                   {renderStringOrComponent(row.event)}
                   {renderStringOrComponent(row.tag)}
-                  {renderStringOrComponent(row.data)}
+                  <JsonTreeView
+                    treeItems={row.data ? JSON.parse(row.data) : ''}
+                  />
                 </Box>
               );
             })}

@@ -55,16 +55,8 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
     });
   };
 
-  const log = useRef<LogEntryData>({
-    init: {
-      key: 'init',
-      timestamp: 'timestamp',
-      peerId: 'peerId',
-      event: 'event',
-      tag: 'tag',
-      data: 'logData',
-    },
-  });
+  const log = useRef<LogEntryData>({});
+
   const getConnectionLog = () => {
     log.current[JSON.stringify(otherInfo)] = {
       key: JSON.stringify(otherInfo) || '',
@@ -157,6 +149,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
   const otherInfoData = [
     {
       title: 'Connection log',
+      columns: ['Timestamp', 'PeerId', 'Event', 'Tag', 'Data'],
       body: getConnectionLog(),
     },
   ];

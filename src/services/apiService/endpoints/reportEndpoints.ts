@@ -13,7 +13,7 @@ import { api } from '../api';
 
 const debug = debugLib('services:api:clients');
 const socket = getSocket();
-const { clientId: _clientId, mockStats } = getUrlParams();
+const { clientId: _clientId } = getUrlParams();
 
 export type Options = {
   domain: string;
