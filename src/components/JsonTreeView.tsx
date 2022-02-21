@@ -9,53 +9,6 @@ import debugLib from 'debug';
 const debug = debugLib('Logger');
 debug.enabled = true;
 
-const getRowsFromObject = (treeItem: any) => {
-  return (
-    <TreeView
-      key={v4()}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-    >
-      {Object.entries(treeItem).map(([treeItemRowKey, treeItemRowValue]) => {
-        let children;
-        let treeItemRowlabel;
-        if (treeItemRowKey === 'sdp' && typeof treeItemRowValue === 'string') {
-          treeItemRowValue = treeItemRowValue.split('\r\n');
-        }
-        if (
-          Array.isArray(treeItemRowValue) &&
-          treeItemRowValue[0] instanceof Object
-        ) {
-          children = getObjectsRowsFromArray(treeItemRowValue);
-          treeItemRowlabel = treeItemRowKey;
-        } else if (
-          treeItemRowValue instanceof Object ||
-          Array.isArray(treeItemRowValue)
-        ) {
-          children = getRowsFromObject(treeItemRowValue);
-          treeItemRowlabel = treeItemRowKey;
-        } else {
-          treeItemRowlabel = `${treeItemRowKey} : ${treeItemRowValue}`;
-        }
-        return (
-          <TreeItem
-            key={v4()}
-            nodeId={v4()}
-            label={treeItemRowlabel}
-            children={children}
-          />
-        );
-      })}
-    </TreeView>
-  );
-};
-
-const getObjectsRowsFromArray = (treeItems: any) => {
-  return treeItems.map((treeItem: any) => {
-    return getRowsFromObject(treeItem);
-  });
-};
-
 interface JsonTreeViewProps {
   treeItems: any;
 }
@@ -63,6 +16,65 @@ interface JsonTreeViewProps {
 const JsonTreeView: React.FC<JsonTreeViewProps> = ({
   treeItems,
 }: JsonTreeViewProps) => {
+  const [expanded, setExpanded] = React.useState([]);
+
+  const handleToggle = (event: any, nodeIds: any) => {
+    console.log(nodeIds);
+    setExpanded(nodeIds);
+  };
+
+  const getRowsFromObject = (treeItem: any) => {
+    return (
+      <TreeView
+        key={JSON.stringify(treeItem)}
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+        expanded={expanded}
+        onNodeToggle={handleToggle}
+      >
+        {Object.entries(treeItem).map(([treeItemRowKey, treeItemRowValue]) => {
+          let children;
+          let treeItemRowlabel;
+          if (
+            treeItemRowKey === 'sdp' &&
+            typeof treeItemRowValue === 'string'
+          ) {
+            treeItemRowValue = treeItemRowValue.split('\r\n');
+          }
+          if (
+            Array.isArray(treeItemRowValue) &&
+            treeItemRowValue[0] instanceof Object
+          ) {
+            children = getObjectsRowsFromArray(treeItemRowValue);
+            treeItemRowlabel = treeItemRowKey;
+          } else if (
+            treeItemRowValue instanceof Object ||
+            Array.isArray(treeItemRowValue)
+          ) {
+            children = getRowsFromObject(treeItemRowValue);
+            treeItemRowlabel = treeItemRowKey;
+          } else {
+            treeItemRowlabel = `${treeItemRowKey} : ${treeItemRowValue}`;
+          }
+          return (
+            <TreeItem
+              key={JSON.stringify(treeItem) + treeItemRowlabel}
+              nodeId={JSON.stringify(treeItem) + treeItemRowlabel}
+              label={treeItemRowlabel}
+              children={children}
+            />
+          );
+        })}
+      </TreeView>
+    );
+  };
+
+  const getObjectsRowsFromArray = (treeItemsArray: any) => {
+    return treeItemsArray.map((treeItem: any) => {
+      return getRowsFromObject(treeItem);
+    });
+  };
+
   return (
     <TreeView
       key={v4()}
