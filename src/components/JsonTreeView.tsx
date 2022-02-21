@@ -19,14 +19,14 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
   const [expanded, setExpanded] = React.useState([]);
 
   const handleToggle = (event: any, nodeIds: any) => {
-    console.log(nodeIds);
+    // debug(nodeIds);
     setExpanded(nodeIds);
   };
 
-  const getRowsFromObject = (treeItem: any) => {
+  const getRowsFromObject = (treeItem: any, parentLabel: string) => {
     return (
       <TreeView
-        key={JSON.stringify(treeItem)}
+        key={v4()}
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
         expanded={expanded}
@@ -45,21 +45,24 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
             Array.isArray(treeItemRowValue) &&
             treeItemRowValue[0] instanceof Object
           ) {
-            children = getObjectsRowsFromArray(treeItemRowValue);
+            children = getObjectsRowsFromArray(
+              treeItemRowValue,
+              treeItemRowKey
+            );
             treeItemRowlabel = treeItemRowKey;
           } else if (
             treeItemRowValue instanceof Object ||
             Array.isArray(treeItemRowValue)
           ) {
-            children = getRowsFromObject(treeItemRowValue);
+            children = getRowsFromObject(treeItemRowValue, treeItemRowKey);
             treeItemRowlabel = treeItemRowKey;
           } else {
             treeItemRowlabel = `${treeItemRowKey} : ${treeItemRowValue}`;
           }
           return (
             <TreeItem
-              key={JSON.stringify(treeItem) + treeItemRowlabel}
-              nodeId={JSON.stringify(treeItem) + treeItemRowlabel}
+              key={`${parentLabel}/${treeItemRowlabel}`}
+              nodeId={`${parentLabel}/${treeItemRowlabel}`}
               label={treeItemRowlabel}
               children={children}
             />
@@ -69,9 +72,12 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
     );
   };
 
-  const getObjectsRowsFromArray = (treeItemsArray: any) => {
+  const getObjectsRowsFromArray = (
+    treeItemsArray: any,
+    parentLabel: string
+  ) => {
     return treeItemsArray.map((treeItem: any) => {
-      return getRowsFromObject(treeItem);
+      return getRowsFromObject(treeItem, parentLabel);
     });
   };
 
@@ -81,7 +87,9 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
     >
-      {treeItems instanceof Object ? getRowsFromObject(treeItems) : treeItems}
+      {treeItems instanceof Object
+        ? getRowsFromObject(treeItems, 'init')
+        : treeItems}
     </TreeView>
   );
 };
