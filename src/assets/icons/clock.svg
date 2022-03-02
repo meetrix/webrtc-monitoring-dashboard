@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-clock);
+      }
+
+      .cls-2 {
+        fill: #2485f6;
+      }
+
+      .cls-3 {
+        fill: none;
+        opacity: 0;
+      }
+    </style>
+    <clipPath id="clip-clock">
+      <rect width="96" height="96"/>
+    </clipPath>
+  </defs>
+  <g id="clock" class="cls-1">
+    <g id="vuesax_outline_clock" data-name="vuesax/outline/clock" transform="translate(-172 -188)">
+      <g id="clock-2" data-name="clock" transform="translate(172 188)">
+        <path id="Vector" class="cls-2" d="M43,86A43,43,0,1,1,86,43,43.036,43.036,0,0,1,43,86ZM43,6A37,37,0,1,0,80,43,37.044,37.044,0,0,0,43,6Z" transform="translate(5 5)"/>
+        <path id="Vector-2" data-name="Vector" class="cls-2" d="M19.28,36.68a2.679,2.679,0,0,1-1.52-.44l-12.4-7.4A11.8,11.8,0,0,1,0,19.4V3A3.022,3.022,0,0,1,3,0,3.022,3.022,0,0,1,6,3V19.4a5.912,5.912,0,0,0,2.44,4.28l12.4,7.4a3,3,0,0,1,1.04,4.12A3.081,3.081,0,0,1,19.28,36.68Z" transform="translate(43.56 27.04)"/>
+        <path id="Vector-3" data-name="Vector" class="cls-3" d="M0,0H96V96H0Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

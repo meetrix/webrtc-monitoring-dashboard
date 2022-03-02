@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { StyledEngineProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/styles';
 import App from './App';
 import { store } from './app/store';
 import { theme } from './app/theme';

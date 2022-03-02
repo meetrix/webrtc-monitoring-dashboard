@@ -1,13 +1,18 @@
 /* eslint-disable */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { appReducer } from '../features/app';
+import { authReducer } from '../features/auth';
 import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
+// import rootReducer from './root.reducer';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     debugger: debuggerSlice,
+    app: appReducer,
+    auth: authReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
