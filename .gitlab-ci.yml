@@ -15,7 +15,7 @@ package:
     paths:
       - build/webrtc-dashboard.tar.bz2
   only:
-    - feat/dashboard-log-devices-browserinfo
+    - master
     - tags
 
 before_script:
@@ -34,7 +34,7 @@ staging_deploy:
     - ssh $STAGING_SSH_USER@$STAGING_SSH_HOST "cd /var/www/webrtc-dashboard/releases && mkdir $CI_PIPELINE_ID && tar -xf webrtc-dashboard.tar.bz2 -C $CI_PIPELINE_ID"
     - ssh $STAGING_SSH_USER@$STAGING_SSH_HOST "cd /var/www/webrtc-dashboard && ln -sfn releases/$CI_PIPELINE_ID current"
   only:
-    - feat/dashboard-log-devices-browserinfo
+    - master
 
 production_deploy:
   stage: deploy
