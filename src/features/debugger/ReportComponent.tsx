@@ -1,32 +1,96 @@
 import { CandidateType, Report } from '@meetrix/webrtc-monitoring-common-lib';
-import { Box, Card } from '@mui/material';
-import React from 'react';
+import { Box } from '@mui/material';
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
+import React, { useRef } from 'react';
 import DataCard from '../../components/DataCard';
+import Logger from '../../components/Logger';
 import Tracks from './Tracks';
 
 export type PeerComponentProps = {
   report: Report;
+  connectionStatus: TimelineEvent;
+  otherInfo: TimelineEvent;
+  mediaInfo: TimelineEvent;
 };
+
+interface LogEntry extends TimelineEvent {
+  key: string;
+  peerId: any;
+  timestamp: any;
+  tag: any;
+}
+
+interface LogEntryData {
+  [datasetKey: string]: LogEntry;
+}
 
 export const PeerComponent: React.FC<PeerComponentProps> = ({
   report: {
     peerId,
     data: { inbound, outbound, connection },
   },
+  report,
+  connectionStatus,
+  otherInfo,
+  mediaInfo: {
+    data: { browserInfo, mediaDeviceInfo },
+  },
 }: PeerComponentProps) => {
   // eslint-disable-next-line no-bitwise
   const getKiliBytesFromBytes = (bytes: number) => bytes >> 10;
+
   const getCandidateString = ({
     ip,
     port,
     protocol,
     candidateType,
   }: CandidateType) => `${ip}:${port} ${protocol} ${candidateType}`;
-  const connectionData = [
+
+  const getMediaDeviceInfo = () => {
+    return mediaDeviceInfo.map((mediaDevice: MediaDeviceInfo) => {
+      return {
+        key: `(${mediaDevice.kind}) ${mediaDevice.deviceId}`,
+        value: mediaDevice.label,
+      };
+    });
+  };
+
+  const log = useRef<LogEntryData>({});
+
+  const getConnectionLog = () => {
+    log.current[JSON.stringify(otherInfo)] = {
+      key: JSON.stringify(otherInfo) || '',
+      timestamp: otherInfo.timestamp || '',
+      peerId: otherInfo.peerId || '',
+      event: otherInfo.event || '',
+      tag: otherInfo.tag || '',
+      data: JSON.stringify(otherInfo.data) || '',
+    };
+    log.current[JSON.stringify(connectionStatus)] = {
+      key: JSON.stringify(connectionStatus) || '',
+      timestamp: connectionStatus.timestamp || '',
+      peerId: connectionStatus.peerId || '',
+      event: connectionStatus.event || '',
+      tag: connectionStatus.tag || '',
+      data: JSON.stringify(connectionStatus.data) || '',
+    };
+    log.current[JSON.stringify(report)] = {
+      key: JSON.stringify(report) || '',
+      timestamp: report.timestamp || '',
+      peerId: report.peerId || '',
+      event: report.event || '',
+      tag: report.tag || '',
+      data: JSON.stringify(report.data) || '',
+    };
+
+    return log.current;
+  };
+
+  const statsData = [
     {
-      title: 'Connection',
+      title: 'Stats',
       body: [
-        { key: 'PeerId', value: `peerId: ${peerId}` },
+        { key: 'PeerId', value: peerId },
         {
           key: 'Sent',
           value: `${getKiliBytesFromBytes(connection.bytesSent)} KB`,
@@ -47,20 +111,68 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
     },
   ];
 
+  const BrowserData = [
+    {
+      title: 'Browser Data',
+      body: [
+        {
+          key: 'UserAgent',
+          value: browserInfo.userAgent || '',
+        },
+        {
+          key: 'platform',
+          value: browserInfo.platform || '',
+        },
+      ],
+    },
+  ];
+
+  const mediaDeviceInfoData = [
+    {
+      title: 'Media Device Info',
+      body: getMediaDeviceInfo(),
+    },
+  ];
+
+  const connectionData = [
+    {
+      title: 'Connection',
+      body: [
+        {
+          key: 'Status',
+          value: connectionStatus.data || '',
+        },
+      ],
+    },
+  ];
+
+  const otherInfoData = [
+    {
+      title: 'Connection log',
+      columns: ['Timestamp', 'PeerId', 'Event', 'Tag', 'Data'],
+      body: getConnectionLog(),
+    },
+  ];
+  // console.log('otherInfoData', otherInfoData);
+
   return (
     <>
       <Box
         sx={{
-          maxWidth: '30%',
+          maxWidth: '50%',
           display: 'flex',
           flexDirection: 'column',
           rowGap: '1rem',
         }}
       >
-        <p>{`peerId: ${peerId}`}</p>
+        {/* <p>{`peerId: ${peerId}`}</p> */}
         <DataCard data={connectionData} />
+        <DataCard data={BrowserData} />
+        <DataCard data={mediaDeviceInfoData} />
+        <DataCard data={statsData} />
         <Tracks tracks={inbound} type="inbound" />
         <Tracks tracks={outbound} type="outbound" />
+        <Logger data={otherInfoData} />
       </Box>
     </>
   );

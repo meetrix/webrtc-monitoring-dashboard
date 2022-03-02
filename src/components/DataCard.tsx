@@ -43,7 +43,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
             }}
             rowGap="1rem"
           >
-            {renderStringOrComponent(title, { variant: 'caption' })}
+            {renderStringOrComponent(title, { variant: 'h6' })}
             {body.map(({ key, value }) => {
               return (
                 <Box
