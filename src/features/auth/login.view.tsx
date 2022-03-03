@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { memo, useState } from 'react';
 import { withStyles, WithStyles } from '@mui/styles';
 import { Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button2 } from '../../components/Button2';
 import { Typography } from '../../components/Typography';
@@ -10,6 +12,7 @@ import { validateEmail, validatePassword } from '../../helper/validation';
 import styles from './auth.styles';
 
 import { Logo as DefaultLogo } from '../../assets/icons';
+import AuthLayoutView from './authLayout.view';
 
 // interface IGeneralSettings {
 
@@ -64,52 +67,45 @@ const LoginView: React.FC<ILoginView> = ({
     setPassword({ value: e.target.value, error });
   };
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12} sm={7} className={classes.leftGrid}>
-        <div>
-          <Typography component="h3" variant="h4" className={classes.heading}>
-            Please login to the sytem with credentials.
-          </Typography>
-          <br />
-        </div>
-      </Grid>
-      <Grid item xs={12} sm={5} className={classes.rightGrid}>
-        <div className={classes.formWrapper}>
-          {/* <img
+    <AuthLayoutView>
+      {/* <img
             src={generalSettings?.logo || DefaultLogo}
             alt={`${generalSettings?.companyName}-logo` || 'meetrix-logo'}
             className={classes.logo}
           /> */}
-          <Typography component="h1" variant="h5" className={classes.heading}>
-            Sign in to Continue
-          </Typography>
-          <TextField
-            id="sign-in-email"
-            label="Email"
-            onChange={_emailOnChange}
-            error={email.error}
-            helperText={email.error && 'Please insert a valid email address.'}
-            onKeyDown={_handleEnterPress}
-          />
-          <PasswordTextField
-            id="sign-in-password"
-            label="Password"
-            onChange={_passwordOnChange}
-            error={password.error}
-            helperText={password.error && 'Please insert a valid password'}
-            onKeyDown={_handleEnterPress}
-          />
-          <Button2
-            id="sign-in-button"
-            align="right"
-            variant="contained"
-            label="Sign in"
-            onClick={_handleSignInButton}
-            customStyles={classes.buttonMargin}
-          />
-        </div>
-      </Grid>
-    </Grid>
+      <Typography component="h1" variant="h5" className={classes.heading}>
+        Sign in to Continue
+      </Typography>
+      <TextField
+        id="sign-in-email"
+        label="Email"
+        onChange={_emailOnChange}
+        error={email.error}
+        helperText={email.error && 'Please insert a valid email address.'}
+        onKeyDown={_handleEnterPress}
+      />
+      <PasswordTextField
+        id="sign-in-password"
+        label="Password"
+        onChange={_passwordOnChange}
+        error={password.error}
+        helperText={password.error && 'Please insert a valid password'}
+        onKeyDown={_handleEnterPress}
+      />
+      <div className={classes.buttonWrapper}>
+        <Link to="/signin" className={classes.link}>
+          Create an account
+        </Link>
+        <Button2
+          id="sign-up-button"
+          align="right"
+          variant="contained"
+          label="Sign up"
+          onClick={_handleSignInButton}
+          customStyles={classes.buttonMargin}
+        />
+      </div>
+    </AuthLayoutView>
   );
 };
 

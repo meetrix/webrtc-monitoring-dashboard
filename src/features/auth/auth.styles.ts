@@ -46,10 +46,16 @@ const styles = (theme: Theme) => {
       color: theme.palette.text.secondary,
     },
     buttonWrapper: {
-      textAlign: 'right',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'end',
     },
     buttonMargin: {
       marginTop: '5vh',
+    },
+    link: {
+      textDecoration: 'none',
+      color: '#2485F6',
     },
   });
 };
