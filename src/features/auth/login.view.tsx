@@ -68,11 +68,7 @@ const LoginView: React.FC<ILoginView> = ({
   };
   return (
     <AuthLayoutView>
-      {/* <img
-            src={generalSettings?.logo || DefaultLogo}
-            alt={`${generalSettings?.companyName}-logo` || 'meetrix-logo'}
-            className={classes.logo}
-          /> */}
+      <img src={DefaultLogo} alt="meetrix-logo" className={classes.logo} />
       <Typography component="h1" variant="h5" className={classes.heading}>
         Sign in to Continue
       </Typography>

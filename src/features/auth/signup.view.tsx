@@ -17,6 +17,7 @@ import {
 } from '../../helper/validation';
 import styles from './auth.styles';
 import AuthLayoutView from './authLayout.view';
+import { Logo as DefaultLogo } from '../../assets/icons';
 
 interface ISignupView extends WithStyles<typeof styles> {
   handleSignUp: Function;
@@ -116,6 +117,7 @@ const SignupView: React.FC<ISignupView> = ({
   };
   return (
     <AuthLayoutView>
+      <img src={DefaultLogo} alt="meetrix-logo" className={classes.logo} />
       <Typography component="h1" variant="h5" className={classes.heading}>
         Create Account
       </Typography>
