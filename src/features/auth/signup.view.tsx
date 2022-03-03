@@ -13,6 +13,7 @@ import {
   validateEmail,
   validateName,
   validatePassword,
+  validatePhoneNumber,
 } from '../../helper/validation';
 import styles from './auth.styles';
 import AuthLayoutView from './authLayout.view';
@@ -48,6 +49,16 @@ const SignupView: React.FC<ISignupView> = ({
       setName({ ...name, error: true });
     }
 
+    if (!companyName.value) {
+      isValidate = false;
+      setCompanyName({ ...companyName, error: true });
+    }
+
+    if (!contactNumber.value) {
+      isValidate = false;
+      setContactNumber({ ...contactNumber, error: true });
+    }
+
     if (!email.value) {
       isValidate = false;
       setEmail({ ...email, error: true });
@@ -56,6 +67,11 @@ const SignupView: React.FC<ISignupView> = ({
     if (!password.value) {
       isValidate = false;
       setPassword({ ...password, error: true });
+    }
+
+    if (password.value !== repeatPassword.value) {
+      isValidate = false;
+      setRepeatPassword({ ...repeatPassword, error: true });
     }
 
     return isValidate;
@@ -82,7 +98,7 @@ const SignupView: React.FC<ISignupView> = ({
     setCompanyName({ value: e.target.value, error });
   };
   const _contactOnChange = (e: { target: { value: string } }) => {
-    const error = validateName(e.target.value);
+    const error = validatePhoneNumber(e.target.value);
     setContactNumber({ value: e.target.value, error });
   };
 
@@ -95,13 +111,13 @@ const SignupView: React.FC<ISignupView> = ({
     setPassword({ value: e.target.value, error });
   };
   const _passwordRepeatOnChange = (e: { target: { value: string } }) => {
-    const error = validatePassword(e.target.value);
+    const error = password.value !== e.target.value;
     setRepeatPassword({ value: e.target.value, error });
   };
   return (
     <AuthLayoutView>
       <Typography component="h1" variant="h5" className={classes.heading}>
-        Sign Up to Continue
+        Create Account
       </Typography>
       <TextField
         id="sign-up-name"
@@ -113,7 +129,7 @@ const SignupView: React.FC<ISignupView> = ({
       />
       <TextField
         id="sign-up-company"
-        label="Company/Organization"
+        label="Company / Organization"
         onChange={_companyNameOnChange}
         error={companyName.error}
         helperText={companyName.error && 'Please insert company name.'}
@@ -124,7 +140,10 @@ const SignupView: React.FC<ISignupView> = ({
         label="Contact number"
         onChange={_contactOnChange}
         error={contactNumber.error}
-        helperText={contactNumber.error && 'Please insert a contact number'}
+        type="number"
+        helperText={
+          contactNumber.error && 'Please insert a valid contact number'
+        }
         onKeyDown={_handleEnterPress}
       />
       <TextField
@@ -153,7 +172,7 @@ const SignupView: React.FC<ISignupView> = ({
       />
       <div className={classes.buttonWrapper}>
         <Link to="/signin" className={classes.link}>
-          Sign in
+          Create Account
         </Link>
         <Button2
           id="sign-up-button"

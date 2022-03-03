@@ -93,7 +93,7 @@ const LoginView: React.FC<ILoginView> = ({
         onKeyDown={_handleEnterPress}
       />
       <div className={classes.buttonWrapper}>
-        <Link to="/signin" className={classes.link}>
+        <Link to="/signup" className={classes.link}>
           Create an account
         </Link>
         <Button2
