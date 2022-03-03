@@ -5,7 +5,7 @@ export const userSigninApi = (data: any) => {
 };
 
 export const userSignupApi = (data: any) => {
-  return api.post('account/signup', data);
+  return api.post('account/register', data);
 };
 
 export const getUserProfilepApi = () => {

@@ -6,10 +6,12 @@ import { Grid } from '@mui/material';
 import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button2 } from '../../components/Button2';
 import { Typography } from '../../components/Typography';
-import { validateEmail, validatePassword } from '../../helper/validation';
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from '../../helper/validation';
 import styles from './auth.styles';
-
-import { Logo as DefaultLogo } from '../../assets/icons';
 
 // interface IGeneralSettings {
 
@@ -22,13 +24,20 @@ const SignupView: React.FC<ISignupView> = ({
   classes,
   handleSignUp,
 }: ISignupView) => {
+  const [name, setName] = useState({ error: false, value: '' });
   const [email, setEmail] = useState({ error: false, value: '' });
   const [password, setPassword] = useState({ error: false, value: '' });
 
   const _validate = () => {
     let isValidate = true;
 
-    if (email.error || password.error) isValidate = false;
+    if (name.error || email.error || password.error) isValidate = false;
+
+    if (!name.value) {
+      isValidate = false;
+      setName({ ...name, error: true });
+    }
+
     if (!email.value) {
       isValidate = false;
       setEmail({ ...email, error: true });
@@ -54,6 +63,11 @@ const SignupView: React.FC<ISignupView> = ({
     }
   };
 
+  const _nameOnChange = (e: { target: { value: string } }) => {
+    const error = validateName(e.target.value);
+    setName({ value: e.target.value, error });
+  };
+
   const _emailOnChange = (e: { target: { value: string } }) => {
     const error = validateEmail(e.target.value);
     setEmail({ value: e.target.value, error });
@@ -68,7 +82,7 @@ const SignupView: React.FC<ISignupView> = ({
       <Grid item xs={12} sm={7} className={classes.leftGrid}>
         <div>
           <Typography component="h3" variant="h4" className={classes.heading}>
-            Please Signup to the sytem with credentials.
+            Please Signup with the system.
           </Typography>
           <br />
         </div>
@@ -81,10 +95,18 @@ const SignupView: React.FC<ISignupView> = ({
             className={classes.logo}
           /> */}
           <Typography component="h1" variant="h5" className={classes.heading}>
-            Sign in to Continue
+            Sign Up to Continue
           </Typography>
           <TextField
-            id="sign-in-email"
+            id="sign-up-name"
+            label="Name"
+            onChange={_nameOnChange}
+            error={name.error}
+            helperText={name.error && 'Please insert your name.'}
+            onKeyDown={_handleEnterPress}
+          />
+          <TextField
+            id="sign-up-email"
             label="Email"
             onChange={_emailOnChange}
             error={email.error}
@@ -92,7 +114,7 @@ const SignupView: React.FC<ISignupView> = ({
             onKeyDown={_handleEnterPress}
           />
           <PasswordTextField
-            id="sign-in-password"
+            id="sign-up-password"
             label="Password"
             onChange={_passwordOnChange}
             error={password.error}

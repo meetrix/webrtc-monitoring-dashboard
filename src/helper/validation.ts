@@ -17,3 +17,9 @@ export const isAlphanumeric = (input: string) => {
   if (onlyAlphanumericRegex.test(input)) return false;
   return true;
 };
+
+export const validateName = (input: string) => {
+  const regex = /^[a-zA-Z].*[\s\.]*$/g;
+  if (regex.test(input)) return false;
+  return true;
+};
