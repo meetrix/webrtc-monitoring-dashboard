@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { createStyles, withStyles, WithStyles } from '@mui/styles';
 import { OutlinedInputProps, Theme } from '@mui/material';
 
@@ -47,18 +47,18 @@ const styles = (theme: Theme) => {
   });
 };
 interface IRouteWrapper extends WithStyles<OutlinedInputProps & typeof styles> {
-  Component: any;
-  path: string;
-  exact: boolean;
-  isPrivate: boolean;
+  component: any;
+  // path: string;
   //   hasLoader: boolean;
+  isPrivate: boolean;
   hasNavbar?: boolean;
   hasFooter?: boolean;
 }
 
 const RouteWrapper = ({
-  Component,
   classes,
+  component,
+  // path,
   isPrivate = false,
   //   hasLoader = false,
   hasNavbar = false,
@@ -78,26 +78,21 @@ const RouteWrapper = ({
   // }
 
   return (
-    <Route
-      {...rest}
-      // render={(props) => (
-      //   <div className={classes.root}>
-      //     {hasNavbar && <AppBar />}
-      //     <div
-      //       className={
-      //         hasNavbar && hasFooter
-      //           ? classes.bodyWrapper
-      //           : classes.fullScreenBodyWrapper
-      //       }
-      //     >
-      //       <div className={clsx(classes.maxWidth, 'max-width-responsive')}>
-      //         <Component {...props} />
-      //       </div>
-      //     </div>
-      //     {hasFooter && <Footer />}
-      //   </div>
-      // )}
-    />
+    <div className={classes.root}>
+      {hasNavbar && <AppBar />}
+      <div
+        className={
+          hasNavbar && hasFooter
+            ? classes.bodyWrapper
+            : classes.fullScreenBodyWrapper
+        }
+      >
+        <div className={clsx(classes.maxWidth, 'max-width-responsive')}>
+          {component}
+        </div>
+      </div>
+      {hasFooter && <Footer />}
+    </div>
   );
 };
 

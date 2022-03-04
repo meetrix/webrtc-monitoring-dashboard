@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Clients from './features/clients/Clients';
 import Debugger from './features/debugger/Debugger';
 import { LoginView, SignupView } from './features/auth';
@@ -8,12 +8,13 @@ import VerificationLinkExpirationMessage from './components/TokenExpirationMessa
 import ResetLinkExpirationMessage from './components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { AppContainer } from './features/app';
 import { MainLayout } from './components/layout';
+import Routes from './routes';
 
 const App = (): React.ReactElement => {
   return (
     <MainLayout>
       <AppContainer />
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<Debugger />} />
           <Route path="/clients" element={<Clients />} />
@@ -30,7 +31,8 @@ const App = (): React.ReactElement => {
             element={<ResetLinkExpirationMessage />}
           />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <Routes />
     </MainLayout>
   );
 };
