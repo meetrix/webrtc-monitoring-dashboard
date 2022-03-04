@@ -43,9 +43,9 @@ const EmailRouteContainer: React.FC<IEmailRouteContainer> = ({}: IEmailRouteCont
         }
       } else if (responseStatus === 'false') {
         if (resetpassword) {
-          // navigate('/resetpasswordtoken_expired');
+          // navigate('/resetpasswordtoken-expired');
         } else if (accountconfirmation) {
-          navigate('/verificationtoken_expired');
+          navigate('/verificationtoken-expired');
         }
       }
     }

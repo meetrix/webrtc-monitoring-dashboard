@@ -22,7 +22,7 @@ const routesList = [
     component: <SignupView />,
   },
   {
-    path: '/forgotpassword',
+    path: '/forgot-password',
     isPrivate: false,
     component: <ForgotPassword />,
   },
@@ -48,14 +48,14 @@ const routesList = [
     hasFooter: true,
   },
   {
-    path: '/verificationtoken_expired',
+    path: '/verificationtoken-expired',
     isPrivate: true,
     component: <VerificationLinkExpirationMessage />,
     hasNavbar: true,
     hasFooter: true,
   },
   {
-    path: '/resetpasswordtoken_expired',
+    path: '/resetpasswordtoken-expired',
     isPrivate: true,
     component: <ResetLinkExpirationMessage />,
     hasNavbar: true,
