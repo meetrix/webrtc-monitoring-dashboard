@@ -23,3 +23,9 @@ export const validateName = (input: string) => {
   if (regex.test(input)) return false;
   return true;
 };
+
+export const validatePhoneNumber = (input: string) => {
+  const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
+  if (regex.test(input)) return false;
+  return true;
+};

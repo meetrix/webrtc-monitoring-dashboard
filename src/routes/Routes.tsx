@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Routes, BrowserRouter } from 'react-router-dom';
 
 import RouteWrapper from './RouteWrapper';
-import { LoginView } from '../features/auth';
+import { LoginView, SignupView } from '../features/auth';
 import { Dashboard } from '../features/dashboard';
 // import { ContactView, PrivacyView, TermsView } from '../features/subPages';
 
@@ -21,6 +21,12 @@ const Routes2 = () => {
       exact: true,
       isPrivate: false,
       component: () => <LoginView />,
+    },
+    {
+      path: '/signup',
+      exact: true,
+      isPrivate: false,
+      component: () => <SignupView />,
     },
     // {
     //   path: '/terms-of-use',
