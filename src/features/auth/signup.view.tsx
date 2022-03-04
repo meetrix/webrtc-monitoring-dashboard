@@ -178,7 +178,7 @@ const SignupView: React.FC<ISignupView> = ({
       />
       <div className={classes.buttonWrapper}>
         <Link to="/signin" className={classes.link}>
-          Create Account
+          Sign in
         </Link>
         <Button2
           id="sign-up-button"

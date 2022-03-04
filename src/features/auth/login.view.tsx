@@ -96,7 +96,7 @@ const LoginView: React.FC<ILoginView> = ({
           id="sign-up-button"
           align="right"
           variant="contained"
-          label="Sign up"
+          label="Sign In"
           onClick={_handleSignInButton}
           customStyles={classes.buttonMargin}
         />

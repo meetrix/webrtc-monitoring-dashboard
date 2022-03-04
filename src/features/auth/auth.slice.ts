@@ -10,7 +10,6 @@ import {
 import { setToken } from '../../helper/localStorage';
 import { setHeader } from '../../app/axios';
 import { actions as appActions } from '../app/app.slice';
-import { filterRolePermissions } from '../../helper/permission';
 
 export interface IPermissions {
   editGeneralSettings?: boolean;
@@ -49,12 +48,20 @@ export const logInAsync = createAsyncThunk(
         await setToken(token);
         dispatch(getProfileAsync(null));
       }
+      dispatch(
+        appActions.triggerAlert({
+          type: 'success',
+          childern: response?.data?.message || '',
+        })
+      );
+      dispatch(getProfileAsync(null));
+
       return response.data;
     } catch (error: any) {
       dispatch(
         appActions.triggerAlert({
           type: 'error',
-          childern: error?.response?.data?.error || 'Error occurred',
+          childern: error?.response?.data?.message || 'Error occurred',
         })
       );
       return rejectWithValue(error);
@@ -63,7 +70,7 @@ export const logInAsync = createAsyncThunk(
 );
 
 export const SignupAsync = createAsyncThunk(
-  'auth/logIn',
+  'auth/Signup',
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
@@ -74,12 +81,18 @@ export const SignupAsync = createAsyncThunk(
         await setToken(token);
         dispatch(getProfileAsync(null));
       }
+      dispatch(
+        appActions.triggerAlert({
+          type: 'success',
+          childern: response?.data?.message || '',
+        })
+      );
       return response.data;
     } catch (error: any) {
       dispatch(
         appActions.triggerAlert({
           type: 'error',
-          childern: error?.response?.data?.error || 'Error occurred',
+          childern: error?.response?.data?.message || 'Error occurred',
         })
       );
       return rejectWithValue(error);
@@ -124,7 +137,7 @@ export const updateProfileAsync = createAsyncThunk(
       dispatch(
         appActions.triggerAlert({
           type: 'error',
-          childern: error?.response?.data?.error || 'Error occurred',
+          childern: error?.response?.data?.message || 'Error occurred',
         })
       );
       return rejectWithValue(error);
@@ -148,7 +161,7 @@ export const updateUserPasswordAsync = createAsyncThunk(
       dispatch(
         appActions.triggerAlert({
           type: 'error',
-          childern: error?.response?.data?.error || 'Error occurred',
+          childern: error?.response?.data?.message || 'Error occurred',
         })
       );
       return rejectWithValue(error);
@@ -179,7 +192,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(logInAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = JSON.stringify(action.payload);
+      state.error = action.payload;
     });
 
     // get profile
@@ -193,7 +206,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(getProfileAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = JSON.stringify(action.payload);
+      state.error = action.payload;
       state.isAuthenticated = false;
     });
 
@@ -208,7 +221,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(updateProfileAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = JSON.stringify(action.payload);
+      state.error = action.payload;
       state.isAuthenticated = false;
     });
   },

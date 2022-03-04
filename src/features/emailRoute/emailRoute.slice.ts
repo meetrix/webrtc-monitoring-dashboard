@@ -30,10 +30,11 @@ export const VerifyAsync = createAsyncThunk(
       }
       return response.data;
     } catch (error: any) {
+      console.log(error);
       dispatch(
         appActions.triggerAlert({
           type: 'error',
-          childern: error?.response?.data?.error || 'Error occurred',
+          childern: error?.response?.data?.message || 'Error occurred',
         })
       );
       return rejectWithValue(error);

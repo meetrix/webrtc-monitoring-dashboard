@@ -4,8 +4,6 @@ import React, { memo, useEffect, useState } from 'react';
 import { Alert } from '../../components/Alerts';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { actions, selectApp } from './app.slice';
-// import { actions as scheduleMeetingActions } from '../scheduleMeeting/scheduleMeeting.slice';
-// import { ScheduleMeetingModal, InstantMeetingmodal } from '../scheduleMeeting';
 
 export interface IAppContainer {}
 
