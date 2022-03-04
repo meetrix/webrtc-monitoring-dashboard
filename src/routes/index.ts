@@ -1,3 +1,3 @@
-import Routes from './Routes';
+import BrowserRoutes from './Routes';
 
-export default Routes;
+export default BrowserRoutes;

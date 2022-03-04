@@ -3,6 +3,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { appReducer } from '../features/app';
 import { authReducer } from '../features/auth';
 import { verifyReducer } from '../features/emailRoute';
+import { forgotPasswordReducer } from '../features/forgotPassword';
 import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
@@ -15,6 +16,7 @@ export const store = configureStore({
     app: appReducer,
     auth: authReducer,
     verify: verifyReducer,
+    forgotPassword: forgotPasswordReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

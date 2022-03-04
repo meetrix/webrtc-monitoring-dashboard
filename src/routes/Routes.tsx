@@ -8,23 +8,26 @@ import Debugger from '../features/debugger/Debugger';
 import { EmailRoute } from '../features/emailRoute';
 import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
+import { ForgotPassword } from '../features/forgotPassword';
 
 const routesList = [
   {
     path: '/signin',
-    exact: true,
     isPrivate: false,
     component: <LoginView />,
   },
   {
     path: '/signup',
-    exact: true,
     isPrivate: false,
     component: <SignupView />,
   },
   {
+    path: '/forgotpassword',
+    isPrivate: false,
+    component: <ForgotPassword />,
+  },
+  {
     path: '/clients',
-    exact: true,
     isPrivate: true,
     component: <Clients />,
     hasNavbar: true,
@@ -32,7 +35,6 @@ const routesList = [
   },
   {
     path: '/debugger',
-    exact: true,
     isPrivate: true,
     component: <Debugger />,
     hasNavbar: true,
@@ -40,7 +42,6 @@ const routesList = [
   },
   {
     path: '/emailroute',
-    exact: true,
     isPrivate: true,
     component: <EmailRoute />,
     hasNavbar: true,
@@ -48,7 +49,6 @@ const routesList = [
   },
   {
     path: '/verificationtoken_expired',
-    exact: true,
     isPrivate: true,
     component: <VerificationLinkExpirationMessage />,
     hasNavbar: true,
@@ -56,7 +56,6 @@ const routesList = [
   },
   {
     path: '/resetpasswordtoken_expired',
-    exact: true,
     isPrivate: true,
     component: <ResetLinkExpirationMessage />,
     hasNavbar: true,
