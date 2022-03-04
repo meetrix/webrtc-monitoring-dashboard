@@ -27,6 +27,7 @@ const styles = (theme: Theme) => {
     rightGrid: {
       display: 'grid',
       placeItems: 'center',
+      position: 'relative',
       [theme.breakpoints.down('xs')]: {
         padding: '6vw',
       },
@@ -56,6 +57,17 @@ const styles = (theme: Theme) => {
     link: {
       textDecoration: 'none',
       color: '#2485F6',
+    },
+    forgotPasswordWrapper: {
+      position: 'absolute',
+      bottom: '3vh',
+      left: 0,
+      width: '100%',
+      textAlign: 'center',
+    },
+    forgotPassword: {
+      textDecoration: 'none',
+      color: '#707070',
     },
   });
 };
