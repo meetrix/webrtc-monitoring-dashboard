@@ -9,6 +9,7 @@ import ResetLinkExpirationMessage from './components/TokenExpirationMessage/Rese
 import { AppContainer } from './features/app';
 import { MainLayout } from './components/layout';
 import { ForgotPassword } from './features/forgotPassword';
+import { ResetPassword } from './features/resetPassword';
 
 const App = (): React.ReactElement => {
   return (
@@ -31,6 +32,7 @@ const App = (): React.ReactElement => {
             element={<ResetLinkExpirationMessage />}
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </MainLayout>

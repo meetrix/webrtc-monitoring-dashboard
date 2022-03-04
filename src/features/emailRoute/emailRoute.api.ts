@@ -1,6 +1,8 @@
 import api from '../../app/axios';
 
-const userVerifyApi = (data: any) => {
+export const userVerifyApi = (data: any) => {
   return api.get(`account/verify?token=${data}`);
 };
-export default userVerifyApi;
+export const resetApi = (data: any) => {
+  return api.get(`account/reset?token=${data}`);
+};
