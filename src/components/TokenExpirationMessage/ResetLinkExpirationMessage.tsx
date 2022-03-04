@@ -251,8 +251,8 @@ const ResetLinkExpirationMessage = () => {
     //           The password reset link you have followed is already used or
     //           expired.
     //           <br></br>Please{' '}
-    //           <a href="#/signin">signin</a> or{' '}
-    //           <a href="#/forgotpassword">reset</a> your
+    //           <a href="signin">signin</a> or{' '}
+    //           <a href="forgotpassword">reset</a> your
     //           password to continue.
     //         </div>
     //       </Alert>
@@ -312,12 +312,12 @@ const ResetLinkExpirationMessage = () => {
                       expired.
                       <br />
                       please
-                      <a href="#/signin" className={classes.signInLink}>
+                      <a href="signin" className={classes.signInLink}>
                         {' '}
                         sign in{' '}
                       </a>
                       or
-                      <a href="#/forgotpassword" className={classes.signInLink}>
+                      <a href="forgotpassword" className={classes.signInLink}>
                         {' '}
                         reset{' '}
                       </a>
