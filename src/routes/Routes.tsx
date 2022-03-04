@@ -1,23 +1,15 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import clsx from 'clsx';
 import { LoginView, SignupView } from '../features/auth';
-import { Dashboard } from '../features/dashboard';
-import { Footer } from '../components/layout';
-import { AppBar } from '../features/appBar';
-import { getToken } from '../helper/localStorage';
 import RouteWrapper from './RouteWrapper';
+import Clients from '../features/clients/Clients';
+import Debugger from '../features/debugger/Debugger';
+import { EmailRoute } from '../features/emailRoute';
+import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
+import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 
 const routesList = [
-  // {
-  //   path: '/',
-  //   exact: true,
-  //   isPrivate: true,
-  //   component: <Dashboard />,
-  //   hasNavbar: true,
-  //   hasFooter: true,
-  // },
   {
     path: '/signin',
     exact: true,
@@ -30,30 +22,46 @@ const routesList = [
     isPrivate: false,
     component: <SignupView />,
   },
-  // {
-  //   path: '/terms-of-use',
-  //   exact: true,
-  //   isPrivate: true,
-  //   component: <TermsView />,
-  //   hasNavbar: true,
-  //   hasFooter: true,
-  // },
-  // {
-  //   path: '/privacy-policy',
-  //   exact: true,
-  //   isPrivate: true,
-  //   component: <PrivacyView />,
-  //   hasNavbar: true,
-  //   hasFooter: true,
-  // },
-  // {
-  //   path: '/contact-us',
-  //   exact: true,
-  //   isPrivate: true,
-  //   component: <ContactView />,
-  //   hasNavbar: true,
-  //   hasFooter: true,
-  // },
+  {
+    path: '/clients',
+    exact: true,
+    isPrivate: true,
+    component: <Clients />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/debugger',
+    exact: true,
+    isPrivate: true,
+    component: <Debugger />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/emailroute',
+    exact: true,
+    isPrivate: true,
+    component: <EmailRoute />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/verificationtoken_expired',
+    exact: true,
+    isPrivate: true,
+    component: <VerificationLinkExpirationMessage />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/resetpasswordtoken_expired',
+    exact: true,
+    isPrivate: true,
+    component: <ResetLinkExpirationMessage />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
 ];
 
 const Routes2 = () => {
