@@ -2,6 +2,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { appReducer } from '../features/app';
 import { authReducer } from '../features/auth';
+import { verifyReducer } from '../features/emailRoute';
 import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
@@ -13,9 +14,12 @@ export const store = configureStore({
     debugger: debuggerSlice,
     app: appReducer,
     auth: authReducer,
+    verify: verifyReducer,
     [api.reducerPath]: api.reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }).concat(api.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

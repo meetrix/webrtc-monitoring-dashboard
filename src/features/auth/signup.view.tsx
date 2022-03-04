@@ -53,7 +53,11 @@ const SignupView: React.FC<ISignupView> = ({
 
   const _handleSignupButton = () => {
     if (_validate()) {
-      handleSignUp({ email: email.value, password: password.value });
+      handleSignUp({
+        name: name.value,
+        email: email.value,
+        password: password.value,
+      });
     }
   };
 

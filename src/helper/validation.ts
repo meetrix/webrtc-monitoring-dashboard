@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 export const validatePassword = (input: string) => {
-  return !input || input.length < 3;
+  return !input || input.length < 8;
 };
 
 export const validateEmail = (input: string) => {

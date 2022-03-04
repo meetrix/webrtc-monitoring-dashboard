@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectAuth } from '../auth/auth.slice';
 import DashboardView from './dashboard.view';
-import { generateMeetingUrl } from '../../helper/conference';
 
-export interface IDashboardContainer {}
+interface IDashboardContainer {}
 
 const DashboardContainer: React.FC<IDashboardContainer> = ({}: IDashboardContainer) => {
   const auth = useAppSelector(selectAuth);

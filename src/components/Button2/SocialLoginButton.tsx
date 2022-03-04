@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonProps, Theme, Typography } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
-// import FacebookIcon from '@material-ui/icons/Facebook';
+// import FacebookIcon from '@mui/icons/Facebook';
 // import FacebookIcon from '../../assets/Login/Facebook.png';
 // import GoogleIcon from '../../assets/Login/google.png';
 

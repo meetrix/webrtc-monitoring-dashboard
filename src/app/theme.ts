@@ -1,4 +1,4 @@
-// Refer to : https://material-ui.com/customization/default-theme/
+// Refer to : https://mui.com/customization/default-theme/
 import {
   createTheme,
   Theme as MaterialUITheme,

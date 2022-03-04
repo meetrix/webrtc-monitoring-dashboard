@@ -179,7 +179,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(logInAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = JSON.stringify(action.payload);
     });
 
     // get profile
@@ -193,7 +193,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(getProfileAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = JSON.stringify(action.payload);
       state.isAuthenticated = false;
     });
 
@@ -208,7 +208,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(updateProfileAsync.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = JSON.stringify(action.payload);
       state.isAuthenticated = false;
     });
   },
