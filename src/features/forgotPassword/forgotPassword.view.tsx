@@ -47,8 +47,6 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
     }
   };
   const renderResponseMessage = () => {
-    console.log('responseStatus ', responseStatus);
-    console.log('responseMessage', responseMessage);
     if (responseMessage) {
       if (responseStatus === 'true') {
         return (

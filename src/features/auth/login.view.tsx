@@ -103,7 +103,7 @@ const LoginView: React.FC<ILoginView> = ({
       </div>
       <div className={classes.forgotPasswordWrapper}>
         <Link to="/forgotpassword" className={classes.forgotPassword}>
-          Forgot password?
+          Forgotten password?
         </Link>
       </div>
     </AuthLayoutView>
