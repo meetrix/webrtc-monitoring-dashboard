@@ -12,7 +12,7 @@ import { validateEmail, validatePassword } from '../../helper/validation';
 import styles from './auth.styles';
 
 import { Logo as DefaultLogo } from '../../assets/icons';
-import AuthLayoutView from '../../components/layout/LoginLayout';
+import { LoginLayout } from '../../components/layout';
 
 // interface IGeneralSettings {
 
@@ -67,7 +67,7 @@ const LoginView: React.FC<ILoginView> = ({
     setPassword({ value: e.target.value, error });
   };
   return (
-    <AuthLayoutView>
+    <LoginLayout>
       <img src={DefaultLogo} alt="meetrix-logo" className={classes.logo} />
       <Typography component="h1" variant="h5" className={classes.heading}>
         Sign in to Continue
@@ -106,7 +106,7 @@ const LoginView: React.FC<ILoginView> = ({
           Forgotten password?
         </Link>
       </div>
-    </AuthLayoutView>
+    </LoginLayout>
   );
 };
 

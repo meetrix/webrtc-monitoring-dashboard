@@ -15,6 +15,7 @@ import {
   forgotPasswordAsync,
   selectForgotPassword,
 } from './forgotPassword.slice';
+import { LoginLayout } from '../../components/layout';
 
 type IForgotPasswordView = WithStyles<typeof styles>;
 
@@ -72,50 +73,36 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
     return null;
   };
   return (
-    <div className={classes.root}>
-      <img
-        src={backgrounImage}
-        alt="backgroundimage"
-        className={classes.backgroundImage}
-      />
-      <Grid container spacing={0} className={classes.grid}>
-        <Paper className={classes.paper}>
-          <div className={classes.mainDiv}>
-            <div className={classes.mainBackground}>
-              <div className={classes.forgotText}>Forgot your password?</div>
-              <div className={classes.longText}>
-                If you have forgotten your password you can reset it <br />{' '}
-                here.
-              </div>
-              <div className={classes.responseText}>
-                {renderResponseMessage()}
-              </div>
-            </div>
-            <div className={classes.textField} id="forgotPasswordField">
-              <TextField
-                id="forgotPasswordEmail"
-                label="Email"
-                value={email.value}
-                error={email.isError}
-                onChange={emailOnChange}
-                required
-                helperText="Please enter valid email address"
-              />
-            </div>
-            {loading && <LinearProgress />}
-            <div className={classes.redButton}>
-              <Button2
-                label=" SUBMIT "
-                id="submit_in_forgot_password"
-                onClick={() => submitButtonOnClick()}
-                disabled={email.isError}
-                roundBorder
-              />
-            </div>
-          </div>
-        </Paper>
-      </Grid>
-    </div>
+    <LoginLayout>
+      <div className={classes.forgotText}>Find Your Account</div>
+      <div className={classes.longText}>
+        Enter the email address you used when you joined and we’ll Send you
+        instructions to reset your password
+      </div>
+      <div className={classes.responseText}>{renderResponseMessage()}</div>
+      <div className={classes.textField} id="forgotPasswordField">
+        <TextField
+          id="forgotPasswordEmail"
+          label="Email"
+          value={email.value}
+          error={email.isError}
+          onChange={emailOnChange}
+          required
+          helperText="Please enter valid email address"
+        />
+      </div>
+      {loading && <LinearProgress />}
+      <div className={classes.buttonWrapper}>
+        <Button2
+          id="send-reset"
+          align="right"
+          variant="contained"
+          label="Send Reset Instructions"
+          onClick={() => submitButtonOnClick()}
+          disabled={email.isError}
+        />
+      </div>
+    </LoginLayout>
   );
 };
 

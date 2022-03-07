@@ -16,7 +16,7 @@ import {
   validatePhoneNumber,
 } from '../../helper/validation';
 import styles from './auth.styles';
-import AuthLayoutView from '../../components/layout/LoginLayout';
+import { LoginLayout } from '../../components/layout';
 import { Logo as DefaultLogo } from '../../assets/icons';
 
 interface ISignupView extends WithStyles<typeof styles> {
@@ -120,7 +120,7 @@ const SignupView: React.FC<ISignupView> = ({
     setRepeatPassword({ value: e.target.value, error });
   };
   return (
-    <AuthLayoutView>
+    <LoginLayout>
       <img src={DefaultLogo} alt="meetrix-logo" className={classes.logo} />
       <Typography component="h1" variant="h5" className={classes.heading}>
         Create Account
@@ -189,7 +189,7 @@ const SignupView: React.FC<ISignupView> = ({
           customStyles={classes.buttonMargin}
         />
       </div>
-    </AuthLayoutView>
+    </LoginLayout>
   );
 };
 
