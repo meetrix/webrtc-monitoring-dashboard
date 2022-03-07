@@ -9,6 +9,7 @@ import { EmailRoute } from '../features/emailRoute';
 import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
+import { ResetPassword } from '../features/resetPassword';
 
 const routesList = [
   {
@@ -25,6 +26,11 @@ const routesList = [
     path: '/forgot-password',
     isPrivate: false,
     component: <ForgotPassword />,
+  },
+  {
+    path: '/resetpassword',
+    isPrivate: false,
+    component: <ResetPassword />,
   },
   {
     path: '/clients',

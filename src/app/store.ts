@@ -7,6 +7,7 @@ import { forgotPasswordReducer } from '../features/forgotPassword';
 import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
+import { resetPasswordReducer } from '../features/resetPassword';
 // import rootReducer from './root.reducer';
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
     auth: authReducer,
     verify: verifyReducer,
     forgotPassword: forgotPasswordReducer,
+    resetPassword: resetPasswordReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

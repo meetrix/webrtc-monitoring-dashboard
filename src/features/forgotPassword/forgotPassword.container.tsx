@@ -1,6 +1,6 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import ForgotPassword from './forgotPassword.view';
 
 export interface IForgotPasswordAsyncContainer {}

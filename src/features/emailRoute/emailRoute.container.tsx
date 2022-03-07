@@ -3,7 +3,7 @@
 import React, { memo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectVerify, VerifyAsync } from './emailRoute.slice';
+import { ResetAsync, VerifyAsync, selectVerify } from './emailRoute.slice';
 
 export interface IEmailRouteContainer {}
 
@@ -26,7 +26,7 @@ const EmailRouteContainer: React.FC<IEmailRouteContainer> = ({}: IEmailRouteCont
   useEffect(() => {
     if (resetpassword) {
       // User clicked on reset password email link
-      // dispatch<any>(ResetAsync(token));
+      dispatch<any>(ResetAsync(token));
     } else if (accountconfirmation) {
       // User clicked on account confirmation email link
       dispatch<any>(VerifyAsync(token));
@@ -37,19 +37,30 @@ const EmailRouteContainer: React.FC<IEmailRouteContainer> = ({}: IEmailRouteCont
     if (loading === false) {
       if (responseStatus === 'true') {
         if (resetpassword) {
-          // navigate(`/resetpassword?token=${data.passwordResetToken}`);
+          navigate(`/resetpassword?token=${token}`);
         } else if (accountconfirmation) {
           navigate('/');
         }
       } else if (responseStatus === 'false') {
         if (resetpassword) {
+<<<<<<< HEAD
           // navigate('/resetpasswordtoken-expired');
+=======
+          navigate('/resetpasswordtoken_expired');
+>>>>>>> feat/signin-signup
         } else if (accountconfirmation) {
           navigate('/verificationtoken-expired');
         }
       }
     }
-  }, [loading, responseStatus, resetpassword, accountconfirmation, navigate]);
+  }, [
+    loading,
+    responseStatus,
+    resetpassword,
+    accountconfirmation,
+    navigate,
+    token,
+  ]);
   return <></>;
 };
 

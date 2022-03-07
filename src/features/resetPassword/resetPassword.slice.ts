@@ -1,30 +1,35 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import userForgotPasswordApi from './forgotPassword.api';
-import { actions as appActions } from '../app/app.slice';
+import resetPasswordApi from './resetPassword.api';
+// import { actions as appActions } from '../app/app.slice';
 
-export interface IForgotPasswordState {
+export interface IVerifyState {
   responseStatus: string;
   loading: boolean;
   responseMessage: string;
   error: any;
 }
 
-const initialState: IForgotPasswordState = {
+const initialState: IVerifyState = {
   responseStatus: '',
   loading: false,
   responseMessage: '',
   error: null,
 };
 
-export const forgotPasswordAsync = createAsyncThunk(
-  'account/forgot',
+export const resetPasswordAsync = createAsyncThunk(
+  'account/resetpassword',
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
-      const response = await userForgotPasswordApi(data);
+      const response = await resetPasswordApi(data);
       return response.data;
     } catch (error: any) {
+      dispatch(
+        resetPasswordSlice.actions.updateResponseMessage(
+          error?.response?.data?.message
+        )
+      );
       //   dispatch(
       //     appActions.triggerAlert({
       //       type: 'error',
@@ -36,31 +41,34 @@ export const forgotPasswordAsync = createAsyncThunk(
   }
 );
 
-export const forgotPasswordSlice = createSlice({
-  name: 'forgotPassword',
+export const resetPasswordSlice = createSlice({
+  name: 'resetPassword',
   initialState,
-  reducers: {},
+  reducers: {
+    updateResponseMessage(state, action) {
+      state.responseMessage = action?.payload;
+    },
+  },
   extraReducers: (builder) => {
     // signin
-    builder.addCase(forgotPasswordAsync.pending, (state, action) => {
+    builder.addCase(resetPasswordAsync.pending, (state, action) => {
       state.loading = true;
       state.responseStatus = 'false';
     });
-    builder.addCase(forgotPasswordAsync.fulfilled, (state, action) => {
+    builder.addCase(resetPasswordAsync.fulfilled, (state, action) => {
       state.loading = false;
       state.responseStatus = 'true';
       state.responseMessage = action.payload.message;
     });
-    builder.addCase(forgotPasswordAsync.rejected, (state, action) => {
+    builder.addCase(resetPasswordAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
-      state.responseMessage = 'error';
     });
   },
 });
 
-export const { actions } = forgotPasswordSlice;
+export const { actions } = resetPasswordSlice;
 
-export const selectForgotPassword = (state: RootState) => state.forgotPassword;
+export const selectResetPassword = (state: RootState) => state.resetPassword;
 
-export default forgotPasswordSlice.reducer;
+export default resetPasswordSlice.reducer;
