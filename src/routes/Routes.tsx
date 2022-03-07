@@ -81,10 +81,13 @@ const Routes2 = () => {
         {routesList.map((route) => (
           <Route
             path={route.path}
+            key={route.path}
             element={
               <RouteWrapper
                 component={route.component}
                 isPrivate={route.isPrivate}
+                hasNavbar={route.hasNavbar}
+                hasFooter={route.hasFooter}
               />
             }
           />
