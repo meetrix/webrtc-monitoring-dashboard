@@ -16,7 +16,7 @@ import {
   validatePhoneNumber,
 } from '../../helper/validation';
 import styles from './auth.styles';
-import AuthLayoutView from './authLayout.view';
+import AuthLayoutView from '../../components/layout/LoginLayout';
 import { Logo as DefaultLogo } from '../../assets/icons';
 
 interface ISignupView extends WithStyles<typeof styles> {

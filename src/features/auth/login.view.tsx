@@ -12,7 +12,7 @@ import { validateEmail, validatePassword } from '../../helper/validation';
 import styles from './auth.styles';
 
 import { Logo as DefaultLogo } from '../../assets/icons';
-import AuthLayoutView from './authLayout.view';
+import AuthLayoutView from '../../components/layout/LoginLayout';
 
 // interface IGeneralSettings {
 
