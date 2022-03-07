@@ -12,6 +12,7 @@ import { resetPasswordAsync, selectResetPassword } from './resetPassword.slice';
 import { validatePassword } from '../../helper/validation';
 import { PasswordTextField } from '../../components/TextField';
 import { Button2 } from '../../components/Button2';
+import { LoginLayout } from '../../components/layout';
 
 type IResetPasswordView = WithStyles<typeof styles>;
 
@@ -32,7 +33,7 @@ const ResetPassword: React.FC<IResetPasswordView> = ({
   });
   const [confirmPassword, setConfirmPassword] = useState({
     value: '',
-    isError: true,
+    isError: false,
   });
 
   const newPasswordOnChange = (event: { target: { value: string } }) => {
@@ -79,42 +80,35 @@ const ResetPassword: React.FC<IResetPasswordView> = ({
     return null;
   };
   return (
-    <div className={classes.root}>
-      <Grid item xs={12} sm={6}>
-        <Paper className={classes.paper}>
-          <div className={classes.paper_main_div}>
-            <div className={classes.formHeading}>Reset password</div>
-            <div className={classes.textField}>
-              <PasswordTextField
-                id="reset-new-password"
-                label="New Password"
-                onChange={newPasswordOnChange}
-                value={newPassword.value}
-                error={newPassword.isError}
-              />
-              <PasswordTextField
-                id="reset-confirm-password"
-                label="Confirm Password"
-                onChange={confirmPasswordOnChange}
-                value={confirmPassword.value}
-                error={confirmPassword.isError}
-              />
-            </div>
-            {renderResponseMessage()}
-            {loading && <LinearProgress />}
-            <div className={classes.redButton}>
-              <Button2
-                label="SUBMIT"
-                id="submit_button_in_reset_password"
-                onClick={() => submitButtonOnClick()}
-                disabled={newPassword.isError || confirmPassword.isError}
-                roundBorder
-              />
-            </div>
-          </div>
-        </Paper>
-      </Grid>
-    </div>
+    <LoginLayout>
+      <div className={classes.formHeading}>Reset password</div>
+      <PasswordTextField
+        id="reset-new-password"
+        label="New Password"
+        onChange={newPasswordOnChange}
+        value={newPassword.value}
+        error={newPassword.isError}
+      />
+      <PasswordTextField
+        id="reset-confirm-password"
+        label="Confirm Password"
+        onChange={confirmPasswordOnChange}
+        value={confirmPassword.value}
+        error={confirmPassword.isError}
+      />
+      {renderResponseMessage()}
+      {loading && <LinearProgress />}
+      <div className={classes.buttonWrapper}>
+        <Button2
+          align="right"
+          variant="contained"
+          label="Submit"
+          id="submit_button_in_reset_password"
+          onClick={() => submitButtonOnClick()}
+          disabled={newPassword.isError || confirmPassword.isError}
+        />
+      </div>
+    </LoginLayout>
   );
 };
 

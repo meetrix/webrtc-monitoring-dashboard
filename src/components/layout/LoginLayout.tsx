@@ -32,6 +32,7 @@ const styles = (theme: Theme) => {
       display: 'grid',
       placeItems: 'center',
       position: 'relative',
+      padding: theme.spacing(0, 5),
       [theme.breakpoints.down('xs')]: {
         padding: '6vw',
       },
@@ -40,7 +41,7 @@ const styles = (theme: Theme) => {
       fontWeight: 600,
     },
     formWrapper: {
-      padding: '5%',
+      width: '100%',
     },
   });
 };

@@ -8,7 +8,6 @@ import { TextField } from '../../components/TextField';
 import { Button2 } from '../../components/Button2';
 import { validateEmail } from '../../helper/validation';
 
-import backgrounImage from '../../assets/login/forgotpassword_background.png';
 import styles from './forgotPassword.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
@@ -80,21 +79,19 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
         instructions to reset your password
       </div>
       <div className={classes.responseText}>{renderResponseMessage()}</div>
-      <div className={classes.textField} id="forgotPasswordField">
-        <TextField
-          id="forgotPasswordEmail"
-          label="Email"
-          value={email.value}
-          error={email.isError}
-          onChange={emailOnChange}
-          required
-          helperText="Please enter valid email address"
-        />
-      </div>
+      <TextField
+        id="forgotPasswordEmail"
+        label="Email"
+        value={email.value}
+        error={email.isError}
+        onChange={emailOnChange}
+        required
+        helperText="Please enter valid email address"
+      />
       {loading && <LinearProgress />}
       <div className={classes.buttonWrapper}>
         <Button2
-          id="send-reset"
+          id="send-reset-instructions"
           align="right"
           variant="contained"
           label="Send Reset Instructions"

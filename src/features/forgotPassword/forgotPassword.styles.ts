@@ -30,16 +30,6 @@ const styles = (theme: Theme) => {
     responseText: {
       marginBottom: '1.5rem',
     },
-    textField: {
-      width: '100%',
-      textAlign: 'center',
-      '& .makeStyles-text-13': {
-        width: '100%',
-      },
-      '@media only screen and (max-width: 575px)': {
-        display: 'grid',
-      },
-    },
     buttonWrapper: {
       marginTop: '2vh',
       '& .MuiButton-contained.Mui-disabled': {
