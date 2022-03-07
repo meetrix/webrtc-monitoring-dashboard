@@ -41,7 +41,7 @@ export const VerifyAsync = createAsyncThunk(
   }
 );
 export const ResetAsync = createAsyncThunk(
-  'account/resetpassword',
+  'account/reset',
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
@@ -78,7 +78,7 @@ export const verifySlice = createSlice({
       state.error = action.payload;
     });
 
-    // resetpassword
+    // reset
     builder.addCase(ResetAsync.pending, (state, action) => {
       state.loading = true;
       state.responseStatus = 'false';

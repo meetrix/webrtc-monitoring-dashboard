@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import resetPasswordApi from './resetPassword.api';
-import { actions as appActions } from '../app/app.slice';
+// import { actions as appActions } from '../app/app.slice';
 
 export interface IVerifyState {
   responseStatus: string;
@@ -25,6 +25,11 @@ export const resetPasswordAsync = createAsyncThunk(
       const response = await resetPasswordApi(data);
       return response.data;
     } catch (error: any) {
+      dispatch(
+        resetPasswordSlice.actions.updateResponseMessage(
+          error?.response?.data?.message
+        )
+      );
       //   dispatch(
       //     appActions.triggerAlert({
       //       type: 'error',
@@ -39,7 +44,11 @@ export const resetPasswordAsync = createAsyncThunk(
 export const resetPasswordSlice = createSlice({
   name: 'resetPassword',
   initialState,
-  reducers: {},
+  reducers: {
+    updateResponseMessage(state, action) {
+      state.responseMessage = action?.payload;
+    },
+  },
   extraReducers: (builder) => {
     // signin
     builder.addCase(resetPasswordAsync.pending, (state, action) => {
@@ -54,7 +63,6 @@ export const resetPasswordSlice = createSlice({
     builder.addCase(resetPasswordAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
-      state.responseMessage = 'error';
     });
   },
 });
