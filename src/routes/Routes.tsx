@@ -1,75 +1,91 @@
+/* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
-import { Routes, BrowserRouter } from 'react-router-dom';
-
-import RouteWrapper from './RouteWrapper';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { LoginView, SignupView } from '../features/auth';
-import { Dashboard } from '../features/dashboard';
-// import { ContactView, PrivacyView, TermsView } from '../features/subPages';
+import RouteWrapper from './RouteWrapper';
+import Clients from '../features/clients/Clients';
+import Debugger from '../features/debugger/Debugger';
+import { EmailRoute } from '../features/emailRoute';
+import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
+import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
+import { ForgotPassword } from '../features/forgotPassword';
+import { ResetPassword } from '../features/resetPassword';
+
+const routesList = [
+  {
+    path: '/signin',
+    isPrivate: false,
+    component: <LoginView />,
+  },
+  {
+    path: '/signup',
+    isPrivate: false,
+    component: <SignupView />,
+  },
+  {
+    path: '/forgot-password',
+    isPrivate: false,
+    component: <ForgotPassword />,
+  },
+  {
+    path: '/resetpassword',
+    isPrivate: false,
+    component: <ResetPassword />,
+  },
+  {
+    path: '/clients',
+    isPrivate: true,
+    component: <Clients />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/debugger',
+    isPrivate: true,
+    component: <Debugger />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/emailroute',
+    isPrivate: true,
+    component: <EmailRoute />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/verificationtoken-expired',
+    isPrivate: true,
+    component: <VerificationLinkExpirationMessage />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+  {
+    path: '/resetpasswordtoken-expired',
+    isPrivate: true,
+    component: <ResetLinkExpirationMessage />,
+    hasNavbar: true,
+    hasFooter: true,
+  },
+];
 
 const Routes2 = () => {
-  const routesArr = [
-    {
-      path: '/',
-      exact: true,
-      isPrivate: true,
-      component: () => <Dashboard />,
-      hasNavbar: true,
-      hasFooter: true,
-    },
-    {
-      path: '/signin',
-      exact: true,
-      isPrivate: false,
-      component: () => <LoginView />,
-    },
-    {
-      path: '/signup',
-      exact: true,
-      isPrivate: false,
-      component: () => <SignupView />,
-    },
-    // {
-    //   path: '/terms-of-use',
-    //   exact: true,
-    //   isPrivate: true,
-    //   component: () => <TermsView />,
-    //   hasNavbar: true,
-    //   hasFooter: true,
-    // },
-    // {
-    //   path: '/privacy-policy',
-    //   exact: true,
-    //   isPrivate: true,
-    //   component: () => <PrivacyView />,
-    //   hasNavbar: true,
-    //   hasFooter: true,
-    // },
-    // {
-    //   path: '/contact-us',
-    //   exact: true,
-    //   isPrivate: true,
-    //   component: () => <ContactView />,
-    //   hasNavbar: true,
-    //   hasFooter: true,
-    // },
-  ];
   return (
     <BrowserRouter>
       <Routes>
-        {routesArr.map((route) => (
-          <RouteWrapper
-            key={route.path}
+        {routesList.map((route) => (
+          <Route
             path={route.path}
-            exact={route.exact}
-            isPrivate={route.isPrivate}
-            Component={route.component}
-            hasNavbar={route.hasNavbar}
-            hasFooter={route.hasFooter}
+            element={
+              <RouteWrapper
+                component={route.component}
+                isPrivate={route.isPrivate}
+              />
+            }
           />
         ))}
       </Routes>
     </BrowserRouter>
   );
 };
-
 export default memo(Routes2);
