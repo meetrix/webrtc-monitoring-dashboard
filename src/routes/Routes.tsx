@@ -10,6 +10,7 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
+import DashboardLayout from '../components/layout/DashboardLayout';
 
 const routesList = [
   {
@@ -71,6 +72,12 @@ const routesList = [
     component: <ResetLinkExpirationMessage />,
     hasNavbar: true,
     hasFooter: true,
+  },
+  {
+    path: '/dashboard',
+    isPrivate: false,
+    component: <DashboardLayout />,
+    hasNavbar: true,
   },
 ];
 

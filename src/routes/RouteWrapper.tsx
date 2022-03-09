@@ -16,6 +16,8 @@ const styles = (theme: Theme) => {
       height: '100vh',
       width: '100vw',
       backgroundColor: theme.palette.secondary.light,
+      display: 'flex',
+      flexDirection: 'column',
       '& .max-width-responsive': {
         maxWidth: 2500, // set max-width for all layouts
       },
@@ -24,10 +26,10 @@ const styles = (theme: Theme) => {
       },
     },
     bodyWrapper: {
-      height: 'calc(100vh - 64px - 35px - 4vh)', // fullwidth - navbar - footer - bodyPadding-TopBottom
-      maxWidth: '100vw',
-      padding: '2vh 3vw',
+      // height: 'calc(100vh - 64px - 35px - 4vh)', // fullwidth - navbar - footer - bodyPadding-TopBottom
+      width: '100%',
       display: 'flex',
+      flexGrow: 1,
       justifyContent: 'center',
       [theme.breakpoints.down('xs')]: {
         height: 'auto',
@@ -39,7 +41,7 @@ const styles = (theme: Theme) => {
       width: '100%',
     },
     fullScreenBodyWrapper: {
-      height: '100%',
+      // height: '100%',
       display: 'flex',
       justifyContent: 'center',
       maxWidth: '100vw',
@@ -82,7 +84,7 @@ const RouteWrapper = ({
       {hasNavbar && <AppBar />}
       <div
         className={
-          hasNavbar && hasFooter
+          hasNavbar || hasFooter
             ? classes.bodyWrapper
             : classes.fullScreenBodyWrapper
         }
