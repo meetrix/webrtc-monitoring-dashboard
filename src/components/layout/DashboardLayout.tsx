@@ -4,6 +4,7 @@ import React, { memo, useState } from 'react';
 import { withStyles, WithStyles } from '@mui/styles';
 import { createStyles, Grid, Theme } from '@mui/material';
 import { Typography } from '../Typography';
+import Sidebar from './Sidbar';
 
 const styles = (theme: Theme) => {
   return createStyles({
@@ -11,7 +12,7 @@ const styles = (theme: Theme) => {
       height: '100%',
       width: '100%',
       overflow: 'hidden',
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.background.default,
       display: 'flex',
     },
     bodyContent: {
@@ -29,7 +30,7 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
 }: IDashboardLayout) => {
   return (
     <div className={classes.root}>
-      <div>Sidbar</div>
+      <Sidebar />
       <div className={classes.bodyContent}>{children}</div>
     </div>
   );
