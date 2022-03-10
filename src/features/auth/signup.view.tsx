@@ -7,7 +7,7 @@ import { Grid } from '@mui/material';
 // import { Link } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
-import { Button2 } from '../../components/Button2';
+import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
 import {
   validateEmail,
@@ -180,7 +180,7 @@ const SignupView: React.FC<ISignupView> = ({
         <Link to="/signin" className={classes.link}>
           Sign in
         </Link>
-        <Button2
+        <Button
           id="sign-up-button"
           align="right"
           variant="contained"

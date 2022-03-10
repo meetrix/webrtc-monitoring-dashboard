@@ -6,7 +6,7 @@ import { withStyles, WithStyles } from '@mui/styles';
 import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
-import { Button2 } from '../../components/Button2';
+import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
 import { validateEmail, validatePassword } from '../../helper/validation';
 import styles from './auth.styles';
@@ -92,7 +92,7 @@ const LoginView: React.FC<ILoginView> = ({
         <Link to="/signup" className={classes.link}>
           Create an account
         </Link>
-        <Button2
+        <Button
           id="sign-up-button"
           align="right"
           variant="contained"
