@@ -30,8 +30,8 @@ const DashboardLayout: React.FC<IDashboardLayout> = ({
 }: IDashboardLayout) => {
   return (
     <div className={classes.root}>
-      <Sidebar />
-      <div className={classes.bodyContent}>{children}</div>
+      {/* <Sidebar /> */}
+      <div className={classes.bodyContent}>Dashboard</div>
     </div>
   );
 };

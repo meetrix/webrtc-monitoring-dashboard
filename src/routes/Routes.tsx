@@ -73,19 +73,29 @@ const routesList = [
     hasNavbar: true,
     hasFooter: true,
   },
-  {
-    path: '/dashboard',
-    isPrivate: false,
-    component: <DashboardLayout />,
-    hasNavbar: true,
-  },
+  // {
+  //   path: '/dashboard',
+  //   isPrivate: false,
+  //   hasSidebar: true,
+  //   component: <DashboardLayout />,
+  //   hasNavbar: true,
+  // },
 ];
+
+export interface IRoute {
+  path: string;
+  isPrivate: boolean;
+  component: React.ReactNode;
+  hasNavbar?: boolean;
+  hasSidebar?: true;
+  hasFooter?: boolean;
+}
 
 const Routes2 = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {routesList.map((route) => (
+        {routesList.map((route: IRoute) => (
           <Route
             path={route.path}
             key={route.path}
@@ -94,6 +104,7 @@ const Routes2 = () => {
                 component={route.component}
                 isPrivate={route.isPrivate}
                 hasNavbar={route.hasNavbar}
+                hasSidebar={route.hasSidebar}
                 hasFooter={route.hasFooter}
               />
             }
