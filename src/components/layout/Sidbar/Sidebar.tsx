@@ -54,7 +54,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Incoming Connections',
-      path: '/',
+      path: '/dashboard/incoming-connections',
     },
     {
       label: 'Call Stat Monitoring',

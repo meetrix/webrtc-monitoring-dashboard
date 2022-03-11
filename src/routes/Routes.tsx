@@ -10,6 +10,7 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
+import { IncomingConnectons } from '../features/incomingConnectons';
 
 const routesList = [
   {
@@ -72,29 +73,20 @@ const routesList = [
     hasNavbar: true,
     hasFooter: true,
   },
-  // {
-  //   path: '/dashboard',
-  //   isPrivate: false,
-  //   hasSidebar: true,
-  //   component: <DashboardLayout />,
-  //   hasNavbar: true,
-  // },
+  {
+    path: '/dashboard/incoming-connections',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <IncomingConnectons />,
+    hasNavbar: true,
+  },
 ];
 
-export interface IRoute {
-  path: string;
-  isPrivate: boolean;
-  component: React.ReactNode;
-  hasNavbar?: boolean;
-  hasSidebar?: true;
-  hasFooter?: boolean;
-}
-
-const Routes2 = () => {
+const RoutesComponent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {routesList.map((route: IRoute) => (
+        {routesList.map((route) => (
           <Route
             path={route.path}
             key={route.path}
@@ -113,4 +105,4 @@ const Routes2 = () => {
     </BrowserRouter>
   );
 };
-export default memo(Routes2);
+export default memo(RoutesComponent);
