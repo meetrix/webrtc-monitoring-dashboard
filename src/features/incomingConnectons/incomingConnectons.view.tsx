@@ -10,24 +10,85 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 // import {
-//   forgotPasswordAsync,
-//   selectForgotPassword,
+//   IncommingConnectionsAsync,
+//   selectIncommingConnections,
 // } from './incomingConnectons.slice';
 
-type IForgotPasswordView = WithStyles<typeof styles>;
+type IIncommingConnectionsView = WithStyles<typeof styles>;
 
-const ForgotPassword: React.FC<IForgotPasswordView> = ({
+const SampleData = [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+];
+
+const SampleToken = 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN';
+
+const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
   classes,
-}: IForgotPasswordView) => {
+}: IIncommingConnectionsView) => {
+  const TokenComponent = () => {
+    return (
+      <div className={classes.tokenRoot}>
+        <div className={classes.tokenTitleWrapper}>
+          <Typography variant="body2" fontWeight={600}>
+            Meetrix.io
+          </Typography>
+          <Typography variant="body2" className={classes.grayText}>
+            {SampleToken}
+          </Typography>
+        </div>
+        <Typography variant="body2" className={classes.grayText}>
+          02/02/2022
+        </Typography>
+        <Button
+          id="token-more-button"
+          label="More"
+          customStyles={classes.moreButton}
+        />
+        <Button
+          id="token-copy"
+          label="Copy to clipboard"
+          onClick={() => {
+            navigator.clipboard.writeText(SampleToken);
+          }}
+        />
+      </div>
+    );
+  };
+
   return (
     <div className={classes.root}>
-      <Paper elevation={0} className={classes.paper}>
+      <Paper elevation={0} className={classes.topPaper}>
         <Typography component="h3">Generate your token</Typography>
         <Grid container spacing={2} className={classes.inputWrapper}>
-          <Grid item sm={12} lg={8}>
+          <Grid item sm={12} lg={9}>
             <TextField label="Enter your website link here" />
           </Grid>
-          <Grid item sm={12} lg={4}>
+          <Grid item sm={12} lg={3}>
             <Button
               id="generate-token"
               label="Generate your token"
@@ -40,8 +101,14 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
           Learn more
         </Link>
       </Paper>
+      <Typography variant="body2" color="GrayText">
+        TOKENS
+      </Typography>
+      <Paper elevation={0} className={classes.bottomPaper}>
+        {SampleData.map(() => TokenComponent())}
+      </Paper>
     </div>
   );
 };
 
-export default memo(withStyles(styles)(ForgotPassword));
+export default memo(withStyles(styles)(IncommingConnections));

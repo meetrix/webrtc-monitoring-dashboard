@@ -32,6 +32,7 @@ const styles = (theme: Theme) => {
       display: 'flex',
       flexGrow: 1,
       justifyContent: 'center',
+      overflow: 'hidden',
       [theme.breakpoints.down('xs')]: {
         height: 'auto',
         minHeight: '96vh',
