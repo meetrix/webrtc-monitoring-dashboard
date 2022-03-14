@@ -9,6 +9,7 @@ type Color = 'primary' | 'secondary';
 const styles = (theme: Theme) => {
   return createStyles({
     root: {
+      height: '100%',
       '& .MuiButton-contained': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
