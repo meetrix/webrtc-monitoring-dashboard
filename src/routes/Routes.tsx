@@ -11,6 +11,7 @@ import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/Res
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { IncomingConnectons } from '../features/incomingConnectons';
+import { CallStatMonitoring } from '../features/callStats';
 
 const routesList = [
   {
@@ -78,6 +79,13 @@ const routesList = [
     isPrivate: false,
     hasSidebar: true,
     component: <IncomingConnectons />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/call-stat-monitoring',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <CallStatMonitoring />,
     hasNavbar: true,
   },
 ];

@@ -17,7 +17,7 @@ export interface TableComponentProps
   rows: Array<any>;
   columns: Array<any>;
   checkboxSelection?: boolean;
-  rowsPerPageOptions: number;
+  // rowsPerPageOptions: number;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({
@@ -27,7 +27,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
   rows,
   columns,
   checkboxSelection,
-  rowsPerPageOptions,
+  // rowsPerPageOptions,
   ...otherProps
 }: TableComponentProps) => {
   return (

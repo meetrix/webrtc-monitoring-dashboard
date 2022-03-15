@@ -50,7 +50,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
   const SidebarItems = [
     {
       label: 'Home',
-      path: '/',
+      path: '/dashboard/incoming-connections',
     },
     {
       label: 'Incoming Connections',
@@ -58,13 +58,13 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Call Stat Monitoring',
-      path: '/',
+      path: '/dashboard/call-stat-monitoring',
     },
   ];
 
   const handleOnClick = (data: any) => {
     setSelectedItem(data.label);
-    // navigate(data.path);
+    navigate(data.path);
   };
 
   return (
