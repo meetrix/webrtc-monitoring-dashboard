@@ -83,7 +83,7 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
-        <Typography component="h3">Generate your token</Typography>
+        <Typography variant="h5">Generate your token</Typography>
         <Grid container spacing={2} className={classes.inputWrapper}>
           <Grid item sm={12} lg={9}>
             <TextField label="Enter your website link here" />
