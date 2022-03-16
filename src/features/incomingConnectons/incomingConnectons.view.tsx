@@ -3,7 +3,7 @@
 import React, { memo, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styles from './incomingConnectons.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -51,6 +51,14 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
   classes,
 }: IIncommingConnectionsView) => {
   const TokenComponent = () => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     return (
       <div className={classes.tokenRoot}>
         <div className={classes.tokenTitleWrapper}>
@@ -68,6 +76,7 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
           id="token-more-button"
           label="More"
           customStyles={classes.moreButton}
+          onClick={handleClick}
         />
         <Button
           id="token-copy"
@@ -76,6 +85,18 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
             navigator.clipboard.writeText(SampleToken);
           }}
         />
+        <Menu
+          // id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={handleClose}>Delete Token</MenuItem>
+          <MenuItem onClick={handleClose}>Revoke</MenuItem>
+        </Menu>
       </div>
     );
   };
