@@ -17,7 +17,8 @@ export interface TableComponentProps
   rows: Array<any>;
   columns: Array<any>;
   checkboxSelection?: boolean;
-  // rowsPerPageOptions: number;
+  disableSelectionOnClick?: boolean;
+  disableColumnFilter?: boolean;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({
@@ -27,17 +28,18 @@ export const TableComponent: React.FC<TableComponentProps> = ({
   rows,
   columns,
   checkboxSelection,
-  // rowsPerPageOptions,
+  disableSelectionOnClick,
+  disableColumnFilter,
   ...otherProps
 }: TableComponentProps) => {
   return (
     <DataGrid
       rows={rows}
       columns={columns}
-      // pageSize={5}
-      // rowsPerPageOptions={[rowsPerPageOptions]}
-      checkboxSelection={checkboxSelection}
       className={classes.root}
+      disableColumnFilter={disableColumnFilter}
+      checkboxSelection={checkboxSelection}
+      disableSelectionOnClick={disableSelectionOnClick}
     />
   );
 };
