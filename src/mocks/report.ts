@@ -315,3 +315,27 @@ export const mockMediaInfo = {
   },
   timestamp: '2022-02-17T07:15:19.212Z',
 } as any;
+
+export const mockCallStats = [
+  {
+    clientId: '1',
+    browser: 'Chrome',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '3, March, 2022, 11.54 AM',
+  },
+  {
+    clientId: '2',
+    browser: 'Mozilla Firefox',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '4, March, 2022, 11.54 AM',
+  },
+  {
+    clientId: '3',
+    browser: 'Opera',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '5, March, 2022, 11.54 AM',
+  },
+] as any;
