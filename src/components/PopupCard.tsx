@@ -40,44 +40,10 @@ export interface PopupCardProps
     items: {
       label: string;
       value: string;
-    };
+    }[];
   };
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
-
-const SampleData = {
-  status: 'Connected',
-  data: [
-    {
-      label: 'Peer Connection',
-      value: '8',
-    },
-    {
-      label: 'Bytes Received',
-      value: '10560 Kb',
-    },
-    {
-      label: 'Bytes Sent',
-      value: '10560 Kb',
-    },
-    {
-      label: 'Jitter',
-      value: '0',
-    },
-    {
-      label: 'Packet Loss',
-      value: '-',
-    },
-    {
-      label: 'Local Ip',
-      value: '123.456.789 1: 1:2345',
-    },
-    {
-      label: 'Remote Ip',
-      value: '123.456.789 1: 1:2345',
-    },
-  ],
-};
 
 export const PopupCard: React.FC<PopupCardProps> = ({
   classes,
@@ -94,12 +60,12 @@ export const PopupCard: React.FC<PopupCardProps> = ({
         <Typography variant="body2">Status</Typography>
         <Typography
           variant="body2"
-          color={SampleData.status === 'Connected' ? 'green' : 'red'}
+          color={data.status === 'Connected' ? 'green' : 'red'}
         >
-          {SampleData.status}
+          {data.status}
         </Typography>
       </div>
-      {SampleData.data.map((item) => {
+      {data.items.map((item) => {
         return (
           <div className={classes.item}>
             <Typography variant="body2">{item.label}</Typography>
