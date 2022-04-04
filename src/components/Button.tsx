@@ -9,11 +9,11 @@ const styles = (theme: Theme) => {
   // let { main, dark } = theme.palette.primary;
   return createStyles({
     root: {
-      boxShadow: '0px 5px 10px #4285F54E',
-      color: '#fff',
+      // boxShadow: '0px 5px 10px #4285F54E',
+      // color: '#fff',
       fontWeight: 'bold',
-      background: theme.palette.primary.main,
-      opacity: 1,
+      // background: theme.palette.primary.main,
+      // opacity: 1,
       // background: ({ color }: { color: Color }) => {
       //   if (color) {
       //     const _main = theme?.palette[color]?.main;
@@ -27,14 +27,11 @@ const styles = (theme: Theme) => {
       //   }
       //   return `transparent linear-gradient(98deg, ${main} 0%, ${dark} 100%) 0% 0% no-repeat padding-box`;
       // },
-      '&:hover': {
-        // background: '#186eff',
-        background: theme.palette.primary.main,
-        opacity: 0.9,
-      },
-    },
-    fullWidth: {
-      width: '100%',
+      // '&:hover': {
+      //   // background: '#186eff',
+      //   background: theme.palette.primary.main,
+      //   opacity: 0.9,
+      // },
     },
   });
 };
@@ -45,19 +42,31 @@ export interface ButtonComponentProps
   label?: string;
   fullWidth?: boolean;
   color?: Color;
+  variant?: 'text' | 'contained' | 'outlined';
+  disableRipple?: boolean;
+  disableFocusRipple?: boolean;
+  customStyles?: any;
 }
 
 export const ButtonComponent: React.FC<ButtonComponentProps> = ({
   classes,
   onClick,
   label,
+  variant,
   fullWidth = false,
+  disableRipple,
+  disableFocusRipple,
+  customStyles,
   ...otherProps
 }: ButtonComponentProps) => {
   return (
     <Button
-      className={clsx(classes.root, fullWidth && classes.fullWidth)}
+      className={clsx(classes.root, customStyles)}
+      fullWidth={fullWidth}
       onClick={onClick}
+      variant={variant}
+      disableRipple={disableRipple}
+      disableFocusRipple={disableFocusRipple}
       {...otherProps}
     >
       {label}
