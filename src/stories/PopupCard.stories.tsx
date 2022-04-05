@@ -45,8 +45,4 @@ const Template: Story<PopupCardProps> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {
-  // label: 'Start Meeting',
-  // fullWidth: false,
-  // color: 'primary',
-};
+Primary.args = {};

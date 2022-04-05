@@ -7,10 +7,8 @@ import Paper from '@mui/material/Paper';
 import Button from './Button';
 
 const styles = (theme: Theme) => {
-  // let { main, dark } = theme.palette.primary;
   return createStyles({
     root: {
-      // boxShadow: '0px 5px 10px #4285F54E',
       width: 'clamp(280px, 15vw, 400px)',
       padding: 10,
     },
