@@ -3,7 +3,14 @@
 import React, { memo, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
-import { Grid, Paper, Typography } from '@mui/material';
+import {
+  Grid,
+  Paper,
+  Typography,
+  Stack,
+  Breadcrumbs,
+  // Link,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import styles from './callStatsMoreInfo.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -18,9 +25,28 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
 }: ICallStatsMoreInfoView) => {
   return (
     <div className={classes.root}>
-      <Typography variant="body2" color="GrayText">
-        More data
-      </Typography>
+      <Stack spacing={2}>
+        <Breadcrumbs
+          separator="›"
+          aria-label="breadcrumb"
+          className={classes.breadCrumb}
+        >
+          <Link
+            to="/dashboard/call-stat-monitoring"
+            className={classes.breadCrumbLink}
+          >
+            <Typography variant="h6" color="GrayText">
+              Call stat monitoring
+            </Typography>
+          </Link>
+          <Typography variant="h6" color="black">
+            807930-8329
+          </Typography>
+        </Breadcrumbs>
+      </Stack>
+      <Paper elevation={0} className={classes.bottomPaper}>
+        Text
+      </Paper>
     </div>
   );
 };
