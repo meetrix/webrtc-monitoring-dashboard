@@ -11,6 +11,7 @@ interface Entry {
 interface DataSet {
   title: string;
   body: Entry[];
+  type?: string;
 }
 
 export interface DataCardComponentPropsType {
@@ -33,8 +34,13 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
     );
   };
   return (
-    <Paper>
-      {data.map(({ title, body }) => {
+    <Paper
+      elevation={0}
+      sx={{
+        border: '1px solid #00000040',
+      }}
+    >
+      {data.map(({ title, body, type }) => {
         return (
           <Box
             key={title}
@@ -55,8 +61,11 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
                     marginTop: '0.25rem',
                   }}
                 >
-                  {renderStringOrComponent(key)}
-                  {renderStringOrComponent(value)}
+                  {renderStringOrComponent(key, {
+                    fontWeight: value ? '' : 'bold',
+                    color: value ? '' : 'darkgray',
+                  })}
+                  {renderStringOrComponent(value, { color: 'darkgray' })}
                 </Box>
               );
             })}

@@ -14,19 +14,6 @@ const styles = (theme: Theme) => {
       overflow: 'auto',
       marginTop: '1vh',
     },
-    breadCrumb: {
-      color: '#00000061',
-      fontWeight: 900,
-      '& .MuiBreadcrumbs-separator': {
-        fontSize: '2rem',
-      },
-      '& .MuiTypography-root': {
-        fontWeight: 'bold',
-      },
-    },
-    breadCrumbLink: {
-      textDecoration: 'none',
-    },
     grayText: {
       color: theme.palette.secondary.main,
     },

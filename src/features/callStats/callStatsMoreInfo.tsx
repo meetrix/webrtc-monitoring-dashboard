@@ -7,7 +7,6 @@ import { WithStyles, withStyles } from '@mui/styles';
 import {
   Grid,
   Paper,
-  Typography,
   Stack,
   Breadcrumbs,
   Tabs,
@@ -19,6 +18,7 @@ import { Link } from 'react-router-dom';
 import styles from './callStatsMoreInfo.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { TextField } from '../../components/TextField';
+import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import Table from '../../components/Table';
 
@@ -67,16 +67,34 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
   };
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        p: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        height: 'calc(100% - 20px)',
+      }}
+    >
       <Stack spacing={2}>
         <Breadcrumbs
           separator="›"
           aria-label="breadcrumb"
-          className={classes.breadCrumb}
+          sx={{
+            color: '#00000061',
+            fontWeight: 900,
+            '& .MuiBreadcrumbs-separator': {
+              fontSize: '2rem',
+            },
+            '& .MuiTypography-root': {
+              fontWeight: 'bold',
+            },
+          }}
         >
           <Link
             to="/dashboard/call-stat-monitoring"
-            className={classes.breadCrumbLink}
+            style={{
+              textDecoration: 'none',
+            }}
           >
             <Typography variant="h6" color="GrayText">
               Call stat monitoring
@@ -87,7 +105,14 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
           </Typography>
         </Breadcrumbs>
       </Stack>
-      <Paper elevation={0} className={classes.bottomPaper}>
+      <Paper
+        elevation={0}
+        sx={{
+          flexGrow: 1,
+          overflow: 'auto',
+          marginTop: '1vh',
+        }}
+      >
         <Box
           sx={{
             width: 'calc(100% - 16px)',
@@ -115,7 +140,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
           </TabPanel>
         </Box>
       </Paper>
-    </div>
+    </Box>
   );
 };
 

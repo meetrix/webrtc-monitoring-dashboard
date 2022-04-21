@@ -17,7 +17,8 @@ export interface TypographyComponentProps
   variant: any;
   component?: any;
   className?: string;
-  color?: TypographyColor;
+  color?: TypographyColor | string;
+  sx?: any;
 }
 
 export const TypographyComponent: React.FC<TypographyComponentProps> = ({
@@ -35,6 +36,7 @@ export const TypographyComponent: React.FC<TypographyComponentProps> = ({
       component={component}
       className={className}
       color={color}
+      {...otherProps}
     >
       {children}
     </Typography>
