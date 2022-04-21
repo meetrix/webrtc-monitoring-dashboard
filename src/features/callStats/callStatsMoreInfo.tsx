@@ -1,6 +1,4 @@
-/* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable @typescript-eslint/ban-types */
 import React, { memo, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
@@ -21,11 +19,12 @@ import { TextField } from '../../components/TextField';
 import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import Table from '../../components/Table';
+import Chart from '../../components/Chart';
 
 type ICallStatsMoreInfoView = WithStyles<typeof styles>;
 
 interface TabPanelProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   index: number;
   value: number;
 }
@@ -124,16 +123,16 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
         >
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={selectedTab} onChange={handleChange}>
-              <Tab label="Item One" {...a11yProps(0)} />
-              <Tab label="Item Two" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
+              <Tab label="GENERAL LOGS" {...a11yProps(0)} />
+              <Tab label="METRICS" {...a11yProps(1)} />
+              <Tab label="SDPs" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={selectedTab} index={0}>
             Item 1
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            Item 2
+            <Chart />
           </TabPanel>
           <TabPanel value={selectedTab} index={2}>
             Item 3

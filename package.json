@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@devexpress/dx-react-chart": "^3.0.2",
+    "@devexpress/dx-react-chart-material-ui": "^3.0.2",
+    "@devexpress/dx-react-core": "^3.0.2",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@meetrix/webrtc-monitoring-common-lib": "git+https://gitlab.com/meetrix/products/webrtc-monitoring/webrtc-monitoring-common-lib.git#feat/dashboard-log-devices-browserinfo",
@@ -71,7 +74,7 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "@types/debug": "^4.1.7",
-    "@types/react": "^16.14.5",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^16.9.12",
     "@types/react-redux": "^7.1.16",
     "@types/uuid": "^8.3.4",
