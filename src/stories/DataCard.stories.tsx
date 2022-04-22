@@ -9,11 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<DataCardComponentPropsType> = (args) => (
-  <Box
-    sx={{
-      maxWidth: '20rem',
-    }}
-  >
+  <Box>
     <DataCard {...args} />
   </Box>
 );
@@ -24,9 +20,24 @@ Primary.args = {
     {
       title: 'User details',
       body: [
-        { key: 'Sent', value: '1000 KB' },
+        { key: 'Sub Heading' },
+        { key: 'Received', value: '1000 KB' },
+        { key: 'Received', value: '1000 KB' },
         { key: 'Received', value: '1000 KB' },
       ],
     },
   ],
+};
+
+export const Table = Template.bind({});
+Table.args = {
+  tableData: {
+    title: 'Test table',
+    rows: [
+      { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
+      { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
+      { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
+      { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
+    ],
+  },
 };
