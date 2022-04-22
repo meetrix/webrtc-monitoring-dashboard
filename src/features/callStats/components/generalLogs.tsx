@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import { Grid, Box, Theme } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
-import clsx from 'clsx';
 import DataCard from '../../../components/DataCard';
 
 const styles = (theme: Theme) => {

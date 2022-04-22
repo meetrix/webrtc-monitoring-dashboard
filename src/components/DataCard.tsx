@@ -20,6 +20,13 @@ interface DataSet {
   type?: string;
 }
 
+interface IRows {
+  type: string;
+  mime: string;
+  jitter: string | number;
+  packetLoss: string | number;
+}
+
 interface TableData {
   title: string;
   rows: any;
@@ -70,7 +77,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.rows.map((row: any) => (
+              {tableData.rows.map((row: IRows) => (
                 <TableRow
                   key={row.type}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
 import {
-  Grid,
   Paper,
   Stack,
   Breadcrumbs,
@@ -14,11 +13,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styles from './callStatsMoreInfo.styles';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { TextField } from '../../components/TextField';
 import { Typography } from '../../components/Typography';
-import { Button } from '../../components/Button';
-import Table from '../../components/Table';
 import Chart from '../../components/Chart';
 import GeneralLogs from './components/generalLogs';
 
