@@ -36,6 +36,12 @@ const a11yProps = (index: number) => {
   };
 };
 
+const SampleChartData = [
+  { argument: 1, value: 10 },
+  { argument: 2, value: 20 },
+  { argument: 3, value: 30 },
+];
+
 const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
   classes,
 }: ICallStatsMoreInfoView) => {
@@ -132,7 +138,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
             Item 1
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            <Chart />
+            <Chart data={SampleChartData} />
           </TabPanel>
           <TabPanel value={selectedTab} index={2}>
             Item 3

@@ -30,15 +30,10 @@ const generateData = (start: any, end: any, step: any) => {
   return data;
 };
 
-const data = [
-  { argument: 1, value: 10 },
-  { argument: 2, value: 20 },
-  { argument: 3, value: 30 },
-];
-
 export interface ChartComponentProps
   extends WithStyles<ButtonProps & typeof styles> {
   id?: string;
+  data: any;
 }
 
 export const ChartComponent: React.FC<ChartComponentProps> = ({
@@ -52,7 +47,7 @@ export const ChartComponent: React.FC<ChartComponentProps> = ({
   // }, []);
 
   return (
-    <Chart data={data}>
+    <Chart {...otherProps}>
       <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />

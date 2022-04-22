@@ -1,0 +1,31 @@
+import { Meta, Story } from '@storybook/react';
+import { Box } from '@mui/material';
+import React from 'react';
+import Chart, { ChartComponentProps } from '../components/Chart';
+
+export default {
+  title: 'Components/Chart',
+  component: Chart,
+} as Meta;
+
+const data = [
+  { argument: 1, value: 10 },
+  { argument: 2, value: 20 },
+  { argument: 3, value: 30 },
+];
+
+const Template: Story<ChartComponentProps> = (args) => (
+  <Box
+    sx={{
+      maxWidth: '60%',
+      // maxHeight: '60%',
+    }}
+  >
+    <Chart {...args} />
+  </Box>
+);
+
+export const Primary = Template.bind({});
+Primary.args = {
+  data,
+};
