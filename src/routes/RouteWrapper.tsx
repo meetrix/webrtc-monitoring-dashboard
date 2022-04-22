@@ -57,6 +57,7 @@ const styles = (theme: Theme) => {
     },
     bodyWithSidebar: {
       flexGrow: 1,
+      overflow: 'hidden',
     },
   });
 };

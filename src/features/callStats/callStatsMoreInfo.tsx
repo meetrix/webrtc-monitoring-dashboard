@@ -20,6 +20,7 @@ import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import Table from '../../components/Table';
 import Chart from '../../components/Chart';
+import GeneralLogs from './components/generalLogs';
 
 type ICallStatsMoreInfoView = WithStyles<typeof styles>;
 
@@ -77,7 +78,8 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
         p: 1,
         display: 'flex',
         flexDirection: 'column',
-        height: 'calc(100% - 20px)',
+        height: 'calc(100% - 16px)',
+        width: 'calc(100% - 16px)',
       }}
     >
       <Stack spacing={2}>
@@ -120,9 +122,9 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
       >
         <Box
           sx={{
-            width: 'calc(100% - 16px)',
-            p: 1,
-            height: 'calc(100% - 16px)',
+            width: 'calc(100% - 32px)',
+            p: 2,
+            height: 'calc(100% - 32px)',
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -135,7 +137,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
             </Tabs>
           </Box>
           <TabPanel value={selectedTab} index={0}>
-            Item 1
+            <GeneralLogs />
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
             <Chart data={SampleChartData} />

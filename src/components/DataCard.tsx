@@ -60,7 +60,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
       >
         {renderStringOrComponent(tableData.title, { variant: 'h6' })}
         <TableContainer>
-          <Table sx={{ width: 650 }} aria-label="simple table" stickyHeader>
+          <Table aria-label="simple table" stickyHeader>
             <TableHead>
               <TableRow>
                 <TableCell>TYPE</TableCell>
@@ -93,6 +93,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
       elevation={0}
       sx={{
         border: '1px solid #00000040',
+        flexGrow: 1,
       }}
     >
       {data?.map(({ title, body }) => {
