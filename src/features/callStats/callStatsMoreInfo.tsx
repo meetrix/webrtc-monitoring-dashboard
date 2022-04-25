@@ -62,7 +62,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
         sx={{ flexGrow: 1 }}
         {...other}
       >
-        {value === index && <Box>{children}</Box>}
+        {value === index && children}
       </Box>
     );
   };
