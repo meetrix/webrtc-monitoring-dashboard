@@ -37,7 +37,10 @@ const CallStats: React.FC<ICallStatsView> = ({ classes }: ICallStatsView) => {
       sortable: false,
       align: 'center',
       renderCell: () => (
-        <Link to="#" className={classes.link}>
+        <Link
+          to="/dashboard/call-stat-monitoring/see-more"
+          className={classes.link}
+        >
           See more
         </Link>
       ),
