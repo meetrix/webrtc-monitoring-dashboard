@@ -25,7 +25,7 @@ import { Button } from '../../components/Button';
 interface IData {
   title: string;
   token: string;
-  date: any;
+  timestamp: any;
 }
 export interface IIncommingConnectionsView
   extends WithStyles<ButtonProps & typeof styles> {
@@ -33,7 +33,7 @@ export interface IIncommingConnectionsView
     | {
         title: string;
         token: string;
-        date: any;
+        timestamp: any;
       }[]
     | null;
 }
@@ -42,7 +42,7 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
   tokenList,
 }: IIncommingConnectionsView) => {
   const TokenComponent = (data: IData) => {
-    const { title, token, date } = data;
+    const { title, token, timestamp } = data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,7 +62,7 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
           </Typography>
         </div>
         <Typography variant="body2" className={classes.grayText}>
-          {date}
+          {timestamp}
         </Typography>
         <Button
           id="token-more-button"

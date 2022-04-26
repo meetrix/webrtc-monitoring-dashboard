@@ -320,47 +320,47 @@ export const mockIncomingConnection = [
   {
     title: 'Token 1',
     token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    date: '02/02/2022',
+    timestamp: '2022-02-17',
   },
   {
     title: 'Token 2',
     token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    date: '02/02/2022',
+    timestamp: '2022-02-17',
   },
   {
     title: 'Token 3',
     token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    date: '02/02/2022',
+    timestamp: '2022-02-17',
   },
   {
     title: 'Token 4',
     token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    date: '02/02/2022',
+    timestamp: '2022-02-17',
   },
   {
     title: 'Token 5',
     token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    date: '02/02/2022',
+    timestamp: '2022-02-17',
   },
 ];
 
 export const mockCallStats = [
   {
-    clientId: '1',
+    id: '(807)930-83211',
     browser: 'Chrome',
     browserVersion: '98.0.4758',
     operatingSystem: 'Windows 11 x64',
     connectedAt: '3, March, 2022, 11.54 AM',
   },
   {
-    clientId: '2',
+    id: '(807)930-83212',
     browser: 'Mozilla Firefox',
     browserVersion: '98.0.4758',
     operatingSystem: 'Windows 11 x64',
     connectedAt: '4, March, 2022, 11.54 AM',
   },
   {
-    clientId: '3',
+    id: '(807)930-83213',
     browser: 'Opera',
     browserVersion: '98.0.4758',
     operatingSystem: 'Windows 11 x64',
