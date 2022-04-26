@@ -12,6 +12,7 @@ import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { IncomingConnectons } from '../features/incomingConnectons';
 import { CallStatMonitoring } from '../features/callStats';
+import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 
 const routesList = [
   {
@@ -86,6 +87,13 @@ const routesList = [
     isPrivate: false,
     hasSidebar: true,
     component: <CallStatMonitoring />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/call-stat-monitoring/see-more',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <CallStatsMoreInfo />,
     hasNavbar: true,
   },
 ];
