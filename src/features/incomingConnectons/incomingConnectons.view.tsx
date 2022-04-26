@@ -3,8 +3,16 @@
 import React, { memo, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
-import { Grid, Menu, MenuItem, Paper, Typography } from '@mui/material';
+import {
+  Grid,
+  Menu,
+  MenuItem,
+  Paper,
+  Typography,
+  ButtonProps,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/system';
 import styles from './incomingConnectons.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { TextField } from '../../components/TextField';
@@ -14,43 +22,27 @@ import { Button } from '../../components/Button';
 //   selectIncommingConnections,
 // } from './incomingConnectons.slice';
 
-type IIncommingConnectionsView = WithStyles<typeof styles>;
-
-const SampleData = [
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-];
-
-const SampleToken = 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN';
-
+interface IData {
+  title: string;
+  token: string;
+  date: any;
+}
+export interface IIncommingConnectionsView
+  extends WithStyles<ButtonProps & typeof styles> {
+  tokenList:
+    | {
+        title: string;
+        token: string;
+        date: any;
+      }[]
+    | null;
+}
 const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
   classes,
+  tokenList,
 }: IIncommingConnectionsView) => {
-  const TokenComponent = () => {
+  const TokenComponent = (data: IData) => {
+    const { title, token, date } = data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,14 +55,14 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
       <div className={classes.tokenRoot}>
         <div className={classes.tokenTitleWrapper}>
           <Typography variant="body2" fontWeight={600}>
-            Meetrix.io
+            {title}
           </Typography>
           <Typography variant="body2" className={classes.grayText}>
-            {SampleToken}
+            {token}
           </Typography>
         </div>
         <Typography variant="body2" className={classes.grayText}>
-          02/02/2022
+          {date}
         </Typography>
         <Button
           id="token-more-button"
@@ -82,7 +74,7 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
           id="token-copy"
           label="Copy to clipboard"
           onClick={() => {
-            navigator.clipboard.writeText(SampleToken);
+            navigator.clipboard.writeText(token);
           }}
         />
         <Menu
@@ -126,7 +118,9 @@ const IncommingConnections: React.FC<IIncommingConnectionsView> = ({
         TOKENS
       </Typography>
       <Paper elevation={0} className={classes.bottomPaper}>
-        {SampleData.map(() => TokenComponent())}
+        {tokenList?.map((data) => TokenComponent(data)) || (
+          <Box sx={{ p: '5%', textAlign: 'center' }}>No tokens available</Box>
+        )}
       </Paper>
     </div>
   );

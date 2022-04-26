@@ -316,6 +316,34 @@ export const mockMediaInfo = {
   timestamp: '2022-02-17T07:15:19.212Z',
 } as any;
 
+export const mockIncomingConnection = [
+  {
+    title: 'Token 1',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    date: '02/02/2022',
+  },
+  {
+    title: 'Token 2',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    date: '02/02/2022',
+  },
+  {
+    title: 'Token 3',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    date: '02/02/2022',
+  },
+  {
+    title: 'Token 4',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    date: '02/02/2022',
+  },
+  {
+    title: 'Token 5',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    date: '02/02/2022',
+  },
+];
+
 export const mockCallStats = [
   {
     clientId: '1',
