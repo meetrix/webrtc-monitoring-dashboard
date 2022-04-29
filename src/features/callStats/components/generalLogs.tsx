@@ -16,7 +16,7 @@ const styles = (theme: Theme) => {
 
 const SampleData = [
   {
-    title: 'User details',
+    event: 'User details',
     body: [
       { key: 'Sub Heading' },
       { key: 'Received', value: '1000 KB' },
@@ -27,7 +27,7 @@ const SampleData = [
 ];
 
 const SampleTableData = {
-  title: 'Test table',
+  event: 'Test table',
   rows: [
     { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
     { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
