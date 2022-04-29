@@ -16,6 +16,19 @@ import styles from './callStatsMoreInfo.styles';
 import { Typography } from '../../components/Typography';
 import Chart from '../../components/Chart';
 import GeneralLogs from './components/generalLogs';
+import {
+  useGetReportQuery,
+  useGetConnectionInfoQuery,
+  useGetOtherInfoQuery,
+  useGetMediaInfoQuery,
+} from '../../services/apiService/endpoints/reportEndpoints';
+import { getUrlParams } from '../../utils/urlUtils';
+import {
+  mockConnectionStatus,
+  mockMediaInfo,
+  mockOtherInfo,
+  mockReport,
+} from '../../mocks/report';
 
 type ICallStatsMoreInfoView = WithStyles<typeof styles>;
 
@@ -49,6 +62,33 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
   ): void => {
     setSelectedTab(newSelectedTab);
   };
+
+  const { clientId, domain, mockStats } = getUrlParams();
+
+  const { data, error, isLoading } = useGetReportQuery({
+    domain: 'meetrix.io',
+    clientId: clientId || '1234',
+  });
+
+  const data2 = useGetConnectionInfoQuery({
+    domain: 'meetrix.io',
+    clientId: clientId || '1234',
+  });
+
+  const data3 = useGetOtherInfoQuery({
+    domain: 'meetrix.io',
+    clientId: clientId || '1234',
+  });
+
+  const data4 = useGetMediaInfoQuery({
+    domain: 'meetrix.io',
+    clientId: clientId || '1234',
+  });
+
+  const report = mockStats ? mockReport : data;
+  const connectionStatus = mockStats ? mockConnectionStatus : data2.data;
+  const otherInfo = mockStats ? mockOtherInfo : data3.data;
+  const mediaInfo = mockStats ? mockMediaInfo : data4.data;
 
   const TabPanel = (props: TabPanelProps) => {
     const { children, value, index, ...other } = props;
@@ -132,7 +172,12 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
             </Tabs>
           </Box>
           <TabPanel value={selectedTab} index={0}>
-            <GeneralLogs />
+            <GeneralLogs
+              report={report}
+              connectionStatus={connectionStatus}
+              otherInfo={otherInfo}
+              mediaInfo={mediaInfo}
+            />
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
             <Chart data={SampleChartData} />

@@ -1,56 +1,186 @@
-import React, { memo } from 'react';
-import { Box, Theme } from '@mui/material';
-import { withStyles, WithStyles, createStyles } from '@mui/styles';
+import { CandidateType, Report } from '@meetrix/webrtc-monitoring-common-lib';
+import { Box } from '@mui/material';
+import { TimelineEvent } from '@peermetrics/webrtc-stats';
+import React, { useRef } from 'react';
 import DataCard from '../../../components/DataCard';
+import Logger from '../../../components/Logger';
 
-const styles = (theme: Theme) => {
-  return createStyles({
-    root: {},
-    cardsWrapper: {
-      display: 'flex',
-      gap: 16,
-      marginTop: 16,
-    },
-  });
+export type GeneralLogsProps = {
+  report: Report;
+  connectionStatus: TimelineEvent;
+  otherInfo: TimelineEvent;
+  mediaInfo: TimelineEvent;
 };
 
-const SampleData = [
-  {
-    event: 'User details',
-    body: [
-      { key: 'Sub Heading' },
-      { key: 'Received', value: '1000 KB' },
-      { key: 'Received', value: '1000 KB' },
-      { key: 'Received', value: '1000 KB' },
-    ],
+interface LogEntry extends TimelineEvent {
+  key: string;
+  peerId: any;
+  timestamp: any;
+  tag: any;
+}
+
+interface LogEntryData {
+  [datasetKey: string]: LogEntry;
+}
+
+export const GeneralLogs: React.FC<GeneralLogsProps> = ({
+  report: {
+    peerId,
+    data: { inbound, outbound, connection },
   },
-];
+  report,
+  connectionStatus,
+  otherInfo,
+  mediaInfo: {
+    data: { browserInfo, mediaDeviceInfo },
+  },
+}: GeneralLogsProps) => {
+  // eslint-disable-next-line no-bitwise
+  const getKiliBytesFromBytes = (bytes: number) => bytes >> 10;
 
-const SampleTableData = {
-  event: 'Test table',
-  rows: [
-    { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
-    { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
-    { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
-    { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
-  ],
-};
-export type IGeneralLogsProps = WithStyles<typeof styles>;
+  const getCandidateString = ({
+    ip,
+    port,
+    protocol,
+    candidateType,
+  }: CandidateType) => `${ip}:${port} ${protocol} ${candidateType}`;
 
-const GeneralLogs = ({ classes }: IGeneralLogsProps) => {
+  const getMediaDeviceInfo = () => {
+    return mediaDeviceInfo.map((mediaDevice: MediaDeviceInfo) => {
+      return {
+        key: `(${mediaDevice.kind}) ${mediaDevice.deviceId}`,
+        value: mediaDevice.label,
+      };
+    });
+  };
+
+  const log = useRef<LogEntryData>({});
+
+  const getConnectionLog = () => {
+    log.current[JSON.stringify(otherInfo)] = {
+      key: JSON.stringify(otherInfo) || '',
+      timestamp: otherInfo.timestamp || '',
+      peerId: otherInfo.peerId || '',
+      event: otherInfo.event || '',
+      tag: otherInfo.tag || '',
+      data: JSON.stringify(otherInfo.data) || '',
+    };
+    log.current[JSON.stringify(connectionStatus)] = {
+      key: JSON.stringify(connectionStatus) || '',
+      timestamp: connectionStatus.timestamp || '',
+      peerId: connectionStatus.peerId || '',
+      event: connectionStatus.event || '',
+      tag: connectionStatus.tag || '',
+      data: JSON.stringify(connectionStatus.data) || '',
+    };
+    log.current[JSON.stringify(report)] = {
+      key: JSON.stringify(report) || '',
+      timestamp: report.timestamp || '',
+      peerId: report.peerId || '',
+      event: report.event || '',
+      tag: report.tag || '',
+      data: JSON.stringify(report.data) || '',
+    };
+
+    return log.current;
+  };
+
+  const statsData = [
+    {
+      event: 'Stats',
+      body: [
+        { key: 'PeerId', value: peerId },
+        {
+          key: 'Sent',
+          value: `${getKiliBytesFromBytes(connection.bytesSent)} KB`,
+        },
+        {
+          key: 'Received',
+          value: `${getKiliBytesFromBytes(connection.bytesReceived)} KB`,
+        },
+        {
+          key: 'Local candidate',
+          value: getCandidateString(connection.local || {}),
+        },
+        {
+          key: 'Remote candidate',
+          value: getCandidateString(connection.remote || {}),
+        },
+      ],
+    },
+  ];
+
+  const BrowserData = [
+    {
+      event: 'Browser Data',
+      body: [
+        {
+          key: 'UserAgent',
+          value: browserInfo.userAgent || '',
+        },
+        {
+          key: 'platform',
+          value: browserInfo.platform || '',
+        },
+      ],
+    },
+  ];
+
+  const mediaDeviceInfoData = [
+    {
+      event: 'Media Device Info',
+      body: getMediaDeviceInfo(),
+    },
+  ];
+
+  const connectionData = [
+    {
+      event: 'Connection',
+      body: [
+        {
+          key: 'Status',
+          value: connectionStatus.data || '',
+        },
+      ],
+    },
+  ];
+
+  const otherInfoData = [
+    {
+      title: 'Connection log',
+      columns: ['Timestamp', 'PeerId', 'Event', 'Tag', 'Data'],
+      body: getConnectionLog(),
+    },
+  ];
+  // console.log('otherInfoData', otherInfoData);
+
   return (
-    <Box>
-      <Box className={classes.cardsWrapper}>
-        <DataCard data={SampleData} />
-        <DataCard data={SampleData} />
-        <DataCard data={SampleData} />
+    <>
+      <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '16px',
+            marginTop: '16px',
+          }}
+        >
+          <DataCard data={connectionData} />
+          <DataCard data={BrowserData} />
+          <DataCard data={mediaDeviceInfoData} />
+        </Box>
+        {/* <Box
+          sx={{
+            display: 'flex',
+            gap: 16,
+            marginTop: 16,
+          }}
+        >
+          <DataCard tableData={inbound} />
+          <DataCard tableData={outbound} />
+        </Box> */}
       </Box>
-      <Box className={classes.cardsWrapper}>
-        <DataCard tableData={SampleTableData} />
-        <DataCard tableData={SampleTableData} />
-      </Box>
-    </Box>
+    </>
   );
 };
 
-export default memo(withStyles(styles)(GeneralLogs));
+export default GeneralLogs;

@@ -18,7 +18,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   data: [
     {
-      title: 'User details',
+      event: 'User details',
       body: [
         { key: 'Sub Heading' },
         { key: 'Received', value: '1000 KB' },
@@ -32,7 +32,7 @@ Primary.args = {
 export const Table = Template.bind({});
 Table.args = {
   tableData: {
-    title: 'Test table',
+    event: 'Test table',
     rows: [
       { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
       { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
