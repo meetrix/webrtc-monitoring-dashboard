@@ -43,12 +43,12 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     port,
     protocol,
     candidateType,
-  }: CandidateType) => `${ip}:${port} ${protocol} ${candidateType}`;
+  }: CandidateType) => `${ip}:${port}`;
 
   const getMediaDeviceInfo = () => {
     return mediaDeviceInfo.map((mediaDevice: MediaDeviceInfo) => {
       return {
-        key: `(${mediaDevice.kind}) ${mediaDevice.deviceId}`,
+        key: mediaDevice.kind,
         value: mediaDevice.label,
       };
     });
@@ -85,25 +85,43 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     return log.current;
   };
 
-  const statsData = [
+  const connectionData = [
     {
-      event: 'Stats',
+      event: 'CONNECTION',
       body: [
-        { key: 'PeerId', value: peerId },
         {
-          key: 'Sent',
+          key: 'Status',
+          value: connection.state || '',
+        },
+        {
+          key: 'Peer Connection',
+          value: peerId || '',
+        },
+        {
+          key: 'Bytes Sent',
           value: `${getKiliBytesFromBytes(connection.bytesSent)} KB`,
         },
         {
-          key: 'Received',
+          key: 'Bytes Received',
           value: `${getKiliBytesFromBytes(connection.bytesReceived)} KB`,
         },
         {
-          key: 'Local candidate',
+          key: 'Jitter',
+          value: '0',
+        },
+        {
+          key: 'Packet Lost',
+          value:
+            JSON.stringify(
+              connection.packetsSent - connection.packetsReceived
+            ) || '',
+        },
+        {
+          key: 'Local Ip',
           value: getCandidateString(connection.local || {}),
         },
         {
-          key: 'Remote candidate',
+          key: 'Remote Ip',
           value: getCandidateString(connection.remote || {}),
         },
       ],
@@ -133,27 +151,6 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     },
   ];
 
-  const connectionData = [
-    {
-      event: 'Connection',
-      body: [
-        {
-          key: 'Status',
-          value: connectionStatus.data || '',
-        },
-      ],
-    },
-  ];
-
-  const otherInfoData = [
-    {
-      title: 'Connection log',
-      columns: ['Timestamp', 'PeerId', 'Event', 'Tag', 'Data'],
-      body: getConnectionLog(),
-    },
-  ];
-  // console.log('otherInfoData', otherInfoData);
-
   return (
     <>
       <Box>
@@ -164,9 +161,9 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
             marginTop: '16px',
           }}
         >
-          <DataCard data={connectionData} />
           <DataCard data={BrowserData} />
           <DataCard data={mediaDeviceInfoData} />
+          <DataCard data={connectionData} />
         </Box>
         {/* <Box
           sx={{
