@@ -29,13 +29,13 @@ interface IRows {
 
 interface TableData {
   event: string;
-  rows: any;
+  body: any;
 }
 
 export interface DataCardComponentPropsType {
   data?: DataSet[];
 
-  tableData?: TableData;
+  tableData?: any;
 }
 
 const renderStringOrComponent = (
@@ -77,7 +77,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.rows.map((row: IRows) => (
+              {tableData.body.map((row: any) => (
                 <TableRow
                   key={row.type}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -54,35 +54,15 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     });
   };
 
-  const log = useRef<LogEntryData>({});
-
-  const getConnectionLog = () => {
-    log.current[JSON.stringify(otherInfo)] = {
-      key: JSON.stringify(otherInfo) || '',
-      timestamp: otherInfo.timestamp || '',
-      peerId: otherInfo.peerId || '',
-      event: otherInfo.event || '',
-      tag: otherInfo.tag || '',
-      data: JSON.stringify(otherInfo.data) || '',
-    };
-    log.current[JSON.stringify(connectionStatus)] = {
-      key: JSON.stringify(connectionStatus) || '',
-      timestamp: connectionStatus.timestamp || '',
-      peerId: connectionStatus.peerId || '',
-      event: connectionStatus.event || '',
-      tag: connectionStatus.tag || '',
-      data: JSON.stringify(connectionStatus.data) || '',
-    };
-    log.current[JSON.stringify(report)] = {
-      key: JSON.stringify(report) || '',
-      timestamp: report.timestamp || '',
-      peerId: report.peerId || '',
-      event: report.event || '',
-      tag: report.tag || '',
-      data: JSON.stringify(report.data) || '',
-    };
-
-    return log.current;
+  const getInboundData = () => {
+    return inbound.map((data) => {
+      return {
+        type: data.type,
+        mime: data.kind,
+        jitter: data.jitter,
+        packetLoss: data.packetsLost,
+      };
+    });
   };
 
   const basicInfoData = [
@@ -156,25 +136,13 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     },
   ];
 
-  const BrowserData = [
-    {
-      event: 'Browser Data',
-      body: [
-        {
-          key: 'UserAgent',
-          value: browserInfo.userAgent || '',
-        },
-        {
-          key: 'platform',
-          value: browserInfo.platform || '',
-        },
-      ],
-    },
-  ];
-
+  const inboundData = {
+    event: 'INBOUND TRACKS',
+    body: getInboundData(),
+  };
   const mediaDeviceInfoData = [
     {
-      event: 'Media Device Info',
+      event: 'DEVICES',
       body: getMediaDeviceInfo(),
     },
   ];
@@ -193,16 +161,16 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
           <DataCard data={mediaDeviceInfoData} />
           <DataCard data={connectionData} />
         </Box>
-        {/* <Box
+        <Box
           sx={{
             display: 'flex',
             gap: 16,
             marginTop: 16,
           }}
         >
-          <DataCard tableData={inbound} />
-          <DataCard tableData={outbound} />
-        </Box> */}
+          <DataCard tableData={inboundData} />
+          {/* <DataCard tableData={outbound} /> */}
+        </Box>
       </Box>
     </>
   );

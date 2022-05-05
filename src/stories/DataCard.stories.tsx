@@ -33,7 +33,7 @@ export const Table = Template.bind({});
 Table.args = {
   tableData: {
     event: 'Test table',
-    rows: [
+    body: [
       { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
       { type: 'Video', mime: 'Video/Vp8', jitter: 0, packetLoss: 'Undefined' },
       { type: 'Audio', mime: 'Audio/Opus', jitter: 0, packetLoss: 'Undefined' },
