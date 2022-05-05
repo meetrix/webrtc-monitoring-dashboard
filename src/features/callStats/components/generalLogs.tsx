@@ -65,6 +65,17 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     });
   };
 
+  const getOutboundData = () => {
+    return outbound.map((data) => {
+      return {
+        type: data.type,
+        mime: data.kind,
+        jitter: data?.jitter || '-',
+        packetLoss: data?.packetsLost || '-',
+      };
+    });
+  };
+
   const basicInfoData = [
     {
       event: 'BASIC INFORMATION',
@@ -140,6 +151,12 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     event: 'INBOUND TRACKS',
     body: getInboundData(),
   };
+
+  const outboundData = {
+    event: 'OUTBOUND TRACKS',
+    body: getOutboundData(),
+  };
+
   const mediaDeviceInfoData = [
     {
       event: 'DEVICES',
@@ -164,12 +181,12 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
         <Box
           sx={{
             display: 'flex',
-            gap: 16,
-            marginTop: 16,
+            gap: '16px',
+            marginTop: '16px',
           }}
         >
           <DataCard tableData={inboundData} />
-          {/* <DataCard tableData={outbound} /> */}
+          <DataCard tableData={outboundData} />
         </Box>
       </Box>
     </>
