@@ -26,7 +26,7 @@ interface LogEntryData {
 export const GeneralLogs: React.FC<GeneralLogsProps> = ({
   report: {
     peerId,
-    data: { inbound, outbound, connection },
+    data: { inbound, outbound, connection, basicInformation },
   },
   report,
   connectionStatus,
@@ -84,6 +84,34 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
 
     return log.current;
   };
+
+  const basicInfoData = [
+    {
+      event: 'BASIC INFORMATION',
+      body: [
+        {
+          key: 'Client ID',
+          value: basicInformation.clientId || '',
+        },
+        {
+          key: 'Operating system',
+          value: basicInformation.os || '',
+        },
+        {
+          key: 'Browser',
+          value: basicInformation.browser || '',
+        },
+        {
+          key: 'Browser Version',
+          value: basicInformation.browserVersion || '',
+        },
+        {
+          key: 'Connected At',
+          value: basicInformation.connectedAt || '',
+        },
+      ],
+    },
+  ];
 
   const connectionData = [
     {
@@ -161,7 +189,7 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
             marginTop: '16px',
           }}
         >
-          <DataCard data={BrowserData} />
+          <DataCard data={basicInfoData} />
           <DataCard data={mediaDeviceInfoData} />
           <DataCard data={connectionData} />
         </Box>

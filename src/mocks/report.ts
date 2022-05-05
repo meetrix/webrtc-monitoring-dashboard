@@ -4,6 +4,13 @@ export const mockReport = {
   tag: 'stats',
   peerId: '1',
   data: {
+    basicInformation: {
+      clientId: '123',
+      os: 'Windows 10',
+      browser: 'Chrome',
+      browserVersion: '98.3456',
+      connectedAt: '04/10/1994',
+    },
     connection: {
       id: 'RTCIceCandidatePair_cOsRgswL_jdp0Xx0F',
       timestamp: 1641215801299.154,
