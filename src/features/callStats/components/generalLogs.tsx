@@ -28,7 +28,6 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
     peerId,
     data: { inbound, outbound, connection, basicInformation },
   },
-  report,
   connectionStatus,
   otherInfo,
   mediaInfo: {

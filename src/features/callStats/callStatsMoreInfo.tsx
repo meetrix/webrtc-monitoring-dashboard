@@ -29,6 +29,7 @@ import {
   mockOtherInfo,
   mockReport,
 } from '../../mocks/report';
+import SdpComponent from './components/sdpComponent';
 
 type ICallStatsMoreInfoView = WithStyles<typeof styles>;
 
@@ -99,7 +100,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
         hidden={value !== index}
         id={`tabpanel-${index}`}
         aria-labelledby={`tab-${index}`}
-        sx={{ flexGrow: 1 }}
+        sx={{ flexGrow: 1, overflow: 'auto' }}
         {...other}
       >
         {value === index && children}
@@ -183,7 +184,7 @@ const CallStatsMoreInfo: React.FC<ICallStatsMoreInfoView> = ({
             <Chart data={SampleChartData} />
           </TabPanel>
           <TabPanel value={selectedTab} index={2}>
-            Item 3
+            <SdpComponent report={report} />
           </TabPanel>
         </Box>
       </Paper>
