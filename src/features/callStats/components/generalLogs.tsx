@@ -35,7 +35,7 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
   },
 }: GeneralLogsProps) => {
   // eslint-disable-next-line no-bitwise
-  const getKiliBytesFromBytes = (bytes: number) => bytes >> 10;
+  const getKiloBytesFromBytes = (bytes: number) => bytes >> 10;
 
   const getCandidateString = ({
     ip,
@@ -117,11 +117,11 @@ export const GeneralLogs: React.FC<GeneralLogsProps> = ({
         },
         {
           key: 'Bytes Sent',
-          value: `${getKiliBytesFromBytes(connection.bytesSent)} KB`,
+          value: `${getKiloBytesFromBytes(connection.bytesSent)} KB`,
         },
         {
           key: 'Bytes Received',
-          value: `${getKiliBytesFromBytes(connection.bytesReceived)} KB`,
+          value: `${getKiloBytesFromBytes(connection.bytesReceived)} KB`,
         },
         {
           key: 'Jitter',
