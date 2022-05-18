@@ -4,6 +4,13 @@ export const mockReport = {
   tag: 'stats',
   peerId: '1',
   data: {
+    basicInformation: {
+      clientId: '123',
+      os: 'Windows 10',
+      browser: 'Chrome',
+      browserVersion: '98.3456',
+      connectedAt: '04/10/1994',
+    },
     connection: {
       id: 'RTCIceCandidatePair_cOsRgswL_jdp0Xx0F',
       timestamp: 1641215801299.154,
@@ -201,6 +208,40 @@ export const mockReport = {
         payloadType: 96,
       },
     ],
+    sdp: [
+      'o=- 5660385071414002641 2 IN IP4 127.0.0.1',
+      'a=extmap-allow-mixed',
+      'a=msid-semantic: WMS HdV18W0pKcZAjtZvDul0VHQx90U7joCCzLxT',
+      'm=audio 49776 UDP/TLS/RTP/SAVPF 111 63 103 104 9 0 8 106 105 13 110 112 113 126',
+      'a=rtcp:9 IN IP4 0.0.0.0',
+      'a=candidate:3913087824 1 udp 2122260223 169.254.196.154 49776 typ host generation 0 network-id 1',
+      'a=candidate:2650662095 1 udp 2122129151 192.168.166.1 49778 typ host generation 0 network-id 4',
+      'a=ice-pwd:6Ke5+UnooOKvqqbl8Wp8UyIS',
+      'o=- 5660385071414002641 2 IN IP4 127.0.0.1',
+      'a=extmap-allow-mixed',
+      'a=msid-semantic: WMS HdV18W0pKcZAjtZvDul0VHQx90U7joCCzLxT',
+      'm=audio 49776 UDP/TLS/RTP/SAVPF 111 63 103 104 9 0 8 106 105 13 110 112 113 126',
+      'a=rtcp:9 IN IP4 0.0.0.0',
+      'a=candidate:3913087824 1 udp 2122260223 169.254.196.154 49776 typ host generation 0 network-id 1',
+      'a=candidate:2650662095 1 udp 2122129151 192.168.166.1 49778 typ host generation 0 network-id 4',
+      'a=ice-pwd:6Ke5+UnooOKvqqbl8Wp8UyIS',
+      'o=- 5660385071414002641 2 IN IP4 127.0.0.1',
+      'a=extmap-allow-mixed',
+      'a=msid-semantic: WMS HdV18W0pKcZAjtZvDul0VHQx90U7joCCzLxT',
+      'm=audio 49776 UDP/TLS/RTP/SAVPF 111 63 103 104 9 0 8 106 105 13 110 112 113 126',
+      'a=rtcp:9 IN IP4 0.0.0.0',
+      'a=candidate:3913087824 1 udp 2122260223 169.254.196.154 49776 typ host generation 0 network-id 1',
+      'a=candidate:2650662095 1 udp 2122129151 192.168.166.1 49778 typ host generation 0 network-id 4',
+      'a=ice-pwd:6Ke5+UnooOKvqqbl8Wp8UyIS',
+      'o=- 5660385071414002641 2 IN IP4 127.0.0.1',
+      'a=extmap-allow-mixed',
+      'a=msid-semantic: WMS HdV18W0pKcZAjtZvDul0VHQx90U7joCCzLxT',
+      'm=audio 49776 UDP/TLS/RTP/SAVPF 111 63 103 104 9 0 8 106 105 13 110 112 113 126',
+      'a=rtcp:9 IN IP4 0.0.0.0',
+      'a=candidate:3913087824 1 udp 2122260223 169.254.196.154 49776 typ host generation 0 network-id 1',
+      'a=candidate:2650662095 1 udp 2122129151 192.168.166.1 49778 typ host generation 0 network-id 4',
+      'a=ice-pwd:6Ke5+UnooOKvqqbl8Wp8UyIS',
+    ],
   },
   rawStats: {},
   timestamp: '2022-01-03T13:16:41.309Z',
@@ -315,3 +356,55 @@ export const mockMediaInfo = {
   },
   timestamp: '2022-02-17T07:15:19.212Z',
 } as any;
+
+export const mockIncomingConnection = [
+  {
+    title: 'Token 1',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    timestamp: '2022-02-17',
+  },
+  {
+    title: 'Token 2',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    timestamp: '2022-02-17',
+  },
+  {
+    title: 'Token 3',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    timestamp: '2022-02-17',
+  },
+  {
+    title: 'Token 4',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    timestamp: '2022-02-17',
+  },
+  {
+    title: 'Token 5',
+    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    timestamp: '2022-02-17',
+  },
+];
+
+export const mockCallStats = [
+  {
+    id: '(807)930-83211',
+    browser: 'Chrome',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '3, March, 2022, 11.54 AM',
+  },
+  {
+    id: '(807)930-83212',
+    browser: 'Mozilla Firefox',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '4, March, 2022, 11.54 AM',
+  },
+  {
+    id: '(807)930-83213',
+    browser: 'Opera',
+    browserVersion: '98.0.4758',
+    operatingSystem: 'Windows 11 x64',
+    connectedAt: '5, March, 2022, 11.54 AM',
+  },
+] as any;
