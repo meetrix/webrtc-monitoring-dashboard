@@ -11,11 +11,11 @@ export type SdpComponentProps = {
   report: Report;
 };
 
-export const SdpComponent: React.FC<SdpComponentProps> = ({
+export const SdpComponent: React.FC<any> = ({
   report: {
     data: { sdp },
   },
-}: SdpComponentProps) => {
+}: any) => {
   return (
     <Box
       sx={{
