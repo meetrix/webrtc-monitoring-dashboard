@@ -359,29 +359,29 @@ export const mockMediaInfo = {
 
 export const mockIncomingConnection = [
   {
-    title: 'Token 1',
-    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    timestamp: '2022-02-17',
+    _id: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    domain: 'meetrix.io',
+    createdAt: '2022-01-13T01:24:50.466Z',
   },
   {
-    title: 'Token 2',
-    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    timestamp: '2022-02-17',
+    _id: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    domain: 'screenapp.io',
+    createdAt: '2022-02-07T07:24:50.466Z',
   },
   {
-    title: 'Token 3',
-    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    timestamp: '2022-02-17',
+    _id: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    domain: 'whatever.com',
+    createdAt: '2022-03-04T13:24:50.466Z',
   },
   {
-    title: 'Token 4',
-    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    timestamp: '2022-02-17',
+    _id: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    domain: 'sorry.org',
+    createdAt: '2022-04-13T21:24:50.466Z',
   },
   {
-    title: 'Token 5',
-    token: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
-    timestamp: '2022-02-17',
+    _id: 'BZ0HaDRtDHL0Q7kiX3dYJEpN6KJOLPN',
+    domain: 'example.lk',
+    createdAt: '2022-05-07T00:00:00.000Z',
   },
 ];
 
