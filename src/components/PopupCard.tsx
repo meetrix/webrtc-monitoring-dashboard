@@ -4,7 +4,7 @@ import { ButtonProps, Theme, Typography } from '@mui/material';
 import { withStyles, createStyles, WithStyles } from '@mui/styles';
 
 import Paper from '@mui/material/Paper';
-import Button from './Button';
+import { Button } from './Button';
 
 const styles = (theme: Theme) => {
   return createStyles({
@@ -75,11 +75,12 @@ export const PopupCard: React.FC<PopupCardProps> = ({
       })}
       <div className={classes.buttonWrapper}>
         <Button
+          id="popup-card-button"
           label="View All"
           variant="text"
           customStyles={classes.button}
-          disableRipple
-          disableFocusRipple
+          // disableRipple
+          // disableFocusRipple
         />
       </div>
     </Paper>
