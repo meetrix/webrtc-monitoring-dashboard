@@ -10,7 +10,7 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
-import { IncomingConnectons } from '../features/incomingConnectons';
+import { IncomingConnections } from '../features/incomingConnections';
 import { CallStatMonitoring } from '../features/callStats';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 
@@ -79,7 +79,7 @@ const routesList = [
     path: '/dashboard/incoming-connections',
     isPrivate: false,
     hasSidebar: true,
-    component: <IncomingConnectons />,
+    component: <IncomingConnections />,
     hasNavbar: true,
   },
   {

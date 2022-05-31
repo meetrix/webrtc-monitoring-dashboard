@@ -8,7 +8,7 @@ import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
 import { resetPasswordReducer } from '../features/resetPassword';
-// import rootReducer from './root.reducer';
+import { incomingConnectionsReducer } from '../features/incomingConnections';
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +19,7 @@ export const store = configureStore({
     verify: verifyReducer,
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
+    incomingConnections: incomingConnectionsReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

@@ -15,7 +15,7 @@ interface Entry {
 }
 
 interface DataSet {
-  title: string;
+  event: string;
   body: Entry[];
   type?: string;
 }
@@ -28,14 +28,14 @@ interface IRows {
 }
 
 interface TableData {
-  title: string;
-  rows: any;
+  event: string;
+  body: any;
 }
 
 export interface DataCardComponentPropsType {
   data?: DataSet[];
 
-  tableData?: TableData;
+  tableData?: any;
 }
 
 const renderStringOrComponent = (
@@ -65,7 +65,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
           p: 2,
         }}
       >
-        {renderStringOrComponent(tableData.title, { variant: 'h6' })}
+        {renderStringOrComponent(tableData.event, { variant: 'h6' })}
         <TableContainer>
           <Table aria-label="simple table" stickyHeader>
             <TableHead>
@@ -77,7 +77,7 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.rows.map((row: IRows) => (
+              {tableData.body.map((row: any) => (
                 <TableRow
                   key={row.type}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -103,16 +103,16 @@ export const DataCard: React.FC<DataCardComponentPropsType> = ({
         flexGrow: 1,
       }}
     >
-      {data?.map(({ title, body }) => {
+      {data?.map(({ event, body }) => {
         return (
           <Box
-            key={title}
+            key={event}
             sx={{
               padding: '1rem',
             }}
             rowGap="1rem"
           >
-            {renderStringOrComponent(title, { variant: 'h6' })}
+            {renderStringOrComponent(event, { variant: 'h6' })}
 
             {body.map(({ key, value }) => {
               return (
