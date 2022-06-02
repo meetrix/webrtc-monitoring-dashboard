@@ -1,18 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Counter } from './features/counter/Counter';
-import Clients from './features/clients/Clients';
-import Debugger from './features/debugger/Debugger';
+import { AppContainer } from './features/app';
+import { MainLayout } from './components/layout';
+import Routes from './routes';
 
 const App = (): React.ReactElement => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Counter />} />
-        <Route path="/clients" element={<Clients />} />
-        <Route path="/debugger" element={<Debugger />} />
-      </Routes>
-    </BrowserRouter>
+    <MainLayout>
+      <AppContainer />
+      <Routes />
+    </MainLayout>
   );
 };
 

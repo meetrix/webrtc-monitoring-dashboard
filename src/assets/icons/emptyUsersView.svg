@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="306" height="306" viewBox="0 0 306 306">
+  <defs>
+    <clipPath id="clip-Users_tab_-_empty_view_icon_">
+      <rect width="306" height="306"/>
+    </clipPath>
+  </defs>
+  <g id="Users_tab_-_empty_view_icon_" data-name="Users tab - empty view icon " clip-path="url(#clip-Users_tab_-_empty_view_icon_)">
+    <g id="Group_4202" data-name="Group 4202" transform="translate(-807 -188)">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(807 188)" fill="none" stroke="#e6e6e6" stroke-width="12">
+        <circle cx="153" cy="153" r="153" stroke="none"/>
+        <circle cx="153" cy="153" r="147" fill="none"/>
+      </g>
+      <g id="vuesax_bulk_profile-2user" data-name="vuesax/bulk/profile-2user" transform="translate(703 4)">
+        <g id="profile-2user" transform="translate(172 252)">
+          <path id="Vector" d="M34.035,0a34,34,0,0,0-.86,68,5.78,5.78,0,0,1,1.576,0h.5A34.01,34.01,0,0,0,34.035,0Z" transform="translate(29.876 14.331)" fill="rgba(162,162,162,0.54)" opacity="0.4"/>
+          <path id="Vector-2" data-name="Vector" d="M86.843,10C66.852-3.332,34.25-3.332,14.116,10,5.016,16.086,0,24.326,0,33.139s5.016,16.982,14.044,23c10.031,6.735,23.216,10.1,36.4,10.1s26.368-3.368,36.4-10.1C95.871,50.05,100.887,41.881,100.887,33,100.816,24.183,95.871,16.014,86.843,10Z" transform="translate(14.044 89.426)" fill="#dbdbdb"/>
+          <path id="Vector-3" data-name="Vector" d="M42.132,23.527A25.646,25.646,0,0,1,19.7,51.257h-.358a3.352,3.352,0,0,0-1.218.143A25.708,25.708,0,0,1,0,45.453,32.789,32.789,0,0,0,10.748,18.225,33.253,33.253,0,0,0,5.231,2.6a25.727,25.727,0,0,1,36.9,20.923Z" transform="translate(99.57 28.592)" fill="rgba(162,162,162,0.54)" opacity="0.4"/>
+          <path id="Vector-4" data-name="Vector" d="M57.322,29.309c-.573,6.95-5.016,12.969-12.468,17.053-7.165,3.941-16.194,5.8-25.15,5.589a25.576,25.576,0,0,0,8.742-16.623c.717-8.885-3.511-17.412-11.966-24.219A59.15,59.15,0,0,0,0,2.081c15.835-4.586,35.755-1.5,48.007,8.383C54.6,15.766,57.967,22.43,57.322,29.309Z" transform="translate(98.276 88.095)" fill="#dbdbdb"/>
+          <path id="Vector-5" data-name="Vector" d="M0,0H170V170H0Z" fill="none" opacity="0"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

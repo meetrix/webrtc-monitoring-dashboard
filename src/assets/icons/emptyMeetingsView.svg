@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="306" height="306" viewBox="0 0 306 306">
+  <defs>
+    <clipPath id="clip-Meetings_tab_-_empty_view_icon">
+      <rect width="306" height="306"/>
+    </clipPath>
+  </defs>
+  <g id="Meetings_tab_-_empty_view_icon" data-name="Meetings tab - empty view icon" clip-path="url(#clip-Meetings_tab_-_empty_view_icon)">
+    <g id="Group_4201" data-name="Group 4201" transform="translate(-807 -188)">
+      <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(807 188)" fill="none" stroke="#e6e6e6" stroke-width="12">
+        <circle cx="153" cy="153" r="153" stroke="none"/>
+        <circle cx="153" cy="153" r="147" fill="none"/>
+      </g>
+      <g id="vuesax_bulk_monitor-recorder" data-name="vuesax/bulk/monitor-recorder" transform="translate(383 68)" opacity="0.87">
+        <g id="monitor-recorder" transform="translate(492 188)">
+          <path id="Vector" d="M134.038,29.956V74.14H0V29.956A29.82,29.82,0,0,1,29.606,0h74.827A29.82,29.82,0,0,1,134.038,29.956Z" transform="translate(14.299 21.448)" fill="rgba(162,162,162,0.54)" opacity="0.4"/>
+          <path id="Vector-2" data-name="Vector" d="M0,0V1.358A29.774,29.774,0,0,0,29.606,31.315H55.043a7.129,7.129,0,0,1,7.066,7.149v5.863a7.129,7.129,0,0,1-7.066,7.149H39.074a5.076,5.076,0,0,0,0,10.152H95.106a5.076,5.076,0,0,0,0-10.152h-15.9a7.129,7.129,0,0,1-7.066-7.149V38.464a7.129,7.129,0,0,1,7.066-7.149h25.225A29.774,29.774,0,0,0,134.038,1.358V0Z" transform="translate(14.299 94.001)" fill="#d7d7d7"/>
+          <path id="Vector-3" data-name="Vector" d="M64.274,9.581,56.2,15.229v-3A12.22,12.22,0,0,0,43.969,0H13.37A13.288,13.288,0,0,0,0,13.3v23.45C0,42.9,3.074,48.975,12.226,48.975H43.9A12.22,12.22,0,0,0,56.124,36.749V33.675L64.2,39.323c4.075,2.788,7.292,1.072,7.292-3.789V13.37C71.495,8.509,68.278,6.864,64.274,9.581Z" transform="translate(91.356 7.292)" fill="#d3d3d3" opacity="0.999"/>
+          <path id="Vector-4" data-name="Vector" d="M0,0H170V170H0Z" fill="none" opacity="0"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

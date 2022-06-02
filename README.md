@@ -13,7 +13,7 @@ Dashboard that is used to present data captured via [@meetrix/lib-webrtc-monitor
 
 ## Project setup
 
-1. `cat .env.dist > .env`
+1. `cat .env.example > .env`
 2. `rm -rf .git && git init`
 3. `npm init`
 4. Visit [http://localhost:3000/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRldkBtZWV0cml4LmlvIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjQwNTExNTYzLCJleHAiOjE3MjY5MTE1NjMsInN1YiI6IjYxYzZmMjY2Yzc1OTIwMzBkYmM1YjdhMCJ9.9UZSBzIS-JCkF487Sfx3ZRxaoKKM6PxMD37TAn_MoNg]
