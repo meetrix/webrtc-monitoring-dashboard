@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import clsx from 'clsx';
 import { TextField, TextFieldProps, Theme } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
 
@@ -6,7 +7,7 @@ const styles = (theme: Theme) => {
   return createStyles({
     root: {
       width: '100%',
-      margin: theme.spacing(2, 0),
+      // margin: theme.spacing(2, 0),
       '& .MuiOutlinedInput-input': {
         padding: '10px 0.5rem !important',
       },
@@ -47,6 +48,7 @@ export interface ITextFieldProps
   onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   autoFocus?: boolean;
+  customStyles?: string;
 }
 
 export const TextFieldComponent: React.FC<ITextFieldProps> = ({
@@ -64,6 +66,7 @@ export const TextFieldComponent: React.FC<ITextFieldProps> = ({
   disabled = false,
   required = false,
   autoFocus = false,
+  customStyles,
   ...otherProps
 }: ITextFieldProps) => {
   return (
@@ -73,7 +76,7 @@ export const TextFieldComponent: React.FC<ITextFieldProps> = ({
       variant="outlined"
       label={label}
       placeholder={placeholder}
-      className={classes.root}
+      className={clsx(classes.root, customStyles)}
       onChange={onChange}
       value={value}
       type={type}

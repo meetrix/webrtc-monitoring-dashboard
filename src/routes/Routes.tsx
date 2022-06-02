@@ -10,6 +10,9 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
+import { IncomingConnections } from '../features/incomingConnections';
+import { CallStatMonitoring } from '../features/callStats';
+import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 
 const routesList = [
   {
@@ -72,9 +75,30 @@ const routesList = [
     hasNavbar: true,
     hasFooter: true,
   },
+  {
+    path: '/dashboard/incoming-connections',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <IncomingConnections />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/call-stat-monitoring',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <CallStatMonitoring />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/call-stat-monitoring/see-more',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <CallStatsMoreInfo />,
+    hasNavbar: true,
+  },
 ];
 
-const Routes2 = () => {
+const RoutesComponent = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -87,6 +111,7 @@ const Routes2 = () => {
                 component={route.component}
                 isPrivate={route.isPrivate}
                 hasNavbar={route.hasNavbar}
+                hasSidebar={route.hasSidebar}
                 hasFooter={route.hasFooter}
               />
             }
@@ -96,4 +121,4 @@ const Routes2 = () => {
     </BrowserRouter>
   );
 };
-export default memo(Routes2);
+export default memo(RoutesComponent);

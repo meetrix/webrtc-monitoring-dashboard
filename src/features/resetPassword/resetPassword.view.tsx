@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { resetPasswordAsync, selectResetPassword } from './resetPassword.slice';
 import { validatePassword } from '../../helper/validation';
 import { PasswordTextField } from '../../components/TextField';
-import { Button2 } from '../../components/Button2';
+import { Button } from '../../components/Button';
 import { LoginLayout } from '../../components/layout';
 
 type IResetPasswordView = WithStyles<typeof styles>;
@@ -99,7 +99,7 @@ const ResetPassword: React.FC<IResetPasswordView> = ({
       {renderResponseMessage()}
       {loading && <LinearProgress />}
       <div className={classes.buttonWrapper}>
-        <Button2
+        <Button
           align="right"
           variant="contained"
           label="Submit"

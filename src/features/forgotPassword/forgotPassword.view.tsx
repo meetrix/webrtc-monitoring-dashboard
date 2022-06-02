@@ -5,7 +5,7 @@ import { WithStyles, withStyles } from '@mui/styles';
 import { Grid, Alert, Paper } from '@mui/material';
 import { LinearProgress } from '../../components/Progress';
 import { TextField } from '../../components/TextField';
-import { Button2 } from '../../components/Button2';
+import { Button } from '../../components/Button';
 import { validateEmail } from '../../helper/validation';
 
 import styles from './forgotPassword.styles';
@@ -90,7 +90,7 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
       />
       {loading && <LinearProgress />}
       <div className={classes.buttonWrapper}>
-        <Button2
+        <Button
           id="send-reset-instructions"
           align="right"
           variant="contained"

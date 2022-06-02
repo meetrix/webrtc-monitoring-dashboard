@@ -9,6 +9,7 @@ import { useAppSelector } from '../app/hooks';
 import { selectAuth } from '../features/auth/auth.slice';
 import { AppBar } from '../features/appBar';
 import { getToken } from '../helper/localStorage';
+import Sidebar from '../components/layout/Sidbar';
 
 const styles = (theme: Theme) => {
   return createStyles({
@@ -16,6 +17,8 @@ const styles = (theme: Theme) => {
       height: '100vh',
       width: '100vw',
       backgroundColor: theme.palette.secondary.light,
+      display: 'flex',
+      flexDirection: 'column',
       '& .max-width-responsive': {
         maxWidth: 2500, // set max-width for all layouts
       },
@@ -24,11 +27,12 @@ const styles = (theme: Theme) => {
       },
     },
     bodyWrapper: {
-      height: 'calc(100vh - 64px - 35px - 4vh)', // fullwidth - navbar - footer - bodyPadding-TopBottom
-      maxWidth: '100vw',
-      padding: '2vh 3vw',
+      // height: 'calc(100vh - 64px - 35px - 4vh)', // fullwidth - navbar - footer - bodyPadding-TopBottom
+      width: '100%',
       display: 'flex',
+      flexGrow: 1,
       justifyContent: 'center',
+      overflow: 'hidden',
       [theme.breakpoints.down('xs')]: {
         height: 'auto',
         minHeight: '96vh',
@@ -39,10 +43,21 @@ const styles = (theme: Theme) => {
       width: '100%',
     },
     fullScreenBodyWrapper: {
-      height: '100%',
+      // height: '100%',
       display: 'flex',
       justifyContent: 'center',
       maxWidth: '100vw',
+    },
+    sidbarView: {
+      height: '100%',
+      width: '100%',
+      overflow: 'hidden',
+      backgroundColor: theme.palette.background.default,
+      display: 'flex',
+    },
+    bodyWithSidebar: {
+      flexGrow: 1,
+      overflow: 'hidden',
     },
   });
 };
@@ -52,6 +67,7 @@ interface IRouteWrapper extends WithStyles<OutlinedInputProps & typeof styles> {
   //   hasLoader: boolean;
   isPrivate: boolean;
   hasNavbar?: boolean;
+  hasSidebar?: boolean;
   hasFooter?: boolean;
 }
 
@@ -61,8 +77,9 @@ const RouteWrapper = ({
   // path,
   isPrivate = false,
   //   hasLoader = false,
-  hasNavbar = false,
-  hasFooter = false,
+  hasNavbar,
+  hasSidebar,
+  hasFooter,
   ...rest
 }: IRouteWrapper) => {
   const { isAuthenticated, loading } = useAppSelector(selectAuth);
@@ -82,13 +99,22 @@ const RouteWrapper = ({
       {hasNavbar && <AppBar />}
       <div
         className={
-          hasNavbar && hasFooter
+          hasNavbar || hasFooter
             ? classes.bodyWrapper
             : classes.fullScreenBodyWrapper
         }
       >
-        <div className={clsx(classes.maxWidth, 'max-width-responsive')}>
-          {component}
+        <div
+          className={clsx(
+            classes.maxWidth,
+            'max-width-responsive',
+            hasSidebar && classes.sidbarView
+          )}
+        >
+          {hasSidebar && <Sidebar />}
+          <div className={clsx(hasSidebar && classes.bodyWithSidebar)}>
+            {component}
+          </div>
         </div>
       </div>
       {hasFooter && <Footer />}
@@ -98,6 +124,7 @@ const RouteWrapper = ({
 
 RouteWrapper.defaultProps = {
   hasNavbar: false,
+  hasSidebar: false,
   hasFooter: false,
 };
 

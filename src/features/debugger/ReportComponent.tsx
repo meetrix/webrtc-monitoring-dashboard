@@ -88,7 +88,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
 
   const statsData = [
     {
-      title: 'Stats',
+      event: 'Stats',
       body: [
         { key: 'PeerId', value: peerId },
         {
@@ -113,7 +113,7 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
 
   const BrowserData = [
     {
-      title: 'Browser Data',
+      event: 'Browser Data',
       body: [
         {
           key: 'UserAgent',
@@ -129,14 +129,14 @@ export const PeerComponent: React.FC<PeerComponentProps> = ({
 
   const mediaDeviceInfoData = [
     {
-      title: 'Media Device Info',
+      event: 'Media Device Info',
       body: getMediaDeviceInfo(),
     },
   ];
 
   const connectionData = [
     {
-      title: 'Connection',
+      event: 'Connection',
       body: [
         {
           key: 'Status',
