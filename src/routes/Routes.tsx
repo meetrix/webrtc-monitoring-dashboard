@@ -13,6 +13,7 @@ import { ResetPassword } from '../features/resetPassword';
 import { IncomingConnections } from '../features/incomingConnections';
 import { CallStatMonitoring } from '../features/callStats';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
+import Troubleshooter from '../features/troubleshooter';
 
 const routesList = [
   {
@@ -95,6 +96,13 @@ const routesList = [
     hasSidebar: true,
     component: <CallStatsMoreInfo />,
     hasNavbar: true,
+  },
+  {
+    path: '/troubleshooter',
+    isPrivate: false,
+    hasSidebar: false,
+    component: <Troubleshooter />,
+    hasNavbar: false,
   },
 ];
 
