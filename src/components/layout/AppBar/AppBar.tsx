@@ -30,20 +30,23 @@ const styles = (theme: Theme) => {
   return createStyles({
     root: {
       boxShadow: 'none',
-      borderBottom: '1px solid',
-      borderBottomColor: '#00000029',
+      backgroundColor: theme.palette.common.white,
       '& .MuiToolbar-gutters': {
-        paddingLeft: '3vw',
-        paddingRight: '3vw',
+        paddingLeft: '2vw',
+        paddingRight: '2vw',
       },
       '& .MuiMenuItem-root': {
         borderRadius: 4,
+        padding: 0,
       },
       [theme.breakpoints.down('xs')]: {
         position: 'sticky',
         top: 0,
         left: 0,
         zIndex: 1000,
+      },
+      '& .MuiMenuItem-root:hover': {
+        backgroundColor: 'transparent',
       },
     },
     toolbar: {
@@ -58,6 +61,7 @@ const styles = (theme: Theme) => {
     largeView: {
       display: 'flex',
       flexGrow: 1,
+      justifyContent: 'end',
     },
     menuButtonWrapper: {
       flexGrow: 1,
@@ -70,9 +74,6 @@ const styles = (theme: Theme) => {
     logo: {
       height: 35,
       marginRight: '3vw',
-    },
-    avatar: {
-      marginRight: 8,
     },
     dropdownIcon: {
       marginLeft: 5,
@@ -92,6 +93,17 @@ const styles = (theme: Theme) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
+    },
+    title: {
+      fontSize: theme.typography.h6.fontSize,
+      color: theme.palette.primary.main,
+      fontWeight: 500,
+    },
+    dropdown: {
+      position: 'absolute !important' as 'absolute',
+      right: '20px !important',
+      transform: 'none !important',
+      top: '52px !important',
     },
   });
 };
@@ -195,14 +207,15 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
       <AppBar className={classes.root} position="static" color="default">
         <Toolbar className={classes.toolbar}>
           <div className={clsx(classes.itemsWrapper, 'max-width-responsive')}>
-            <img
+            <div className={classes.title}>WebRTC Monitor Console</div>
+            {/* <img
               className={classes.logo}
               src={Logo}
               alt="meeting-manager-logo"
-            />
+            /> */}
             {!mobileView && (
               <div className={classes.largeView}>
-                <div className={classes.leftWrapper}>
+                {/* <div className={classes.leftWrapper}>
                   {menuOptions.map((item) => (
                     <MenuItem onClick={() => item.onClick()} id={item.name}>
                       {item.name}
@@ -216,19 +229,18 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
                       className={classes.dropdownIcon}
                     />
                   </MenuItem>
-                </div>
-                <MenuItem onClick={(e) => toggleMeetingMenu(e)}>
+                </div> */}
+                {/* <MenuItem onClick={(e) => toggleMeetingMenu(e)}>
                   Host A Meeting
                   <ExpandMore
                     fontSize="small"
                     color="inherit"
                     className={classes.dropdownIcon}
                   />
-                </MenuItem>
-                <MenuItem onClick={(e) => toggleProfile(e)}>
+                </MenuItem> */}
+                <MenuItem onClick={(e) => toggleProfile(e)} disableRipple>
                   {/* <AccountCircle className={classes.avatar} /> */}
                   <Avatar
-                    className={classes.avatar}
                     alt={user?.profile?.name}
                     src={user?.profile?.picture}
                   />
@@ -258,15 +270,17 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
         anchorRef={mtnAnchorEl}
         handleClose={() => toggleMeetingMenu(null)}
         itemList={meetingMenuList}
-      />
+      /> */}
       <Dropdown
         id="app-bar-profile-more-option-button"
         open={Boolean(profileAnchorEl)}
         anchorRef={profileAnchorEl}
         handleClose={() => toggleProfile(null)}
         itemList={profileMenuList}
+        customStyles={classes.dropdown}
+        profileDropdown
       />
-      <Dropdown
+      {/* <Dropdown
         id="app-bar-reporting-button"
         open={Boolean(reportingAnchorEl)}
         anchorRef={reportingAnchorEl}
@@ -296,7 +310,7 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
         <div className={classes.drawer}>
           <div>
             <MenuItem>
-              <AccountCircle className={classes.avatar} />
+              <AccountCircle />
               {filterFirstName(user?.profile?.name)}
             </MenuItem>
             <Divider />
