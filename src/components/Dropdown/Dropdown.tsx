@@ -24,6 +24,10 @@ const styles = (theme: Theme) => {
         minWidth: 35,
       },
     },
+    popperPosition: {
+      right: '20px !important',
+      top: '-52px !important',
+    },
   });
 };
 
@@ -53,6 +57,7 @@ export interface IDropdownProps extends WithStyles<typeof styles> {
   anchorRef: any;
   handleClose: (event: MouseEvent | TouchEvent) => void;
   itemList: any;
+  profileDropdown?: boolean;
 }
 
 const Dropdown = ({
@@ -64,6 +69,7 @@ const Dropdown = ({
   anchorRef,
   handleClose,
   itemList,
+  profileDropdown,
 }: IDropdownProps) => {
   return (
     <Popper
@@ -72,7 +78,10 @@ const Dropdown = ({
       role={undefined}
       transition
       disablePortal
-      className={classes.popper}
+      className={clsx(
+        classes.popper,
+        profileDropdown && classes.popperPosition
+      )}
     >
       {({ TransitionProps, placement }) => (
         <Grow

@@ -43,7 +43,12 @@ export type IFooterProps = WithStyles<typeof styles>;
 const Footer = ({ classes }: IFooterProps) => {
   return (
     <Grid className={classes.root}>
-      <div className={clsx(classes.footerWrapper, 'max-width-responsive')}>
+      <div
+        className={clsx(
+          classes.footerWrapper
+          // 'max-width-responsive'
+        )}
+      >
         <div className={classes.containerLeft}>
           <Typography variant="body2">
             <a href="/" className={classes.blueLink}>

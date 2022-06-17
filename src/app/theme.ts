@@ -14,7 +14,7 @@ export const theme = createTheme(
       },
       // blue
       primary: {
-        main: '#2485f6',
+        main: '#4A74E9',
         light: '#90CAFF',
         dark: '#2562D0',
         contrastText: '#FFFFFF',

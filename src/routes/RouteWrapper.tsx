@@ -19,9 +19,9 @@ const styles = (theme: Theme) => {
       backgroundColor: theme.palette.secondary.light,
       display: 'flex',
       flexDirection: 'column',
-      '& .max-width-responsive': {
-        maxWidth: 2500, // set max-width for all layouts
-      },
+      // '& .max-width-responsive': {
+      //   maxWidth: 2500, // set max-width for all layouts
+      // },
       [theme.breakpoints.down('xs')]: {
         height: 'auto',
       },
@@ -52,12 +52,14 @@ const styles = (theme: Theme) => {
       height: '100%',
       width: '100%',
       overflow: 'hidden',
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.common.white,
       display: 'flex',
     },
     bodyWithSidebar: {
       flexGrow: 1,
       overflow: 'hidden',
+      backgroundColor: '#FAFCFF',
+      borderStartStartRadius: '5px',
     },
   });
 };
@@ -107,7 +109,7 @@ const RouteWrapper = ({
         <div
           className={clsx(
             classes.maxWidth,
-            'max-width-responsive',
+            // 'max-width-responsive',
             hasSidebar && classes.sidbarView
           )}
         >
