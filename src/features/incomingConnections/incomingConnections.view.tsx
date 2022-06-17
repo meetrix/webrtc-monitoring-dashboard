@@ -9,9 +9,12 @@ import {
   Paper,
   Typography,
   ButtonProps,
+  Divider,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
+import InfoIcon from '@mui/icons-material/Info';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import styles from './incomingConnections.styles';
 import { TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
@@ -52,12 +55,29 @@ const TokenComponent = ({
   return (
     <div className={classes.tokenRoot}>
       <div className={classes.tokenTitleWrapper}>
-        <Typography variant="body2" fontWeight={600}>
-          {domain}
-        </Typography>
-        <Typography variant="body2" className={classes.grayText}>
-          {_id}
-        </Typography>
+        <div className={classes.paperTextDark}>{domain}</div>
+        <div style={{ display: 'flex' }}>
+          <div className={classes.paperTextLight}>{_id}</div>
+          <ContentCopyIcon
+            className={classes.copyIcon}
+            onClick={() => {
+              navigator.clipboard.writeText(_id);
+            }}
+          />
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexGrow: 1 }}>
+        <Link to={`/troubleshooter?token=${_id}`} className={classes.link}>
+          Troubleshooter URL
+        </Link>
+        <ContentCopyIcon
+          className={classes.copyIcon}
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `http://localhost:3000/troubleshooter?token=${_id}`
+            );
+          }}
+        />
       </div>
       <Typography variant="body2" className={classes.grayText}>
         {createdAt.substring(0, 10)}
@@ -69,11 +89,10 @@ const TokenComponent = ({
         onClick={handleClick}
       />
       <Button
-        id="token-copy"
-        label="Copy to clipboard"
-        onClick={() => {
-          navigator.clipboard.writeText(_id);
-        }}
+        id="token-more-button"
+        label="Configure"
+        customStyles={classes.moreButton}
+        // onClick={handleClick}
       />
       <Menu
         // id="basic-menu"
@@ -100,15 +119,26 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
 
   return (
     <div className={classes.root}>
+      <div className={classes.titleText}>Settings</div>
       <Paper elevation={0} className={classes.topPaper}>
-        <Typography variant="h5">Generate your token</Typography>
+        <div className={classes.token}>Tokens</div>
+        <Divider className={classes.divider} />
         <Grid container spacing={2} className={classes.inputWrapper}>
-          <Grid item sm={12} lg={9}>
+          <Grid item sm={12} lg={5}>
+            <div className={classes.paperTextDark}>Enter your domain name</div>
+          </Grid>
+          <Grid item sm={12} lg={4}>
             <TextField
-              label="Enter your website link here"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
+              customStyles={classes.textField}
             />
+            <div className={classes.info}>
+              <InfoIcon className={classes.infoIcon} />
+              <div className={classes.paperTextLight}>
+                Enter the domain name where you want to load the plugin.
+              </div>
+            </div>
           </Grid>
           <Grid item sm={12} lg={3}>
             <Button
@@ -116,6 +146,7 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
               label="Generate your token"
               variant="contained"
               fullWidth
+              customStyles={classes.tokenGenerateButton}
               onClick={() => {
                 if (
                   website &&
@@ -128,24 +159,30 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
             />
           </Grid>
         </Grid>
-        <Link to="/" className={classes.link}>
-          Learn more
-        </Link>
-      </Paper>
-      <Typography variant="body2" color="GrayText">
-        TOKENS
-      </Typography>
-      <Paper elevation={0} className={classes.bottomPaper}>
-        {tokenList?.map((data) => (
-          <TokenComponent
-            key={data._id}
-            data={data}
-            actions={actions}
-            classes={classes}
-          />
-        )) || (
-          <Box sx={{ p: '5%', textAlign: 'center' }}>No tokens available</Box>
-        )}
+        <div className={classes.paperTextDark}>Tokens</div>
+        <Divider className={classes.divider} />
+        <div className={classes.tokenList}>
+          {tokenList?.length !== 0 ? (
+            tokenList?.map((data) => (
+              <>
+                <TokenComponent
+                  key={data._id}
+                  data={data}
+                  actions={actions}
+                  classes={classes}
+                />
+                <Divider className={classes.divider} />
+              </>
+            ))
+          ) : (
+            <Box
+              sx={{ p: '3%', textAlign: 'center' }}
+              className={classes.paperTextLight}
+            >
+              No tokens available
+            </Box>
+          )}
+        </div>
       </Paper>
     </div>
   );
