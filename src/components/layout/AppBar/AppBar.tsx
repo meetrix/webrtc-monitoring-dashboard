@@ -14,17 +14,13 @@ import {
   VideocamOutlined,
   AccountCircle,
   ExitToApp,
-  Settings,
   Menu,
   Help,
-  ExpandMore,
 } from '@mui/icons-material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
-
 import clsx from 'clsx';
 import { Dropdown } from '../../Dropdown';
-import { Logo } from '../../../assets/icons';
 
 const styles = (theme: Theme) => {
   return createStyles({
@@ -67,17 +63,6 @@ const styles = (theme: Theme) => {
       flexGrow: 1,
       textAlign: 'right',
     },
-    leftWrapper: {
-      display: 'flex',
-      flexGrow: 1,
-    },
-    logo: {
-      height: 35,
-      marginRight: '3vw',
-    },
-    dropdownIcon: {
-      marginLeft: 5,
-    },
     profileWrapper: {
       paddingBottom: 0,
       paddingTop: 0,
@@ -99,7 +84,7 @@ const styles = (theme: Theme) => {
       color: theme.palette.primary.main,
       fontWeight: 500,
     },
-    dropdown: {
+    profileDropdown: {
       position: 'absolute !important' as 'absolute',
       right: '20px !important',
       transform: 'none !important',
@@ -118,9 +103,7 @@ export interface IAppBarProps extends WithStyles<typeof styles> {
 const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
   const navigate = useNavigate();
 
-  const [mtnAnchorEl, setMtnAnchorEl] = useState(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
-  const [reportingAnchorEl, setReportingAnchorEl] = useState(null);
   const [mobileView, setMobileView] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -140,16 +123,8 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
   }, []);
   const { user } = auth;
 
-  const toggleMeetingMenu = (event: any) => {
-    setMtnAnchorEl(event?.currentTarget);
-  };
-
   const toggleProfile = (event: any) => {
     setProfileAnchorEl(event?.currentTarget);
-  };
-
-  const toggleReporting = (event: any) => {
-    setReportingAnchorEl(event?.currentTarget);
   };
 
   const menuOptions = [
@@ -175,11 +150,6 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
       id: 'help-support',
       onClick: () => console.log('Clicked'),
       icon: <Help fontSize="small" />,
-    },
-    {
-      label: 'Settings',
-      onClick: () => navigate('/settings'),
-      icon: <Settings fontSize="small" />,
     },
     {
       label: 'Sign Out',
@@ -208,36 +178,8 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
         <Toolbar className={classes.toolbar}>
           <div className={clsx(classes.itemsWrapper, 'max-width-responsive')}>
             <div className={classes.title}>WebRTC Monitor Console</div>
-            {/* <img
-              className={classes.logo}
-              src={Logo}
-              alt="meeting-manager-logo"
-            /> */}
             {!mobileView && (
               <div className={classes.largeView}>
-                {/* <div className={classes.leftWrapper}>
-                  {menuOptions.map((item) => (
-                    <MenuItem onClick={() => item.onClick()} id={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                  <MenuItem onClick={(e) => toggleReporting(e)}>
-                    Reporting
-                    <ExpandMore
-                      fontSize="small"
-                      color="inherit"
-                      className={classes.dropdownIcon}
-                    />
-                  </MenuItem>
-                </div> */}
-                {/* <MenuItem onClick={(e) => toggleMeetingMenu(e)}>
-                  Host A Meeting
-                  <ExpandMore
-                    fontSize="small"
-                    color="inherit"
-                    className={classes.dropdownIcon}
-                  />
-                </MenuItem> */}
                 <MenuItem onClick={(e) => toggleProfile(e)} disableRipple>
                   {/* <AccountCircle className={classes.avatar} /> */}
                   <Avatar
@@ -264,43 +206,15 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
           </div>
         </Toolbar>
       </AppBar>
-      {/* <Dropdown
-        id="app-bar-meeting-more-option-button"
-        open={Boolean(mtnAnchorEl)}
-        anchorRef={mtnAnchorEl}
-        handleClose={() => toggleMeetingMenu(null)}
-        itemList={meetingMenuList}
-      /> */}
       <Dropdown
         id="app-bar-profile-more-option-button"
         open={Boolean(profileAnchorEl)}
         anchorRef={profileAnchorEl}
         handleClose={() => toggleProfile(null)}
         itemList={profileMenuList}
-        customStyles={classes.dropdown}
+        customStyles={classes.profileDropdown}
         profileDropdown
       />
-      {/* <Dropdown
-        id="app-bar-reporting-button"
-        open={Boolean(reportingAnchorEl)}
-        anchorRef={reportingAnchorEl}
-        handleClose={() => toggleReporting(null)}
-        itemList={reportingMenuList}
-      /> */}
-      {/* <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={false}
-      >
-        <MenuItem onClick={(e) => toggleProfile(e)}>
-          <AccountCircle className={classes.avatar} />
-          {user?.profile?.name}
-        </MenuItem>
-        {menuOptions.map((item) => (
-          <MenuItem onClick={() => item.onClick()}>{item.name}</MenuItem>
-        ))}
-      </Drawer> */}
       <SwipeableDrawer
         anchor="right"
         open={drawerOpen}
