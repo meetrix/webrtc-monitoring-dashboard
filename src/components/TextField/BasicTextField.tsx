@@ -49,6 +49,8 @@ export interface ITextFieldProps
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   autoFocus?: boolean;
   customStyles?: string;
+  multipleLine?: boolean;
+  rows?: number;
 }
 
 export const TextFieldComponent: React.FC<ITextFieldProps> = ({
@@ -67,6 +69,8 @@ export const TextFieldComponent: React.FC<ITextFieldProps> = ({
   required = false,
   autoFocus = false,
   customStyles,
+  multipleLine = false,
+  rows,
   ...otherProps
 }: ITextFieldProps) => {
   return (
@@ -88,6 +92,8 @@ export const TextFieldComponent: React.FC<ITextFieldProps> = ({
       onBlur={onBlur}
       autoFocus={autoFocus}
       size="small"
+      multiline={multipleLine}
+      rows={rows}
     />
   );
 };

@@ -82,37 +82,37 @@ const Sidebar = ({ classes }: ISidebarProps) => {
   const SidebarItems = [
     {
       label: 'Home',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <HomeRoundedIcon />,
       subItem: false,
     },
     {
       label: 'Troubleshooter',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: '',
       subItem: true,
     },
     {
       label: 'Overview',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <EqualizerRoundedIcon />,
       subItem: false,
     },
     {
       label: 'Detailed View',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
     {
       label: 'Debugger',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: '',
       subItem: true,
     },
     {
       label: 'Incoming Connections',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <CallRoundedIcon />,
       subItem: false,
     },

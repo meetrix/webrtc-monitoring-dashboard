@@ -39,14 +39,17 @@ const styles = (theme: Theme) => {
       // borderColor: theme.palette.secondary.light,
     },
     tokenTitleWrapper: {
-      flexGrow: 1,
+      marginRight: '7rem',
+      '@media only screen and (max-width: 1024px)': {
+        marginRight: '5rem',
+      },
     },
-    moreButton: {
+    configureButton: {
       margin: theme.spacing(0, 2),
       '& .MuiButton-outlined': {
         border: '1px solid #DAE3FA',
         color: '#5F5F5F',
-        padding: '6px 20px',
+        padding: '6px 35px',
         '&:hover': {
           backgroundColor: 'transparent',
           borderColor: '#DAE3FA',
@@ -124,6 +127,31 @@ const styles = (theme: Theme) => {
     tokenList: {
       overflow: 'auto',
       maxHeight: 'calc(92vh - 371px)',
+    },
+    configTypesDropdown: {
+      display: 'flex',
+      height: '25px',
+      marginRight: '100px',
+      width: '24rem',
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '& .MuiSvgIcon-root': {
+        color: '#4A74E9',
+      },
+      '& .MuiList-root-MuiMenu-list': {
+        color: '#4A74E9',
+        fontSize: '20px !important',
+      },
+    },
+    textFieldWidth: {
+      width: '24rem',
     },
   });
 };

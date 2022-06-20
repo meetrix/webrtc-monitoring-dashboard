@@ -14,6 +14,7 @@ import { IncomingConnections } from '../features/incomingConnections';
 import { CallStatMonitoring } from '../features/callStats';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
+import { Home } from '../features/home';
 
 const routesList = [
   {
@@ -75,6 +76,13 @@ const routesList = [
     component: <ResetLinkExpirationMessage />,
     hasNavbar: true,
     hasFooter: true,
+  },
+  {
+    path: '/dashboard',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <Home />,
+    hasNavbar: true,
   },
   {
     path: '/dashboard/incoming-connections',
