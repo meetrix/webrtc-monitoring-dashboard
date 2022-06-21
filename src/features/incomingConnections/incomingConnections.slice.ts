@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
+  iceServerConfigSetApi,
   pluginCreateApi,
   pluginGetAllApi,
   pluginRegenerateApi,
@@ -79,6 +80,18 @@ export const pluginRegenerateAsync = createAsyncThunk(
   }
 );
 
+export const iceServerConfigSetAsync = createAsyncThunk(
+  'plugin/setConfig',
+  async (data: any, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await iceServerConfigSetApi(data);
+      return response?.data?.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const incomingConnectionsSlice = createSlice({
   name: 'incomingConnections',
   initialState,
@@ -145,6 +158,20 @@ export const incomingConnectionsSlice = createSlice({
       ];
     });
     builder.addCase(pluginRegenerateAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(iceServerConfigSetAsync.pending, (state, action) => {
+      state.loading = true;
+      state.responseStatus = 'false';
+    });
+    builder.addCase(iceServerConfigSetAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.responseStatus = 'true';
+      state.plugins.push(action.payload);
+    });
+    builder.addCase(iceServerConfigSetAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

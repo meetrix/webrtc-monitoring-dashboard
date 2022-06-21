@@ -23,20 +23,10 @@ const styles = (theme: Theme) => {
       fontSize: theme.typography.body2.fontSize,
       fontWeight: 500,
     },
-    // bottomPaper: {
-    //   flexGrow: 1,
-    //   overflow: 'auto',
-    //   borderBottom: '1px solid',
-    //   borderBottomColor: theme.palette.secondary.light,
-    //   marginTop: '1vh',
-    // },
     tokenRoot: {
       paddingTop: 10,
       display: 'flex',
       alignItems: 'center',
-      // border: '1px solid',
-      // borderBottom: '0px',
-      // borderColor: theme.palette.secondary.light,
     },
     tokenTitleWrapper: {
       marginRight: '7rem',
@@ -73,7 +63,6 @@ const styles = (theme: Theme) => {
     token: {
       fontSize: theme.typography.h6.fontSize,
       color: '#5F5F5F',
-
       fontWeight: 500,
     },
     divider: {
@@ -145,13 +134,22 @@ const styles = (theme: Theme) => {
       '& .MuiSvgIcon-root': {
         color: '#4A74E9',
       },
-      '& .MuiList-root-MuiMenu-list': {
-        color: '#4A74E9',
-        fontSize: '20px !important',
-      },
     },
     textFieldWidth: {
       width: '24rem',
+    },
+    settingsSaveButton: {
+      height: 'auto',
+      width: '24rem',
+      paddingTop: '10px',
+    },
+    passwordTextField: {
+      width: '24rem !important',
+      margin: '0px',
+      '& .MuiSvgIcon-root': {
+        color: '#4A74E9',
+        fontSize: theme.typography.body1.fontSize,
+      },
     },
   });
 };

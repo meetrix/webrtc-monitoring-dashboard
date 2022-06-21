@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
 import {
   Grid,
-  // Menu,
   Paper,
-  // Typography,
   ButtonProps,
   Divider,
   SelectChangeEvent,
@@ -20,7 +18,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import clsx from 'clsx';
 import styles from './incomingConnections.styles';
-import { TextField } from '../../components/TextField';
+import { PasswordTextField, TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { IPlugin } from './incomingConnections.slice';
 
@@ -30,6 +28,7 @@ export interface IIncomingConnectionsView
   actions: any;
 }
 
+// Component for all the tokens
 const TokenComponent = ({
   data,
   actions,
@@ -42,12 +41,8 @@ const TokenComponent = ({
   classes: any;
   setServerSettingsPage: Function;
   setDomainName: Function;
-  // isServerSettingsPage: boolean;
 }) => {
   const { domain, _id /* ,createdAt */ } = data;
-  // const [isServerSettingsPage, setIsServerSettingsPage] = useState<boolean>(
-  //   false
-  // );
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const open = Boolean(anchorEl);
   // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -126,8 +121,16 @@ const TokenComponent = ({
   );
 };
 
-const URLFetchComponent = ({ classes }: { classes: any }) => {
-  const [url, setURL] = React.useState('');
+// Component for URL ICE server config mode
+const URLFetchComponent = ({
+  classes,
+  actions,
+}: {
+  classes: any;
+  actions: any;
+}) => {
+  const [url, setURL] = useState('');
+
   return (
     <Grid container spacing={2} className={classes.inputWrapper}>
       <Grid item sm={5} lg={5}>
@@ -139,13 +142,49 @@ const URLFetchComponent = ({ classes }: { classes: any }) => {
           onChange={(e) => setURL(e.target.value)}
           customStyles={clsx(classes.textField, classes.textFieldWidth)}
         />
+        <Button
+          id="url-save-settings"
+          label="Save settings"
+          variant="contained"
+          fullWidth
+          customStyles={classes.settingsSaveButton}
+          onClick={() => {
+            if (url && url.length > 0) {
+              actions.setICEServerConfig({
+                mode: 'url',
+                url,
+              });
+            }
+          }}
+        />
       </Grid>
     </Grid>
   );
 };
 
-const StaticICEServerComponent = ({ classes }: { classes: any }) => {
-  const [JSONArray, setJSONArray] = React.useState('');
+// Component for static ICE server config mode
+const StaticICEServerComponent = ({
+  classes,
+  actions,
+}: {
+  classes: any;
+  actions: any;
+}) => {
+  const [staticInput, setStaticInput] = useState('');
+  const [jsonValue, setjsonValue] = useState(null);
+
+  useEffect(() => {
+    if (staticInput && staticInput.length > 0) {
+      try {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setjsonValue(JSON.parse(staticInput));
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log('Input value is not a valid JSON string');
+      }
+    }
+  }, [staticInput]);
+
   return (
     <Grid container spacing={2} className={classes.inputWrapper}>
       <Grid item sm={5} lg={5}>
@@ -153,19 +192,42 @@ const StaticICEServerComponent = ({ classes }: { classes: any }) => {
       </Grid>
       <Grid item sm={7} lg={7}>
         <TextField
-          value={JSONArray}
-          onChange={(e) => setJSONArray(e.target.value)}
+          value={staticInput}
+          onChange={(e) => setStaticInput(e.target.value)}
           customStyles={clsx(classes.textField, classes.textFieldWidth)}
           multipleLine
           rows={6}
+        />
+        <Button
+          id="static-save-settings"
+          label="Save settings"
+          variant="contained"
+          fullWidth
+          customStyles={classes.settingsSaveButton}
+          onClick={() => {
+            if (jsonValue && jsonValue !== null) {
+              actions.setICEServerConfig({
+                mode: 'static',
+                iceServers: jsonValue,
+              });
+            }
+          }}
         />
       </Grid>
     </Grid>
   );
 };
 
-const SharedSecretComponent = ({ classes }: { classes: any }) => {
-  const [url, setURL] = React.useState('');
+// Component for shared secret ICE server config mode
+const SharedSecretComponent = ({
+  classes,
+  actions,
+}: {
+  classes: any;
+  actions: any;
+}) => {
+  const [uri, setURI] = useState('');
+  const [secret, setSecret] = useState('');
   return (
     <>
       <Grid container spacing={2} className={classes.inputWrapper}>
@@ -174,8 +236,9 @@ const SharedSecretComponent = ({ classes }: { classes: any }) => {
         </Grid>
         <Grid item sm={7} lg={7}>
           <TextField
-            value={url}
-            onChange={(e) => setURL(e.target.value)}
+            id="shared-secret-uri"
+            value={uri}
+            onChange={(e) => setURI(e.target.value)}
             customStyles={clsx(classes.textField, classes.textFieldWidth)}
           />
         </Grid>
@@ -185,10 +248,26 @@ const SharedSecretComponent = ({ classes }: { classes: any }) => {
           <div className={classes.paperTextDark}>Shared Secret</div>
         </Grid>
         <Grid item sm={7} lg={7}>
-          <TextField
-            value={url}
-            onChange={(e) => setURL(e.target.value)}
-            customStyles={clsx(classes.textField, classes.textFieldWidth)}
+          <PasswordTextField
+            id="shared-secret"
+            onChange={(e) => setSecret(e.target.value)}
+            customStyles={clsx(classes.textField, classes.passwordTextField)}
+          />
+          <Button
+            id="shared-secret-save-settings"
+            label="Save settings"
+            variant="contained"
+            fullWidth
+            customStyles={classes.settingsSaveButton}
+            onClick={() => {
+              if (uri && uri.length > 0 && secret && secret.length) {
+                actions.setICEServerConfig({
+                  mode: 'shared-secret',
+                  uri,
+                  secret,
+                });
+              }
+            }}
           />
         </Grid>
       </Grid>
@@ -207,35 +286,57 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
   );
   const [domain, setDomain] = useState<string>('');
   const [configTypes, setConfigTypes] = useState<string>('url-fetch');
+  const guideLink = (
+    // eslint-disable-next-line react/jsx-no-target-blank
+    <a
+      href="https://meetrix.io/blog/products/webrtc-monitor/setting-up-webrtc-troubleshooter.html"
+      className={classes.link}
+      target="_blank"
+    >
+      this guide
+    </a>
+  );
   const [settingsPage, setSettingsPage] = useState({
     title: 'Turn Server',
-    info:
-      'A GET API endpoint that returns an array of RTCIceServer objects. Follow this guide to setup your endpoint.  ',
-    component: <URLFetchComponent classes={classes} />,
+    info: (
+      <>
+        A GET API endpoint that returns an array of RTCIceServer objects. Follow
+        &nbsp;{guideLink}&nbsp; this guide to setup your endpoint.
+      </>
+    ),
+    component: <URLFetchComponent classes={classes} actions={actions} />,
   });
 
-  const renderTabContent = (value: string) => {
+  const staticConfigData = (value: string) => {
     switch (value) {
       case 'url-fetch':
         setSettingsPage({
           title: 'Turn Server',
-          info:
-            'A GET API endpoint that returns an array of RTCIceServer objects. Follow this guide to setup your endpoint.  ',
-          component: <URLFetchComponent classes={classes} />,
+          info: (
+            <>
+              A GET API endpoint that returns an array of RTCIceServer objects.
+              Follow &nbsp;{guideLink}&nbsp; to setup your endpoint.
+            </>
+          ),
+          component: <URLFetchComponent classes={classes} actions={actions} />,
         });
         break;
       case 'static-ICE-servers':
         setSettingsPage({
           title: 'ICE Servers',
-          info: 'JSON array of RTCIceServer objects',
-          component: <StaticICEServerComponent classes={classes} />,
+          info: <>JSON array of RTCIceServer objects.</>,
+          component: (
+            <StaticICEServerComponent classes={classes} actions={actions} />
+          ),
         });
         break;
       case 'shared-secret':
         setSettingsPage({
           title: 'ICE Servers',
-          info: 'TURN URI & shared secret',
-          component: <SharedSecretComponent classes={classes} />,
+          info: <>TURN URI &amp; shared secret.</>,
+          component: (
+            <SharedSecretComponent classes={classes} actions={actions} />
+          ),
         });
         break;
       default:
@@ -244,7 +345,7 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
   };
   const handleChange = (event: SelectChangeEvent) => {
     setConfigTypes(event.target.value as string);
-    renderTabContent(event.target.value as string);
+    staticConfigData(event.target.value as string);
   };
   const handleConfigureButton = (value: boolean) => {
     setIsServerSettingsPage(value);
@@ -272,7 +373,9 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
                     value={configTypes}
                     onChange={handleChange}
                     displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                    inputProps={{
+                      'aria-label': 'Without label',
+                    }}
                     className={clsx(
                       classes.paperTextDark,
                       classes.configTypesDropdown
@@ -281,19 +384,19 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
                   >
                     <MenuItem
                       value="url-fetch"
-                      // className={classes.paperTextDark}
+                      className={classes.paperTextDark}
                     >
                       URL Fetch
                     </MenuItem>
                     <MenuItem
                       value="static-ICE-servers"
-                      // className={classes.paperTextDark}
+                      className={classes.paperTextDark}
                     >
                       Static ICE Servers
                     </MenuItem>
                     <MenuItem
                       value="shared-secret"
-                      // className={classes.paperTextDark}
+                      className={classes.paperTextDark}
                     >
                       Shared Secret
                     </MenuItem>
