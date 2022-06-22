@@ -59,6 +59,7 @@ const TokenComponent = ({
   //   handleClose();
   //   actions.regenerateToken(_id);
   // };
+
   const handleConfigureButton = () => {
     setServerSettingsPage(true);
     setDomainName(domain);
@@ -125,9 +126,11 @@ const TokenComponent = ({
 const URLFetchComponent = ({
   classes,
   actions,
+  token,
 }: {
   classes: any;
   actions: any;
+  token: string;
 }) => {
   const [url, setURL] = useState('');
 
@@ -151,8 +154,11 @@ const URLFetchComponent = ({
           onClick={() => {
             if (url && url.length > 0) {
               actions.setICEServerConfig({
-                mode: 'url',
-                url,
+                id: token,
+                data: {
+                  mode: 'url',
+                  url,
+                },
               });
             }
           }}
@@ -166,9 +172,11 @@ const URLFetchComponent = ({
 const StaticICEServerComponent = ({
   classes,
   actions,
+  token,
 }: {
   classes: any;
   actions: any;
+  token: string;
 }) => {
   const [staticInput, setStaticInput] = useState('');
   const [jsonValue, setjsonValue] = useState(null);
@@ -207,8 +215,11 @@ const StaticICEServerComponent = ({
           onClick={() => {
             if (jsonValue && jsonValue !== null) {
               actions.setICEServerConfig({
-                mode: 'static',
-                iceServers: jsonValue,
+                id: token,
+                data: {
+                  mode: 'static',
+                  iceServers: jsonValue,
+                },
               });
             }
           }}
@@ -222,12 +233,15 @@ const StaticICEServerComponent = ({
 const SharedSecretComponent = ({
   classes,
   actions,
+  token,
 }: {
   classes: any;
   actions: any;
+  token: string;
 }) => {
   const [uri, setURI] = useState('');
   const [secret, setSecret] = useState('');
+
   return (
     <>
       <Grid container spacing={2} className={classes.inputWrapper}>
@@ -262,9 +276,12 @@ const SharedSecretComponent = ({
             onClick={() => {
               if (uri && uri.length > 0 && secret && secret.length) {
                 actions.setICEServerConfig({
-                  mode: 'shared-secret',
-                  uri,
-                  secret,
+                  id: token,
+                  data: {
+                    mode: 'shared-secret',
+                    uri,
+                    secret,
+                  },
                 });
               }
             }}
@@ -285,6 +302,7 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
     false
   );
   const [domain, setDomain] = useState<string>('');
+  const [token, setToken] = useState<string>('');
   const [configTypes, setConfigTypes] = useState<string>('url-fetch');
   const guideLink = (
     // eslint-disable-next-line react/jsx-no-target-blank
@@ -304,7 +322,9 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
         &nbsp;{guideLink}&nbsp; this guide to setup your endpoint.
       </>
     ),
-    component: <URLFetchComponent classes={classes} actions={actions} />,
+    component: (
+      <URLFetchComponent classes={classes} actions={actions} token={token} />
+    ),
   });
 
   const staticConfigData = (value: string) => {
@@ -318,7 +338,13 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
               Follow &nbsp;{guideLink}&nbsp; to setup your endpoint.
             </>
           ),
-          component: <URLFetchComponent classes={classes} actions={actions} />,
+          component: (
+            <URLFetchComponent
+              classes={classes}
+              actions={actions}
+              token={token}
+            />
+          ),
         });
         break;
       case 'static-ICE-servers':
@@ -326,7 +352,11 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
           title: 'ICE Servers',
           info: <>JSON array of RTCIceServer objects.</>,
           component: (
-            <StaticICEServerComponent classes={classes} actions={actions} />
+            <StaticICEServerComponent
+              classes={classes}
+              actions={actions}
+              token={token}
+            />
           ),
         });
         break;
@@ -335,7 +365,11 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
           title: 'ICE Servers',
           info: <>TURN URI &amp; shared secret.</>,
           component: (
-            <SharedSecretComponent classes={classes} actions={actions} />
+            <SharedSecretComponent
+              classes={classes}
+              actions={actions}
+              token={token}
+            />
           ),
         });
         break;
@@ -347,8 +381,16 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
     setConfigTypes(event.target.value as string);
     staticConfigData(event.target.value as string);
   };
-  const handleConfigureButton = (value: boolean) => {
-    setIsServerSettingsPage(value);
+
+  const handleConfigureButton = ({
+    isConfigSettingsPage,
+    selectedToken,
+  }: {
+    isConfigSettingsPage: boolean;
+    selectedToken: string;
+  }) => {
+    setIsServerSettingsPage(isConfigSettingsPage);
+    setToken(selectedToken);
   };
   const handleDomain = (value: string) => {
     setDomain(value);
@@ -471,7 +513,12 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
                       data={data}
                       actions={actions}
                       classes={classes}
-                      setServerSettingsPage={handleConfigureButton}
+                      setServerSettingsPage={() =>
+                        handleConfigureButton({
+                          isConfigSettingsPage: true,
+                          selectedToken: data._id,
+                        })
+                      }
                       setDomainName={handleDomain}
                     />
                     <Divider className={classes.divider} />
