@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
+  iceServerConfigGetApi,
   iceServerConfigSetApi,
   pluginCreateApi,
   pluginGetAllApi,
@@ -20,6 +21,7 @@ export interface IIncomingConnectionsState {
   responseMessage: string;
   error: any;
   plugins: IPlugin[];
+  config: any;
 }
 
 const initialState: IIncomingConnectionsState = {
@@ -28,6 +30,7 @@ const initialState: IIncomingConnectionsState = {
   responseMessage: '',
   error: null,
   plugins: [],
+  config: null,
 };
 
 // TODO: maybe give plugin its own slice
@@ -85,6 +88,18 @@ export const iceServerConfigSetAsync = createAsyncThunk(
   async (data: any, { rejectWithValue, dispatch }) => {
     try {
       const response = await iceServerConfigSetApi(data);
+      return response?.data?.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const iceServerConfigGetAsync = createAsyncThunk(
+  'plugin/getConfig',
+  async (data: any, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await iceServerConfigGetApi(data);
       return response?.data?.data;
     } catch (error: any) {
       return rejectWithValue(error);
@@ -169,9 +184,23 @@ export const incomingConnectionsSlice = createSlice({
     builder.addCase(iceServerConfigSetAsync.fulfilled, (state, action) => {
       state.loading = false;
       state.responseStatus = 'true';
-      state.plugins.push(action.payload);
+      state.config = action.payload;
     });
     builder.addCase(iceServerConfigSetAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(iceServerConfigGetAsync.pending, (state, action) => {
+      state.loading = true;
+      state.responseStatus = 'false';
+    });
+    builder.addCase(iceServerConfigGetAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.responseStatus = 'true';
+      state.config = action.payload;
+    });
+    builder.addCase(iceServerConfigGetAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
@@ -182,5 +211,6 @@ export const { actions } = incomingConnectionsSlice;
 
 export const selectPlugins = (state: RootState) =>
   state.incomingConnections.plugins;
+export const selectConfig = (state: RootState) => state.incomingConnections;
 
 export default incomingConnectionsSlice.reducer;

@@ -151,6 +151,15 @@ const styles = (theme: Theme) => {
         fontSize: theme.typography.body1.fontSize,
       },
     },
+    alert: {
+      display: 'flex',
+      position: 'absolute',
+      bottom: '20px',
+      right: '20px',
+      '& .inputWrapper': {
+        margin: 0,
+      },
+    },
   });
 };
 

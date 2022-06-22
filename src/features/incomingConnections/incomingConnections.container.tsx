@@ -5,6 +5,7 @@ import IncomingConnections from './incomingConnections.view';
 import { getUrlParams } from '../../utils/urlUtils';
 import { mockIncomingConnection } from '../../mocks/report';
 import {
+  iceServerConfigGetAsync,
   iceServerConfigSetAsync,
   pluginCreateAsync,
   pluginGetAllAsync,
@@ -44,6 +45,9 @@ const IncomingConnectionsAsyncContainer: React.FC<IIncomingConnectionsAsyncConta
         },
         setICEServerConfig: (data: any) => {
           dispatch<any>(iceServerConfigSetAsync(data));
+        },
+        getICEServerConfig: (data: any) => {
+          dispatch<any>(iceServerConfigGetAsync(data));
         },
       }}
       tokenList={IncomingConnectionMock}

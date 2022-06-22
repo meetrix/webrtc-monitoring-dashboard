@@ -35,3 +35,7 @@ export const iceServerConfigSetApi = ({
 }) => {
   return api.put(`plugins/${id}/ice-servers`, data);
 };
+
+export const iceServerConfigGetApi = (id: string) => {
+  return api.get(`plugins/${id}/ice-servers`);
+};
