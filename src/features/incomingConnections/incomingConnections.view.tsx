@@ -33,6 +33,8 @@ export interface IIncomingConnectionsView
   extends WithStyles<ButtonProps & typeof styles> {
   tokenList: IPlugin[] | null;
   actions: any;
+  config: any;
+  iceServerConfigType: string;
 }
 
 // Component for all the tokens
@@ -133,6 +135,8 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
   classes,
   tokenList,
   actions,
+  iceServerConfigType,
+  config,
 }: IIncomingConnectionsView) => {
   const [website, setWebsite] = React.useState('');
   const [isServerSettingsPage, setIsServerSettingsPage] = useState<boolean>(
@@ -140,7 +144,8 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
   );
   const [domain, setDomain] = useState<string>('');
   const [token, setToken] = useState<string>('');
-  const [configTypes, setConfigTypes] = useState<string>('url-fetch');
+  const [configTypes, setConfigTypes] = useState<string>('url');
+
   const guideLink = (
     // eslint-disable-next-line react/jsx-no-target-blank
     <a
@@ -177,12 +182,11 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
         &nbsp;{guideLink}&nbsp; this guide to setup your endpoint.
       </>
     ),
-    configType: 'url-fetch',
   });
 
   const staticConfigData = (value: string) => {
     switch (value) {
-      case 'url-fetch':
+      case 'url':
         setSettingsPage({
           title: 'Turn Server',
           info: (
@@ -191,21 +195,28 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
               Follow &nbsp;{guideLink}&nbsp; to setup your endpoint.
             </>
           ),
-          configType: 'url-fetch',
         });
         break;
-      case 'static-ICE-servers':
+      case 'static':
         setSettingsPage({
           title: 'ICE Servers',
-          info: <>JSON array of RTCIceServer objects.</>,
-          configType: 'static-ICE-servers',
+          info: (
+            <>
+              JSON array of RTCIceServer objects. Follow &nbsp;{guideLink}&nbsp;
+              to setup your endpoint.
+            </>
+          ),
         });
         break;
       case 'shared-secret':
         setSettingsPage({
           title: 'ICE Servers',
-          info: <>TURN URI &amp; shared secret.</>,
-          configType: 'shared-secret',
+          info: (
+            <>
+              TURN URI &amp; shared secret. Follow &nbsp;{guideLink}&nbsp; to
+              setup your endpoint.
+            </>
+          ),
         });
         break;
       default:
@@ -218,6 +229,13 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, isServerSettingsPage]);
 
+  useEffect(() => {
+    // eslint-disable-next-line no-lone-blocks
+    {
+      // eslint-disable-next-line no-unused-expressions
+      config ? setConfigTypes(iceServerConfigType) : setConfigTypes('url');
+    }
+  }, [config, token]);
   return (
     <div className={classes.root}>
       {isServerSettingsPage ? (
@@ -255,14 +273,14 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
                     variant="outlined"
                   >
                     <MenuItem
-                      value="url-fetch"
+                      value="url"
                       className={classes.paperTextDark}
                       key="url-fetch"
                     >
                       URL Fetch
                     </MenuItem>
                     <MenuItem
-                      value="static-ICE-servers"
+                      value="static"
                       className={classes.paperTextDark}
                       key="static-ICE-servers"
                     >
@@ -292,19 +310,19 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
               classes={classes}
               actions={actions}
               token={token}
-              type={settingsPage.configType}
+              type={configTypes}
             />
             <StaticICEServerComponent
               classes={classes}
               actions={actions}
               token={token}
-              type={settingsPage.configType}
+              type={configTypes}
             />
             <SharedSecretComponent
               classes={classes}
               actions={actions}
               token={token}
-              type={settingsPage.configType}
+              type={configTypes}
             />
           </Paper>
         </>

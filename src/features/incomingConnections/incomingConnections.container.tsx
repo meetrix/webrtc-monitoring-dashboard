@@ -11,6 +11,7 @@ import {
   pluginGetAllAsync,
   pluginRegenerateAsync,
   pluginRevokeAsync,
+  selectConfig,
   selectPlugins,
 } from './incomingConnections.slice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -22,7 +23,8 @@ const IncomingConnectionsAsyncContainer: React.FC<IIncomingConnectionsAsyncConta
 
   const plugins = useAppSelector(selectPlugins);
   const dispatch = useAppDispatch();
-
+  const iceServerConfig = useAppSelector(selectConfig);
+  const { config, iceServerConfigType } = iceServerConfig;
   useEffect(() => {
     if (!mockStats) {
       dispatch<any>(pluginGetAllAsync());
@@ -51,6 +53,8 @@ const IncomingConnectionsAsyncContainer: React.FC<IIncomingConnectionsAsyncConta
         },
       }}
       tokenList={IncomingConnectionMock}
+      config={config}
+      iceServerConfigType={iceServerConfigType}
     />
   );
 };

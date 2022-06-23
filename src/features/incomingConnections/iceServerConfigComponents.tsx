@@ -20,7 +20,6 @@ const renderResponseMessage = ({
   // eslint-disable-next-line @typescript-eslint/ban-types
   setSaveButtonClicked: Function;
 }) => {
-  // if (responseMessage) {
   if (responseStatus && config) {
     return (
       <div>
@@ -47,7 +46,6 @@ const renderResponseMessage = ({
       </Alert>
     );
   }
-  // }
   return null;
 };
 export const URLFetchComponent = ({
@@ -77,7 +75,7 @@ export const URLFetchComponent = ({
   return (
     <div>
       <Grid container spacing={2} className={classes.inputWrapper}>
-        {type === 'url-fetch' && (
+        {type === 'url' && (
           <>
             <Grid item sm={5} lg={5}>
               <div className={classes.paperTextDark}>URL</div>
@@ -143,7 +141,7 @@ export const StaticICEServerComponent = ({
   useEffect(() => {
     if (config && config !== null) {
       if (config.mode === 'static' && config.pluginId === token) {
-        setStaticInput(JSON.stringify(config.iceServers));
+        setStaticInput(JSON.stringify(config.iceServers, null, 2));
       }
     }
   }, [config]);
@@ -165,7 +163,7 @@ export const StaticICEServerComponent = ({
   return (
     <>
       <Grid container spacing={2}>
-        {type === 'static-ICE-servers' && (
+        {type === 'static' && (
           <>
             <Grid item sm={5} lg={5}>
               <div className={classes.paperTextDark}>Username</div>

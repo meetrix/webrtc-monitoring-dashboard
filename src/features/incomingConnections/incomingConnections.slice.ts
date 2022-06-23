@@ -22,6 +22,7 @@ export interface IIncomingConnectionsState {
   error: any;
   plugins: IPlugin[];
   config: any;
+  iceServerConfigType: string;
 }
 
 const initialState: IIncomingConnectionsState = {
@@ -31,6 +32,7 @@ const initialState: IIncomingConnectionsState = {
   error: null,
   plugins: [],
   config: null,
+  iceServerConfigType: '',
 };
 
 // TODO: maybe give plugin its own slice
@@ -184,7 +186,6 @@ export const incomingConnectionsSlice = createSlice({
     builder.addCase(iceServerConfigSetAsync.fulfilled, (state, action) => {
       state.loading = false;
       state.responseStatus = 'true';
-      state.config = action.payload;
     });
     builder.addCase(iceServerConfigSetAsync.rejected, (state, action) => {
       state.loading = false;
@@ -199,6 +200,7 @@ export const incomingConnectionsSlice = createSlice({
       state.loading = false;
       state.responseStatus = 'true';
       state.config = action.payload;
+      state.iceServerConfigType = action.payload.mode;
     });
     builder.addCase(iceServerConfigGetAsync.rejected, (state, action) => {
       state.loading = false;

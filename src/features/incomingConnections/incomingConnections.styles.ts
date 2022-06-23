@@ -116,6 +116,9 @@ const styles = (theme: Theme) => {
     tokenList: {
       overflow: 'auto',
       maxHeight: 'calc(92vh - 371px)',
+      '@media only screen and (max-width: 1024px)': {
+        maxHeight: 'calc(83vh - 371px)',
+      },
     },
     configTypesDropdown: {
       display: 'flex',
