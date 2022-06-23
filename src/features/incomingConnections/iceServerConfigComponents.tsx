@@ -26,8 +26,7 @@ const renderResponseMessage = ({
       <div>
         <Alert
           severity="success"
-          id="forgot_password_success_alert"
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          id="save_settings_success_alert"
           onClose={() => setSaveButtonClicked(false)}
           className={classes.alert}
         >
@@ -40,7 +39,8 @@ const renderResponseMessage = ({
     return (
       <Alert
         severity="error"
-        id="forgot_password_error_alert"
+        id="save_settings_error_alert"
+        onClose={() => setSaveButtonClicked(false)}
         className={classes.alert}
       >
         ICE server configurations could not save successfully!
