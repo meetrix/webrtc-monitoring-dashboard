@@ -34,7 +34,7 @@ const styles = (theme: Theme) => {
         marginRight: '5rem',
       },
     },
-    configureButton: {
+    tokenItemButton: {
       margin: theme.spacing(0, 2),
       '& .MuiButton-outlined': {
         border: '1px solid #DAE3FA',
@@ -48,6 +48,9 @@ const styles = (theme: Theme) => {
         '&:focus': {
           backgroundColor: 'transparent',
           borderColor: '#DAE3FA',
+        },
+        '@media only screen and (max-width: 1280px)': {
+          padding: '6px 20px',
         },
       },
     },

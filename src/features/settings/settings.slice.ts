@@ -7,7 +7,7 @@ import {
   pluginGetAllApi,
   pluginRegenerateApi,
   pluginRevokeApi,
-} from './incomingConnections.api';
+} from './settings.api';
 
 export interface IPlugin {
   _id: string;
@@ -15,7 +15,7 @@ export interface IPlugin {
   createdAt: string;
 }
 
-export interface IIncomingConnectionsState {
+export interface ISettingsState {
   responseStatus: string;
   loading: boolean;
   responseMessage: string;
@@ -25,7 +25,7 @@ export interface IIncomingConnectionsState {
   iceServerConfigType: string;
 }
 
-const initialState: IIncomingConnectionsState = {
+const initialState: ISettingsState = {
   responseStatus: '',
   loading: false,
   responseMessage: '',
@@ -109,8 +109,8 @@ export const iceServerConfigGetAsync = createAsyncThunk(
   }
 );
 
-export const incomingConnectionsSlice = createSlice({
-  name: 'incomingConnections',
+export const settingsSlice = createSlice({
+  name: 'settings',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -209,10 +209,9 @@ export const incomingConnectionsSlice = createSlice({
   },
 });
 
-export const { actions } = incomingConnectionsSlice;
+export const { actions } = settingsSlice;
 
-export const selectPlugins = (state: RootState) =>
-  state.incomingConnections.plugins;
-export const selectConfig = (state: RootState) => state.incomingConnections;
+export const selectPlugins = (state: RootState) => state.settings.plugins;
+export const selectConfig = (state: RootState) => state.settings;
 
-export default incomingConnectionsSlice.reducer;
+export default settingsSlice.reducer;

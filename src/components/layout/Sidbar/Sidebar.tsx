@@ -124,7 +124,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Settings',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard/settings',
       icon: <ConstructionRoundedIcon />,
       subItem: false,
     },

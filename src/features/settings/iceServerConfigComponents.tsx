@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { PasswordTextField, TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { useAppSelector } from '../../app/hooks';
-import { selectConfig } from './incomingConnections.slice';
+import { selectConfig } from './settings.slice';
 
 const renderResponseMessage = ({
   responseStatus,
@@ -20,7 +20,7 @@ const renderResponseMessage = ({
   // eslint-disable-next-line @typescript-eslint/ban-types
   setSaveButtonClicked: Function;
 }) => {
-  if (responseStatus && config) {
+  if (responseStatus === 'true' && config) {
     return (
       <div>
         <Alert
@@ -34,7 +34,7 @@ const renderResponseMessage = ({
       </div>
     );
   }
-  if (!responseStatus) {
+  if (responseStatus === 'false') {
     return (
       <Alert
         severity="error"
@@ -135,9 +135,11 @@ export const StaticICEServerComponent = ({
   type: string;
 }) => {
   const iceServerConfig = useAppSelector(selectConfig);
-  const { config, responseStatus } = iceServerConfig;
+  const { config } = iceServerConfig;
   const [staticInput, setStaticInput] = useState('');
   const [saveButtonClicked, setSaveButtonClicked] = useState(false);
+  const [jsonValue, setjsonValue] = useState(null);
+  const [responseStatus, setResponseStatus] = useState('');
   useEffect(() => {
     if (config && config !== null) {
       if (config.mode === 'static' && config.pluginId === token) {
@@ -146,15 +148,15 @@ export const StaticICEServerComponent = ({
     }
   }, [config]);
 
-  const [jsonValue, setjsonValue] = useState(null);
-
   useEffect(() => {
     if (staticInput && staticInput.length > 0) {
       try {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setjsonValue(JSON.parse(staticInput));
+        setResponseStatus('true');
       } catch (e) {
         // eslint-disable-next-line no-console
+        setResponseStatus('false');
         console.log('Input value is not a valid JSON string');
       }
     }
@@ -201,6 +203,8 @@ export const StaticICEServerComponent = ({
       </Grid>
 
       {saveButtonClicked &&
+        jsonValue &&
+        staticInput.length > 0 &&
         renderResponseMessage({
           responseStatus,
           config,
@@ -262,6 +266,7 @@ export const SharedSecretComponent = ({
               <PasswordTextField
                 id="shared-secret"
                 onChange={(e) => setSecret(e.target.value)}
+                value={secret}
                 customStyles={clsx(
                   classes.textField,
                   classes.passwordTextField

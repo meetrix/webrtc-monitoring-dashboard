@@ -19,18 +19,17 @@ import { Box } from '@mui/system';
 import InfoIcon from '@mui/icons-material/Info';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import clsx from 'clsx';
-import styles from './incomingConnections.styles';
+import styles from './settings.styles';
 import { TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
-import { IPlugin } from './incomingConnections.slice';
+import { IPlugin } from './settings.slice';
 import {
   SharedSecretComponent,
   StaticICEServerComponent,
   URLFetchComponent,
 } from './iceServerConfigComponents';
 
-export interface IIncomingConnectionsView
-  extends WithStyles<ButtonProps & typeof styles> {
+export interface ISettingsView extends WithStyles<ButtonProps & typeof styles> {
   tokenList: IPlugin[] | null;
   actions: any;
   config: any;
@@ -60,10 +59,9 @@ const TokenComponent = ({
   // const handleClose = () => {
   //   setAnchorEl(null);
   // };
-  // const handleRevoke = () => {
-  //   handleClose();
-  //   actions.revokeToken(_id);
-  // };
+  const handleRevoke = () => {
+    actions.revokeToken(_id);
+  };
   // const handleRegenerate = () => {
   //   handleClose();
   //   actions.regenerateToken(_id);
@@ -102,17 +100,17 @@ const TokenComponent = ({
       </div>
       {/* <Typography variant="body2" className={classes.grayText}>
         {createdAt.substring(0, 10)}
-      </Typography>
+      </Typography> */}
       <Button
-        id="token-more-button"
-        label="More"
-        customStyles={classes.moreButton}
-        onClick={handleClick}
-      /> */}
+        id="token-delete-button"
+        label="Delete"
+        customStyles={classes.tokenItemButton}
+        onClick={handleRevoke}
+      />
       <Button
-        id="token-more-button"
+        id="token-configure-button"
         label="Configure"
-        customStyles={classes.configureButton}
+        customStyles={classes.tokenItemButton}
         onClick={handleConfigureButton}
       />
       {/* <Menu
@@ -131,13 +129,13 @@ const TokenComponent = ({
   );
 };
 
-const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
+const Settings: React.FC<ISettingsView> = ({
   classes,
   tokenList,
   actions,
   iceServerConfigType,
   config,
-}: IIncomingConnectionsView) => {
+}: ISettingsView) => {
   const [website, setWebsite] = React.useState('');
   const [isServerSettingsPage, setIsServerSettingsPage] = useState<boolean>(
     false
@@ -408,4 +406,4 @@ const IncomingConnections: React.FC<IIncomingConnectionsView> = ({
   );
 };
 
-export default withStyles(styles)(IncomingConnections);
+export default withStyles(styles)(Settings);
