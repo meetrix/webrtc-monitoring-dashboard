@@ -12,6 +12,7 @@ import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { IncomingConnections } from '../features/incomingConnections';
 import { CallStatMonitoring } from '../features/callStats';
+import { DetailedView } from '../features/detailedView';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 
@@ -103,6 +104,13 @@ const routesList = [
     hasSidebar: false,
     component: <Troubleshooter />,
     hasNavbar: false,
+  },
+  {
+    path: '/dashboard/detailed-view',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <DetailedView />,
+    hasNavbar: true,
   },
 ];
 

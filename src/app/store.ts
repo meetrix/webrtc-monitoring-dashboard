@@ -9,6 +9,7 @@ import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
 import { resetPasswordReducer } from '../features/resetPassword';
 import { incomingConnectionsReducer } from '../features/incomingConnections';
+import { detailedViewReducer } from '../features/detailedView';
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
     incomingConnections: incomingConnectionsReducer,
+    troubleshooterDetails: detailedViewReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

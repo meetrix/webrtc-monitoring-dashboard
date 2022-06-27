@@ -100,7 +100,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Detailed View',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard/detailed-view',
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
