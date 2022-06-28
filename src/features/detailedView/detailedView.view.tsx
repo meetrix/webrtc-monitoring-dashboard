@@ -35,6 +35,10 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import styles from './detailedView.styles';
 
 interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
@@ -163,6 +167,7 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
   );
 };
 
+// Table header
 const DetailedViewTableHead: React.FC<TableHeadProps> = ({
   classes,
 }: TableHeadProps) => {
@@ -242,11 +247,41 @@ const DetailedView: React.FC<IDetailedView> = ({
   const [orderBy, setOrderBy] = useState<string>('_id');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [configTypes, setConfigTypes] = useState<string>('_id');
+  const [orderValue, setOrderValue] = useState<string>('_id');
   const [sortDirection, setSortDirection] = useState<string>('ascending');
+  const [initialDetailList, setInitialDetailList] = useState(
+    detailViewList && detailViewList.length > 0 ? detailViewList : []
+  );
+
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const tempDetailList: any[] = [];
+
+  useEffect(() => {
+    if (detailViewList && detailViewList.length) {
+      detailViewList
+        .filter((row: any) => {
+          let filterPass = true;
+          const date = new Date(row.createdAt);
+          if (startDate) {
+            filterPass = filterPass && new Date(startDate) < date;
+          }
+          if (endDate) {
+            filterPass = filterPass && new Date(endDate) > date;
+          }
+          // if filterPass comes back `false` the row is filtered out
+          return filterPass;
+        })
+        .map((item: any) => {
+          tempDetailList.push(item);
+        });
+      setInitialDetailList(tempDetailList);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderBy, detailViewList, sortDirection, startDate, endDate]);
 
   const { troubleshooterDetailsForSort } = useSortableData(
-    detailViewList && detailViewList.length > 0 ? detailViewList : [],
+    initialDetailList && initialDetailList.length > 0 ? initialDetailList : [],
     {
       key: orderBy,
       direction: sortDirection,
@@ -255,7 +290,7 @@ const DetailedView: React.FC<IDetailedView> = ({
   const {
     troubleshooterDetailsForBrowserVersionSort,
   } = useBrowserVersionToSort(
-    detailViewList && detailViewList.length > 0 ? detailViewList : [],
+    initialDetailList && initialDetailList.length > 0 ? initialDetailList : [],
     sortDirection
   );
 
@@ -270,7 +305,7 @@ const DetailedView: React.FC<IDetailedView> = ({
       setTroubleshooterDetails(troubleshooterDetailsForSort);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderBy, detailViewList, sortDirection]);
+  }, [orderBy, detailViewList, sortDirection, initialDetailList]);
 
   const sortValue = (value: string) => {
     switch (value) {
@@ -289,7 +324,7 @@ const DetailedView: React.FC<IDetailedView> = ({
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    setConfigTypes(event.target.value as string);
+    setOrderValue(event.target.value as string);
     sortValue(event.target.value as string);
   };
 
@@ -312,7 +347,7 @@ const DetailedView: React.FC<IDetailedView> = ({
     setPage(0);
   };
 
-  const handleBackButtonClick = () => {
+  const handleOrderButtonClick = () => {
     if (sortDirection === 'ascending') {
       setSortDirection('descending');
     }
@@ -324,18 +359,56 @@ const DetailedView: React.FC<IDetailedView> = ({
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item sm={5} lg={5}>
+        <Grid item sm={5} lg={3}>
           <div className={classes.titleText}>
             Troubleshooter &gt; Detailed View
           </div>
         </Grid>
-        <Grid item sm={7} lg={7}>
+        <Grid item sm={5} lg={5} className={classes.datePickerWrapper}>
+          <div style={{ display: 'flex', paddingRight: '10px' }}>
+            <div className={classes.paperTextDark}>From: &nbsp;</div>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                inputFormat="dd/MM/yyyy"
+                value={startDate}
+                onChange={(date) => setStartDate(date)}
+                maxDate={new Date()}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    InputLabelProps={{ shrink: false }}
+                    className={classes.datePicker}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <div className={classes.paperTextDark}>To: &nbsp;</div>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                inputFormat="dd/MM/yyyy"
+                value={endDate}
+                onChange={(date) => setEndDate(date)}
+                maxDate={new Date()}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    InputLabelProps={{ shrink: false }}
+                    className={classes.datePicker}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
+        </Grid>
+        <Grid item sm={7} lg={4}>
           <div style={{ display: 'flex' }}>
             <div className={classes.paperTextDark}>Sort by: &nbsp;</div>
             <Box>
               <Select
-                key={configTypes}
-                value={configTypes}
+                key={orderValue}
+                value={orderValue}
                 onChange={handleChange}
                 displayEmpty
                 inputProps={{
@@ -369,7 +442,7 @@ const DetailedView: React.FC<IDetailedView> = ({
               </Select>
             </Box>
             <IconButton
-              onClick={handleBackButtonClick}
+              onClick={handleOrderButtonClick}
               className={classes.iconButton}
             >
               {sortDirection === 'ascending' ? (

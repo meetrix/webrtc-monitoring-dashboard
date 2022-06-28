@@ -132,6 +132,29 @@ const styles = (theme: Theme) => {
         color: theme.palette.primary.main,
       },
     },
+    datePickerWrapper: {
+      display: 'flex',
+      zIndex: 100,
+    },
+    datePicker: {
+      '& .MuiOutlinedInput-input': {
+        padding: '2px 8px',
+        fontSize: theme.typography.body2.fontSize,
+        width: '90px',
+        color: '#5F5F5F',
+        fontWeight: 500,
+      },
+      '& .MuiInputBase-root': {
+        border: '1px solid #DAE3FA',
+      },
+      '& .MuiSvgIcon-root': {
+        fontSize: '1rem',
+        color: theme.palette.primary.main,
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none',
+      },
+    },
   });
 };
 
