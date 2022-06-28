@@ -1,10 +1,6 @@
 import api from '../../app/axios';
 
-const callStatsApi = (data: any) => {
-  return api.post('incoming', data);
-};
-export default callStatsApi;
-
+// eslint-disable-next-line import/prefer-default-export
 export const troubleshooterDetailsGetAllApi = () => {
   return api.get('troubleshooter');
 };

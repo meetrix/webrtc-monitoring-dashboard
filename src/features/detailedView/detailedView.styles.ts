@@ -34,10 +34,16 @@ const styles = (theme: Theme) => {
       '& .MuiTableCell-root': {
         fontSize: '0.8rem',
         color: '#5F5F5F',
-        fontWeight: 530,
+        fontWeight: 500,
       },
       '& .MuiSvgIcon-root': {
         fontSize: theme.typography.body1.fontSize,
+      },
+      '&.MuiTableContainer-root': {
+        width: 'auto',
+        padding: '0px 20px',
+        maxHeight: 'calc(85vh - 100px)',
+        overflow: 'auto',
       },
     },
     tickIcon: {
@@ -52,15 +58,78 @@ const styles = (theme: Theme) => {
         cursor: 'none',
       },
     },
-    selectedRowCel: {
-      color: '#4A74E9 !important',
+    // selectedRowCel: {
+    //   color: '#4A74E9 !important',
+    // },
+    // selectedRow: {
+    //   backgroundColor: '#EDF1FD !important',
+    // },
+    // tableRow: {
+    //   '&.MuiTableRow-root:hover': {
+    //     backgroundColor: 'transparent',
+    //   },
+    // },
+    sortDropdown: {
+      display: 'flex',
+      height: '25px',
+      width: '10rem',
+      marginRight: '10px',
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '& .MuiSvgIcon-root': {
+        color: '#4A74E9',
+      },
     },
-    selectedRow: {
-      backgroundColor: '#EDF1FD !important',
+    paperTextDark: {
+      fontSize: theme.typography.body2.fontSize,
+      color: '#5F5F5F',
+      fontWeight: 500,
     },
-    tableRow: {
-      '&.MuiTableRow-root:hover': {
-        backgroundColor: 'transparent',
+    dropdown: {
+      boxShadow: 'none',
+      border: '1px solid #DAE3FA',
+    },
+    iconButton: {
+      '&.MuiIconButton-root': {
+        padding: '0px',
+        color: '#4A74E9',
+      },
+      '& .MuiSvgIcon-root': {
+        fontSize: '1.1rem',
+      },
+    },
+    tooltip: {
+      background: theme.palette.secondary.light,
+      marginTop: '10px !important',
+      color: theme.palette.primary.main,
+      border: '1px solid #DAE3FA',
+    },
+    paginationIcons: {
+      display: 'flex',
+      justifyContent: 'right',
+      border: 'none',
+      '& .MuiIconButton-root': {
+        color: theme.palette.primary.main,
+      },
+      '& .MuiIconButton-root.Mui-disabled': {
+        color: '#00000061',
+      },
+      '& .MuiTablePagination-select': {
+        fontSize: theme.typography.body2.fontSize,
+        color: theme.palette.primary.main,
+        fontWeight: 500,
+        border: '1px solid #DAE3FA',
+        borderRadius: '2px',
+      },
+      '& .MuiSvgIcon-root.MuiSelect-icon': {
+        color: theme.palette.primary.main,
       },
     },
   });

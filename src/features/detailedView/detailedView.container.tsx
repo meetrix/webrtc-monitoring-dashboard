@@ -22,15 +22,7 @@ const DetailedViewAsyncContainer: React.FC<IDetailedViewContainer> = ({}: IDetai
     }
   }, [dispatch, mockStats]);
 
-  // const IncomingConnectionMock = mockStats
-  //   ? mockTroubleshooterDetails
-  //   : troubleshooterDetails;
-
-  // useEffect(() => {
-  //   dispatch<any>(troubleshooterGetAllAsync());
-  // }, [dispatch]);
-
-  return <DetailedView callStatList={troubleshooterDetails} />;
+  return <DetailedView detailViewList={troubleshooterDetails} />;
 };
 
 export default memo(DetailedViewAsyncContainer);

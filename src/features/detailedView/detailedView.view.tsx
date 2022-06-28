@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/ban-types */
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
 import {
@@ -12,8 +12,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,17 +22,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
@@ -42,13 +33,14 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styles from './detailedView.styles';
-// import Table from '../../components/Table';
 
-export interface ICallStatsView
-  extends WithStyles<ButtonProps & typeof styles> {
-  callStatList: any;
+interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
+  detailViewList: any;
 }
+type TableHeadProps = WithStyles<ButtonProps & typeof styles>;
 
 interface TablePaginationActionsProps {
   count: number;
@@ -60,7 +52,48 @@ interface TablePaginationActionsProps {
   ) => void;
 }
 
-function TablePaginationActions(props: TablePaginationActionsProps) {
+const columns = [
+  { id: 'id', headerName: 'Test ID', flex: 1 },
+  { id: 'browserName', headerName: 'Browser Name', flex: 1 },
+  { id: 'browserVersion', headerName: 'Browser Version', flex: 1 },
+  {
+    id: 'operatingSystem',
+    headerName: 'Operating System',
+    flex: 1,
+  },
+  {
+    id: 'camera',
+    headerName: 'Camera',
+    flex: 1,
+  },
+  {
+    id: 'mic',
+    headerName: 'Mic',
+    flex: 1,
+  },
+  {
+    id: 'network',
+    headerName: 'Network',
+    flex: 1,
+  },
+  {
+    id: 'browser',
+    headerName: 'Browser',
+    flex: 1,
+  },
+  {
+    id: 'connectedAt',
+    headerName: 'Connected At',
+    flex: 1,
+  },
+  //   {
+  //     id: 'seeMore',
+  //     headerName: '',
+  //     flex: 1,
+  //   },
+];
+
+const TablePaginationActions = (props: TablePaginationActionsProps) => {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -128,236 +161,136 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
       </IconButton>
     </Box>
   );
-}
+};
 
-type Order = 'asc' | 'desc';
-
-const columns = [
-  { id: 'id', headerName: 'Test ID', flex: 1 },
-  { id: 'browserName', headerName: 'Browser Name', flex: 1 },
-  { id: 'browserVersion', headerName: 'Browser Version', flex: 1 },
-  {
-    id: 'operatingSystem',
-    headerName: 'Operating System',
-    flex: 1,
-  },
-  {
-    id: 'camera',
-    headerName: 'Camera',
-    flex: 1,
-  },
-  {
-    id: 'mic',
-    headerName: 'Mic',
-    flex: 1,
-  },
-  {
-    id: 'network',
-    headerName: 'Network',
-    flex: 1,
-  },
-  {
-    id: 'browser',
-    headerName: 'Browser',
-    flex: 1,
-  },
-  {
-    id: 'connectedAt',
-    headerName: 'Connected At',
-    flex: 1,
-  },
-  {
-    id: 'seeMore',
-    headerName: '',
-    flex: 1,
-  },
-];
-interface EnhancedTableProps1 extends WithStyles<ButtonProps & typeof styles> {
-  numSelected: number;
-  // eslint-disable-next-line react/require-default-props
-  onRequestSort?: (event: React.MouseEvent<unknown>, property: string) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead1(props: EnhancedTableProps1) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-    classes,
-  } = props;
-
+const DetailedViewTableHead: React.FC<TableHeadProps> = ({
+  classes,
+}: TableHeadProps) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
+        {/* <TableCell padding="checkbox"> */}
+        {/* <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            // inputProps={{
-            //   'aria-label': 'select all desserts',
-            // }}
-          />
-        </TableCell>
+          /> */}
+        {/* </TableCell> */}
         {columns.map((column) => (
-          <TableCell
-            key={column.id}
-            // align={column.numeric ? 'right' : 'left'}
-            // padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === column.id ? order : false}
-            align="center"
-          >
-            <TableSortLabel
-              active={orderBy === column.id}
-              direction={orderBy === column.id ? order : 'asc'}
-              //   onClick={createSortHandler(column.id)}
-              className={classes.sortIcon}
-            >
+          <TableCell key={column.id} align="center">
+            <TableSortLabel className={classes.sortIcon}>
               {column.headerName}
-              {orderBy === column.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>
     </TableHead>
   );
-}
+};
 
+// Sort table using connected date and the test ID
 const useSortableData = (
-  troubleshooterDetails: any,
+  troubleshooterDetailsForSort: any,
   config: { key: any; direction: string }
 ) => {
-  const [sortConfig, setSortConfig] = React.useState(config);
   const sortedItems = React.useMemo(() => {
-    const sortableItems = [...troubleshooterDetails];
-    if (sortConfig !== null) {
+    const sortableItems = [...troubleshooterDetailsForSort];
+    if (config !== null) {
       sortableItems.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+        if (a[config.key] < b[config.key]) {
+          return config.direction === 'ascending' ? -1 : 1;
         }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+        if (a[config.key] > b[config.key]) {
+          return config.direction === 'ascending' ? 1 : -1;
         }
         return 0;
       });
     }
     return sortableItems;
-  }, [troubleshooterDetails, sortConfig]);
+  }, [troubleshooterDetailsForSort, config]);
 
-  const requestSort = (key: any) => {
-    let direction = 'ascending';
-    if (
-      sortConfig &&
-      sortConfig.key === key &&
-      sortConfig.direction === 'ascending'
-    ) {
-      direction = 'descending';
-    }
-    setSortConfig({ key, direction });
-  };
-
-  return { troubleshooterDetails: sortedItems, requestSort, sortConfig };
+  return { troubleshooterDetailsForSort: sortedItems };
 };
 
-// const useSortableData1 = (
-//   res: any
-//   //   config: { key: any; direction: string }
-// ) => {
-//   //   const data } = res;
-//   const item1 = [...res].sort((a, b) => {
-//     return b.metadata?.browser?.name - a?.metadata?.browser?.name;
-//   });
+// Sort the table using browser version
+const useBrowserVersionToSort = (
+  troubleshooterDetailsForBrowserVersionSort: any,
+  direction: string
+) => {
+  const sortedItems = useMemo(() => {
+    const sortableItems = [...troubleshooterDetailsForBrowserVersionSort];
+    sortableItems.sort((a, b) => {
+      if (a?.metadata?.browser?.version < b.metadata?.browser?.version) {
+        return direction === 'ascending' ? -1 : 1;
+      }
+      if (a.metadata?.browser?.version > b.metadata?.browser?.version) {
+        return direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+    return sortableItems;
+  }, [troubleshooterDetailsForBrowserVersionSort, direction]);
 
-//   return { item1 };
-// };
+  return { troubleshooterDetailsForBrowserVersionSort: sortedItems };
+};
 
-const CallStats: React.FC<ICallStatsView> = ({
+const DetailedView: React.FC<IDetailedView> = ({
   classes,
-  callStatList,
-}: ICallStatsView) => {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<string>('createdAt');
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [configTypes, setConfigTypes] = useState<string>('testId');
-  const { troubleshooterDetails, requestSort, sortConfig } = useSortableData(
-    callStatList && callStatList.length > 0 ? callStatList : [],
+  detailViewList,
+}: IDetailedView) => {
+  const [orderBy, setOrderBy] = useState<string>('_id');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [configTypes, setConfigTypes] = useState<string>('_id');
+  const [sortDirection, setSortDirection] = useState<string>('ascending');
+
+  const { troubleshooterDetailsForSort } = useSortableData(
+    detailViewList && detailViewList.length > 0 ? detailViewList : [],
     {
       key: orderBy,
-      direction: 'ascending',
+      direction: sortDirection,
     }
   );
-  const x = ['62b90dafbcff3d4b1c9593bd', '62b94c57bcff3d4b1c95946b'];
-  console.log('====================================');
-  console.log(x.sort());
-  console.log('====================================');
+  const {
+    troubleshooterDetailsForBrowserVersionSort,
+  } = useBrowserVersionToSort(
+    detailViewList && detailViewList.length > 0 ? detailViewList : [],
+    sortDirection
+  );
 
-  const staticConfigData = (value: string) => {
+  const [troubleshooterDetails, setTroubleshooterDetails] = useState(
+    troubleshooterDetailsForSort
+  );
+
+  useEffect(() => {
+    if (orderBy === 'browserVersion') {
+      setTroubleshooterDetails(troubleshooterDetailsForBrowserVersionSort);
+    } else {
+      setTroubleshooterDetails(troubleshooterDetailsForSort);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderBy, detailViewList, sortDirection]);
+
+  const sortValue = (value: string) => {
     switch (value) {
       case '_id':
-        // requestSort('_id');
         setOrderBy('_id');
         break;
       case 'createdAt':
-        // requestSort('createdAt');
         setOrderBy('createdAt');
         break;
-        //   case 'shared-secret':
-        //     requestSort('_id');
+      case 'browserVersion':
+        setOrderBy('browserVersion');
         break;
       default:
         break;
     }
   };
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelecteds = troubleshooterDetails?.map((n: any) => n._id);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setConfigTypes(event.target.value as string);
-    staticConfigData(event.target.value as string);
-    // setOrderBy(event.target.value as string);
-  };
-  console.log('====================================');
-  console.log(rowsPerPage);
-  console.log('====================================');
-
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: readonly string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
+    sortValue(event.target.value as string);
   };
 
   const emptyRows =
@@ -379,11 +312,14 @@ const CallStats: React.FC<ICallStatsView> = ({
     setPage(0);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  //   const emptyRows =
-  //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - callStatList?.length) : 0;
+  const handleBackButtonClick = () => {
+    if (sortDirection === 'ascending') {
+      setSortDirection('descending');
+    }
+    if (sortDirection === 'descending') {
+      setSortDirection('ascending');
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -394,61 +330,76 @@ const CallStats: React.FC<ICallStatsView> = ({
           </div>
         </Grid>
         <Grid item sm={7} lg={7}>
-          <div className={classes.titleText}>Sort by:</div>
-          <Box>
-            <Select
-              key={configTypes}
-              value={configTypes}
-              onChange={handleChange}
-              displayEmpty
-              inputProps={{
-                'aria-label': 'Without label',
-              }}
-              //   className={clsx(
-              //     classes.paperTextDark,
-              //     classes.configTypesDropdown
-              //   )}
-              variant="outlined"
+          <div style={{ display: 'flex' }}>
+            <div className={classes.paperTextDark}>Sort by: &nbsp;</div>
+            <Box>
+              <Select
+                key={configTypes}
+                value={configTypes}
+                onChange={handleChange}
+                displayEmpty
+                inputProps={{
+                  'aria-label': 'Without label',
+                }}
+                className={clsx(classes.paperTextDark, classes.sortDropdown)}
+                variant="outlined"
+                MenuProps={{ classes: { paper: classes.dropdown } }}
+              >
+                <MenuItem
+                  value="_id"
+                  className={classes.paperTextDark}
+                  key="testId"
+                >
+                  Test ID
+                </MenuItem>
+                <MenuItem
+                  value="createdAt"
+                  className={classes.paperTextDark}
+                  key="dateConnected"
+                >
+                  Date Connected
+                </MenuItem>
+                <MenuItem
+                  value="browserVersion"
+                  className={classes.paperTextDark}
+                  key="browserVersion"
+                >
+                  Browser Version
+                </MenuItem>
+              </Select>
+            </Box>
+            <IconButton
+              onClick={handleBackButtonClick}
+              className={classes.iconButton}
             >
-              <MenuItem
-                value="_id"
-                // className={classes.paperTextDark}
-                key="testId"
-              >
-                Test ID
-              </MenuItem>
-              <MenuItem
-                value="createdAt"
-                // className={classes.paperTextDark}
-                key="dateConnected"
-              >
-                Date Connected
-              </MenuItem>
-              <MenuItem
-                value="browserVersion"
-                // className={classes.paperTextDark}
-                key="browserVersion"
-              >
-                Browser Version
-              </MenuItem>
-            </Select>
-          </Box>
+              {sortDirection === 'ascending' ? (
+                <Tooltip
+                  title="Ascending order"
+                  classes={{
+                    tooltip: classes.tooltip,
+                  }}
+                >
+                  <ArrowUpwardIcon />
+                </Tooltip>
+              ) : (
+                <Tooltip
+                  title="Descending order"
+                  classes={{
+                    tooltip: classes.tooltip,
+                  }}
+                >
+                  <ArrowDownwardIcon />
+                </Tooltip>
+              )}
+            </IconButton>
+          </div>
         </Grid>
       </Grid>
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }} className={classes.paper}>
-          {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
           <TableContainer className={classes.tableCells}>
-            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-              <EnhancedTableHead1
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                // onRequestSort={handleRequestSort}
-                rowCount={troubleshooterDetails?.length}
-                classes={classes}
-              />
+            <Table sx={{ minWidth: 750 }} stickyHeader>
+              <DetailedViewTableHead classes={classes} />
               <TableBody>
                 {(rowsPerPage > 0
                   ? troubleshooterDetails?.slice(
@@ -456,25 +407,12 @@ const CallStats: React.FC<ICallStatsView> = ({
                       page * rowsPerPage + rowsPerPage
                     )
                   : []
-                ).map((row, index) => {
-                  const isItemSelected = isSelected(row._id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                ).map((row: any, index: any) => {
+                  const labelId = `detailed-view-table-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row._id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row._id}
-                      selected={isItemSelected}
-                      className={clsx(
-                        classes.tableRow,
-                        isItemSelected && classes.selectedRow
-                      )}
-                    >
-                      <TableCell
+                    <TableRow tabIndex={-1} key={row._id}>
+                      {/* <TableCell
                         padding="checkbox"
                         className={classes.tableCells}
                       >
@@ -485,40 +423,22 @@ const CallStats: React.FC<ICallStatsView> = ({
                             'aria-labelledby': labelId,
                           }}
                         />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
-                        className={clsx(
-                          isItemSelected && classes.selectedRowCel
-                        )}
                       >
                         {row._id}
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        className={clsx(
-                          isItemSelected && classes.selectedRowCel
-                        )}
-                      >
+                      <TableCell align="center">
                         {row.metadata.browser.name}
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        className={clsx(
-                          isItemSelected && classes.selectedRowCel
-                        )}
-                      >
+                      <TableCell align="center">
                         {row.metadata.browser.version}
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        className={clsx(
-                          isItemSelected && classes.selectedRowCel
-                        )}
-                      >
+                      <TableCell align="center">
                         {row.metadata.os.name} {row.metadata.os.version}
                       </TableCell>
                       <TableCell align="center">
@@ -549,22 +469,17 @@ const CallStats: React.FC<ICallStatsView> = ({
                           <CloseIcon className={classes.crossIcon} />
                         )}
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        className={clsx(
-                          isItemSelected && classes.selectedRowCel
-                        )}
-                      >
+                      <TableCell align="center">
                         {moment(row.createdAt).format('D,MMM,YYYY,hh:mm A')}
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         align="center"
                         className={clsx(
                           isItemSelected && classes.selectedRowCel
                         )}
                       >
                         See more
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   );
                 })}
@@ -590,11 +505,12 @@ const CallStats: React.FC<ICallStatsView> = ({
               inputProps: {
                 'aria-label': 'rows per page',
               },
-              native: true,
+              MenuProps: { classes: { paper: classes.dropdown } },
             }}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
             ActionsComponent={TablePaginationActions}
+            className={clsx(classes.paginationIcons, classes.paperTextDark)}
           />
         </Paper>
       </Box>
@@ -602,4 +518,4 @@ const CallStats: React.FC<ICallStatsView> = ({
   );
 };
 
-export default memo(withStyles(styles)(CallStats));
+export default memo(withStyles(styles)(DetailedView));
