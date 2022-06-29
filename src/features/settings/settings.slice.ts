@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
+  iceServerConfigGetApi,
+  iceServerConfigSetApi,
   pluginCreateApi,
   pluginGetAllApi,
   pluginRegenerateApi,
   pluginRevokeApi,
-} from './incomingConnections.api';
+} from './settings.api';
 
 export interface IPlugin {
   _id: string;
@@ -13,20 +15,24 @@ export interface IPlugin {
   createdAt: string;
 }
 
-export interface IIncomingConnectionsState {
+export interface ISettingsState {
   responseStatus: string;
   loading: boolean;
   responseMessage: string;
   error: any;
   plugins: IPlugin[];
+  config: any;
+  iceServerConfigType: string;
 }
 
-const initialState: IIncomingConnectionsState = {
+const initialState: ISettingsState = {
   responseStatus: '',
   loading: false,
   responseMessage: '',
   error: null,
   plugins: [],
+  config: null,
+  iceServerConfigType: '',
 };
 
 // TODO: maybe give plugin its own slice
@@ -79,8 +85,32 @@ export const pluginRegenerateAsync = createAsyncThunk(
   }
 );
 
-export const incomingConnectionsSlice = createSlice({
-  name: 'incomingConnections',
+export const iceServerConfigSetAsync = createAsyncThunk(
+  'plugin/setConfig',
+  async (data: any, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await iceServerConfigSetApi(data);
+      return response?.data?.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const iceServerConfigGetAsync = createAsyncThunk(
+  'plugin/getConfig',
+  async (data: any, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await iceServerConfigGetApi(data);
+      return response?.data?.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const settingsSlice = createSlice({
+  name: 'settings',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -148,12 +178,40 @@ export const incomingConnectionsSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     });
+
+    builder.addCase(iceServerConfigSetAsync.pending, (state, action) => {
+      state.loading = true;
+      state.responseStatus = 'false';
+    });
+    builder.addCase(iceServerConfigSetAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.responseStatus = 'true';
+    });
+    builder.addCase(iceServerConfigSetAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(iceServerConfigGetAsync.pending, (state, action) => {
+      state.loading = true;
+      state.responseStatus = 'false';
+    });
+    builder.addCase(iceServerConfigGetAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.responseStatus = 'true';
+      state.config = action.payload;
+      state.iceServerConfigType = action.payload.mode;
+    });
+    builder.addCase(iceServerConfigGetAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
   },
 });
 
-export const { actions } = incomingConnectionsSlice;
+export const { actions } = settingsSlice;
 
-export const selectPlugins = (state: RootState) =>
-  state.incomingConnections.plugins;
+export const selectPlugins = (state: RootState) => state.settings.plugins;
+export const selectConfig = (state: RootState) => state.settings;
 
-export default incomingConnectionsSlice.reducer;
+export default settingsSlice.reducer;
