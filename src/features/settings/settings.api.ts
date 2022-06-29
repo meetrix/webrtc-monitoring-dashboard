@@ -26,3 +26,16 @@ export const pluginRevokeApi = (id: string) => {
 export const pluginRegenerateApi = (id: string) => {
   return api.patch(`plugins/${id}`);
 };
+export const iceServerConfigSetApi = ({
+  id,
+  data,
+}: {
+  id: string;
+  data: any;
+}) => {
+  return api.put(`plugins/${id}/ice-servers`, data);
+};
+
+export const iceServerConfigGetApi = (id: string) => {
+  return api.get(`plugins/${id}/ice-servers`);
+};
