@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import clsx from 'clsx';
 import { Typography } from '../Typography';
 
 const styles = (theme: Theme) => {
@@ -63,6 +64,7 @@ export interface IPasswordTextField
   error?: boolean;
   disabled?: boolean;
   required?: boolean;
+  customStyles?: string;
 }
 
 export const PasswordTextField: React.FC<IPasswordTextField> = ({
@@ -77,6 +79,7 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
   error = false,
   disabled = false,
   required = false,
+  customStyles,
 }: IPasswordTextField) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -85,7 +88,11 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
   };
 
   return (
-    <FormControl id={id} className={classes.root} variant="outlined">
+    <FormControl
+      id={id}
+      className={clsx(classes.root, customStyles)}
+      variant="outlined"
+    >
       {label && (
         <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       )}

@@ -10,11 +10,12 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
-import { IncomingConnections } from '../features/incomingConnections';
+import { Settings } from '../features/settings';
 import { CallStatMonitoring } from '../features/callStats';
 import { DetailedView } from '../features/detailedView';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
+import { Home } from '../features/home';
 
 const routesList = [
   {
@@ -78,10 +79,17 @@ const routesList = [
     hasFooter: true,
   },
   {
-    path: '/dashboard/incoming-connections',
+    path: '/dashboard',
     isPrivate: false,
     hasSidebar: true,
-    component: <IncomingConnections />,
+    component: <Home />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/settings',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <Settings />,
     hasNavbar: true,
   },
   {

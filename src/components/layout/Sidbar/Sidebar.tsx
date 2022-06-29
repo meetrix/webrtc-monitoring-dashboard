@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
   Grid,
   List,
@@ -82,19 +82,19 @@ const Sidebar = ({ classes }: ISidebarProps) => {
   const SidebarItems = [
     {
       label: 'Home',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <HomeRoundedIcon />,
       subItem: false,
     },
     {
       label: 'Troubleshooter',
-      path: '/dashboard/incoming-connections',
+      path: '',
       icon: '',
       subItem: true,
     },
     {
       label: 'Overview',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <EqualizerRoundedIcon />,
       subItem: false,
     },
@@ -106,13 +106,13 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Debugger',
-      path: '/dashboard/incoming-connections',
+      path: '',
       icon: '',
       subItem: true,
     },
     {
       label: 'Incoming Connections',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard',
       icon: <CallRoundedIcon />,
       subItem: false,
     },
@@ -124,7 +124,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Settings',
-      path: '/dashboard/incoming-connections',
+      path: '/dashboard/settings',
       icon: <ConstructionRoundedIcon />,
       subItem: false,
     },
@@ -135,23 +135,39 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     navigate(data.path);
   };
 
+  useEffect(() => {
+    const index1 = SidebarItems.findIndex(
+      (data) => data.label === selectedItem
+    );
+    const index2 = SidebarItems.findIndex(
+      (data) => data.path === window.location.pathname
+    );
+    if (index1 === index2) {
+      setSelectedItem(selectedItem);
+    } else {
+      setSelectedItem(SidebarItems[index2].label);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.location.pathname]);
+
   return (
     <div className={classes.root}>
-      {SidebarItems.map((data, index) => (
+      {SidebarItems.map((data) => (
         <List
           className={clsx(
             data.subItem ? classes.listForSubItems : classes.listForMainItems,
             classes.listWrapper
           )}
+          key={data.label}
         >
           <ListItem
             button
-            key={index}
+            key={data.label}
             className={clsx(
               data.subItem && classes.subListItem,
               classes.listItem
             )}
-            onClick={() => handleOnClick(data)}
+            onClick={() => !data.subItem && handleOnClick(data)}
             selected={selectedItem === data.label}
             disableRipple
           >
