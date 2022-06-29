@@ -11,17 +11,15 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  SxProps,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -29,10 +27,6 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
 import clsx from 'clsx';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import TextField from '@mui/material/TextField';
@@ -40,159 +34,12 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import styles from './detailedView.styles';
+import DetailedViewTableHead from './detailedViewTableHead';
+import TablePaginationActions from './detailedViewPagination';
 
 interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
   detailViewList: any;
 }
-type TableHeadProps = WithStyles<ButtonProps & typeof styles>;
-
-interface TablePaginationActionsProps {
-  count: number;
-  page: number;
-  rowsPerPage: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number
-  ) => void;
-}
-
-const columns = [
-  { id: 'id', headerName: 'Test ID', flex: 1 },
-  { id: 'browserName', headerName: 'Browser Name', flex: 1 },
-  { id: 'browserVersion', headerName: 'Browser Version', flex: 1 },
-  {
-    id: 'operatingSystem',
-    headerName: 'Operating System',
-    flex: 1,
-  },
-  {
-    id: 'camera',
-    headerName: 'Camera',
-    flex: 1,
-  },
-  {
-    id: 'mic',
-    headerName: 'Mic',
-    flex: 1,
-  },
-  {
-    id: 'network',
-    headerName: 'Network',
-    flex: 1,
-  },
-  {
-    id: 'browser',
-    headerName: 'Browser',
-    flex: 1,
-  },
-  {
-    id: 'connectedAt',
-    headerName: 'Connected At',
-    flex: 1,
-  },
-  //   {
-  //     id: 'seeMore',
-  //     headerName: '',
-  //     flex: 1,
-  //   },
-];
-
-const TablePaginationActions = (props: TablePaginationActionsProps) => {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === 'rtl' ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === 'rtl' ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </Box>
-  );
-};
-
-// Table header
-const DetailedViewTableHead: React.FC<TableHeadProps> = ({
-  classes,
-}: TableHeadProps) => {
-  return (
-    <TableHead>
-      <TableRow>
-        {/* <TableCell padding="checkbox"> */}
-        {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-          /> */}
-        {/* </TableCell> */}
-        {columns.map((column) => (
-          <TableCell key={column.id} align="center">
-            <TableSortLabel className={classes.sortIcon}>
-              {column.headerName}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-};
 
 // Sort table using connected date and the test ID
 const useSortableData = (
@@ -240,15 +87,35 @@ const useBrowserVersionToSort = (
   return { troubleshooterDetailsForBrowserVersionSort: sortedItems };
 };
 
+const popperSx: SxProps = {
+  marginTop: '10px',
+  color: '#5F5F5F',
+  '& .MuiPickersDay-root': {
+    color: '#5F5F5F',
+  },
+  '& .MuiPickersDay-root.Mui-selected': {
+    backgroundColor: '#4A74E9 !important',
+  },
+  '& .Mui-selected': {
+    color: '#ffffff',
+    backgroundColor: '#4A74E9 !important',
+  },
+  '& .MuiIconButton-root': {
+    color: '#4A74E9',
+  },
+  '& .MuiPickersArrowSwitcher-button.Mui-disabled': {
+    color: '#00000061 !important',
+  },
+};
 const DetailedView: React.FC<IDetailedView> = ({
   classes,
   detailViewList,
 }: IDetailedView) => {
   const [orderBy, setOrderBy] = useState<string>('_id');
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [orderValue, setOrderValue] = useState<string>('_id');
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [sortDirection, setSortDirection] = useState<string>('ascending');
+  const [search, setSearch] = useState<string>('');
   const [initialDetailList, setInitialDetailList] = useState(
     detailViewList && detailViewList.length > 0 ? detailViewList : []
   );
@@ -269,16 +136,16 @@ const DetailedView: React.FC<IDetailedView> = ({
           if (endDate) {
             filterPass = filterPass && new Date(endDate) > date;
           }
-          // if filterPass comes back `false` the row is filtered out
           return filterPass;
         })
+        .filter((item: any) => item._id.includes(search))
         .map((item: any) => {
           tempDetailList.push(item);
         });
       setInitialDetailList(tempDetailList);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderBy, detailViewList, sortDirection, startDate, endDate]);
+  }, [orderBy, detailViewList, sortDirection, startDate, endDate, search]);
 
   const { troubleshooterDetailsForSort } = useSortableData(
     initialDetailList && initialDetailList.length > 0 ? initialDetailList : [],
@@ -307,25 +174,8 @@ const DetailedView: React.FC<IDetailedView> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderBy, detailViewList, sortDirection, initialDetailList]);
 
-  const sortValue = (value: string) => {
-    switch (value) {
-      case '_id':
-        setOrderBy('_id');
-        break;
-      case 'createdAt':
-        setOrderBy('createdAt');
-        break;
-      case 'browserVersion':
-        setOrderBy('browserVersion');
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setOrderValue(event.target.value as string);
-    sortValue(event.target.value as string);
+  const handleSelect = (event: SelectChangeEvent) => {
+    setOrderBy(event.target.value as string);
   };
 
   const emptyRows =
@@ -356,15 +206,30 @@ const DetailedView: React.FC<IDetailedView> = ({
     }
   };
 
+  const handleSearch = (event: any) => {
+    setSearch(event.target.value);
+  };
+
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item sm={5} lg={3}>
-          <div className={classes.titleText}>
-            Troubleshooter &gt; Detailed View
+      <div className={classes.titleText}>Troubleshooter &gt; Detailed View</div>
+      <Grid container spacing={1}>
+        <Grid item sm={12} lg={4} className={classes.gridItem}>
+          <div style={{ display: 'flex' }}>
+            <div className={classes.paperTextDark}>Test ID: &nbsp;</div>
+            <TextField
+              value={search}
+              onChange={handleSearch}
+              className={classes.textField}
+            />
           </div>
         </Grid>
-        <Grid item sm={5} lg={5} className={classes.datePickerWrapper}>
+        <Grid
+          item
+          sm={7}
+          lg={5}
+          className={clsx(classes.datePickerWrapper, classes.gridItem)}
+        >
           <div style={{ display: 'flex', paddingRight: '10px' }}>
             <div className={classes.paperTextDark}>From: &nbsp;</div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -373,6 +238,9 @@ const DetailedView: React.FC<IDetailedView> = ({
                 value={startDate}
                 onChange={(date) => setStartDate(date)}
                 maxDate={new Date()}
+                PaperProps={{
+                  sx: popperSx,
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -391,6 +259,9 @@ const DetailedView: React.FC<IDetailedView> = ({
                 value={endDate}
                 onChange={(date) => setEndDate(date)}
                 maxDate={new Date()}
+                PaperProps={{
+                  sx: popperSx,
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -402,14 +273,20 @@ const DetailedView: React.FC<IDetailedView> = ({
             </LocalizationProvider>
           </div>
         </Grid>
-        <Grid item sm={7} lg={4}>
-          <div style={{ display: 'flex' }}>
+        <Grid item sm={5} lg={3} className={classes.gridItem}>
+          <div
+            style={{
+              display: 'flex',
+              paddingRight: '10px',
+              justifyContent: 'flex-end',
+            }}
+          >
             <div className={classes.paperTextDark}>Sort by: &nbsp;</div>
             <Box>
               <Select
-                key={orderValue}
-                value={orderValue}
-                onChange={handleChange}
+                key={orderBy}
+                value={orderBy}
+                onChange={handleSelect}
                 displayEmpty
                 inputProps={{
                   'aria-label': 'Without label',

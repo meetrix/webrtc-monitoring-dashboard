@@ -17,6 +17,7 @@ const styles = (theme: Theme) => {
     },
     paper: {
       boxShadow: 'none',
+      marginTop: '10px',
     },
     link: {
       textDecoration: 'none',
@@ -42,8 +43,11 @@ const styles = (theme: Theme) => {
       '&.MuiTableContainer-root': {
         width: 'auto',
         padding: '0px 20px',
-        maxHeight: 'calc(85vh - 100px)',
+        maxHeight: 'calc(83vh - 145px)',
         overflow: 'auto',
+        '@media only screen and (max-width: 1024px)': {
+          maxHeight: 'calc(80vh - 145px)',
+        },
       },
     },
     tickIcon: {
@@ -58,17 +62,6 @@ const styles = (theme: Theme) => {
         cursor: 'none',
       },
     },
-    // selectedRowCel: {
-    //   color: '#4A74E9 !important',
-    // },
-    // selectedRow: {
-    //   backgroundColor: '#EDF1FD !important',
-    // },
-    // tableRow: {
-    //   '&.MuiTableRow-root:hover': {
-    //     backgroundColor: 'transparent',
-    //   },
-    // },
     sortDropdown: {
       display: 'flex',
       height: '25px',
@@ -154,6 +147,27 @@ const styles = (theme: Theme) => {
       '& .MuiOutlinedInput-notchedOutline': {
         border: 'none',
       },
+    },
+    textField: {
+      width: '13rem',
+      '& .MuiOutlinedInput-input': {
+        fontSize: theme.typography.body2.fontSize,
+        color: '#5F5F5F',
+        padding: '2px 8px !important',
+        fontWeight: 500,
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#DAE3FA',
+      },
+      '&:hover': {
+        borderColor: '#DAE3FA !important',
+      },
+    },
+    gridItem: {
+      marginBottom: '10px',
     },
   });
 };
