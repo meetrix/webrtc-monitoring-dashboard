@@ -15,6 +15,7 @@ import { CallStatMonitoring } from '../features/callStats';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
+import { Overview } from '../features/overview';
 
 const routesList = [
   {
@@ -116,7 +117,7 @@ const routesList = [
     path: '/overview',
     isPrivate: false,
     hasSidebar: true,
-    component: <div>Overview</div>,
+    component: <Overview />,
     hasNavbar: true,
   },
 ];
