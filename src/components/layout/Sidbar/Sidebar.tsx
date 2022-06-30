@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import EqualizerRoundedIcon from '@mui/icons-material/EqualizerRounded';
 import FormatLineSpacingRoundedIcon from '@mui/icons-material/FormatLineSpacingRounded';
-import CallRoundedIcon from '@mui/icons-material/CallRounded';
-import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
+// import CallRoundedIcon from '@mui/icons-material/CallRounded';
+// import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
 import clsx from 'clsx';
 
@@ -104,24 +104,24 @@ const Sidebar = ({ classes }: ISidebarProps) => {
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
-    {
-      label: 'Debugger',
-      path: '/dashboard',
-      icon: '',
-      subItem: true,
-    },
-    {
-      label: 'Incoming Connections',
-      path: '/dashboard',
-      icon: <CallRoundedIcon />,
-      subItem: false,
-    },
-    {
-      label: 'Call Stat Monitoring',
-      path: '/dashboard/call-stat-monitoring',
-      icon: <FormatListBulletedRoundedIcon />,
-      subItem: false,
-    },
+    // {
+    //   label: 'Debugger',
+    //   path: '/dashboard',
+    //   icon: '',
+    //   subItem: true,
+    // },
+    // {
+    //   label: 'Incoming Connections',
+    //   path: '/dashboard',
+    //   icon: <CallRoundedIcon />,
+    //   subItem: false,
+    // },
+    // {
+    //   label: 'Call Stat Monitoring',
+    //   path: '/dashboard/call-stat-monitoring',
+    //   icon: <FormatListBulletedRoundedIcon />,
+    //   subItem: false,
+    // },
     {
       label: 'Settings',
       path: '/dashboard/settings',
