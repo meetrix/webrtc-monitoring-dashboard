@@ -112,6 +112,13 @@ const routesList = [
     component: <Troubleshooter />,
     hasNavbar: false,
   },
+  {
+    path: '/overview',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <div>Overview</div>,
+    hasNavbar: true,
+  },
 ];
 
 const RoutesComponent = () => {

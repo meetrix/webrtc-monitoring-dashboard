@@ -6,7 +6,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@meetrix/lib-monitoring": "git+https://gitlab.com/meetrix/products/webrtc-monitoring/lib-monitoring.git",
-    "@meetrix/webrtc-monitoring-common-lib": "git+https://gitlab.com/meetrix/products/webrtc-monitoring/webrtc-monitoring-common-lib.git",
+    "@meetrix/webrtc-monitoring-common-lib": "gitlab:meetrix/products/webrtc-monitoring/webrtc-monitoring-common-lib#master",
     "@mui/icons-material": "^5.0.3",
     "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": "^5.2.5",
