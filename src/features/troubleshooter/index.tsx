@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Monitor from '@meetrix/lib-monitoring';
+import Monitor from '@meetrix/lib-monitoring/dist/lib/lib-call-quality-monitoring';
+
+import config from '../../config';
 
 export default function Troubleshooter(): JSX.Element {
   const monitorRef = useRef<Monitor | null>(null);
@@ -13,7 +15,7 @@ export default function Troubleshooter(): JSX.Element {
   );
   useEffect(() => {
     if (token) {
-      monitorRef.current = new Monitor({ token });
+      monitorRef.current = new Monitor({ token, baseUrl: config.api.baseURL });
       monitorRef.current.UI();
     }
   }, [token]);
