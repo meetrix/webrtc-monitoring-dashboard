@@ -3,13 +3,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { memo, useState } from 'react';
 import { withStyles, WithStyles } from '@mui/styles';
-import { Grid } from '@mui/material';
+import { Alert } from '@mui/material';
 // import { Link } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
 import {
+  validateCompanyName,
   validateEmail,
   validateName,
   validatePassword,
@@ -39,40 +40,27 @@ const SignupView: React.FC<ISignupView> = ({
     error: false,
     value: '',
   });
+  const [errorMsg, setErrorMsg] = useState('');
 
   const _validate = () => {
     let isValidate = true;
 
-    if (name.error || email.error || password.error) isValidate = false;
-
-    if (!name.value) {
+    if (
+      !email.value ||
+      !password.value ||
+      !name.value ||
+      !repeatPassword.value ||
+      !companyName.value
+    ) {
       isValidate = false;
-      setName({ ...name, error: true });
+      setErrorMsg(
+        'Please enter company or organization name, valid name, email and password'
+      );
     }
 
-    if (!companyName.value) {
+    if (!email.value || !password.value) {
       isValidate = false;
-      setCompanyName({ ...companyName, error: true });
-    }
-
-    if (!contactNumber.value) {
-      isValidate = false;
-      setContactNumber({ ...contactNumber, error: true });
-    }
-
-    if (!email.value) {
-      isValidate = false;
-      setEmail({ ...email, error: true });
-    }
-
-    if (!password.value) {
-      isValidate = false;
-      setPassword({ ...password, error: true });
-    }
-
-    if (password.value !== repeatPassword.value) {
-      isValidate = false;
-      setRepeatPassword({ ...repeatPassword, error: true });
+      setErrorMsg('Please enter valid email and password');
     }
 
     return isValidate;
@@ -84,8 +72,16 @@ const SignupView: React.FC<ISignupView> = ({
         name: name.value,
         email: email.value,
         password: password.value,
+        companyName: companyName.value,
+        contactNumber: contactNumber.value,
       });
     }
+  };
+  const renderResponseMessage = () => {
+    if (errorMsg) {
+      return <Alert severity="error">{errorMsg}</Alert>;
+    }
+    return null;
   };
 
   const _handleEnterPress = (e: { key: string }) => {
@@ -97,28 +93,35 @@ const SignupView: React.FC<ISignupView> = ({
   const _nameOnChange = (e: { target: { value: string } }) => {
     const error = validateName(e.target.value);
     setName({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
   const _companyNameOnChange = (e: { target: { value: string } }) => {
-    const error = validateName(e.target.value);
+    const error = validateCompanyName(e.target.value);
     setCompanyName({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
   const _contactOnChange = (e: { target: { value: string } }) => {
     const error = validatePhoneNumber(e.target.value);
     setContactNumber({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
 
   const _emailOnChange = (e: { target: { value: string } }) => {
     const error = validateEmail(e.target.value);
     setEmail({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
   const _passwordOnChange = (e: { target: { value: string } }) => {
     const error = validatePassword(e.target.value);
     setPassword({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
   const _passwordRepeatOnChange = (e: { target: { value: string } }) => {
     const error = password.value !== e.target.value;
     setRepeatPassword({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
+
   return (
     <LoginLayout>
       <img src={DefaultLogo} alt="meetrix-logo" className={classes.logo} />
@@ -132,6 +135,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={name.error}
         helperText={name.error && 'Please insert your name.'}
         onKeyDown={_handleEnterPress}
+        required
       />
       <TextField
         id="sign-up-company"
@@ -140,6 +144,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={companyName.error}
         helperText={companyName.error && 'Please insert company name.'}
         onKeyDown={_handleEnterPress}
+        required
       />
       <TextField
         id="sign-up-contact-number"
@@ -159,6 +164,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={email.error}
         helperText={email.error && 'Please insert a valid email address.'}
         onKeyDown={_handleEnterPress}
+        required
       />
       <PasswordTextField
         id="sign-up-password"
@@ -175,7 +181,9 @@ const SignupView: React.FC<ISignupView> = ({
         error={repeatPassword.error}
         helperText={repeatPassword.error && 'Passwords are not matching'}
         onKeyDown={_handleEnterPress}
+        tooltipOpen={false}
       />
+      <div className={classes.responseText}>{renderResponseMessage()}</div>
       <div className={classes.buttonWrapper}>
         <Link to="/signin" className={classes.link}>
           Sign in

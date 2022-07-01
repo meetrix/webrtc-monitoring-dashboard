@@ -95,6 +95,7 @@ const ResetPassword: React.FC<IResetPasswordView> = ({
         onChange={confirmPasswordOnChange}
         value={confirmPassword.value}
         error={confirmPassword.isError}
+        tooltipOpen={false}
       />
       {renderResponseMessage()}
       {loading && <LinearProgress />}
