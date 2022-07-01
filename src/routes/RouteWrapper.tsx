@@ -60,6 +60,7 @@ const styles = (theme: Theme) => {
       overflow: 'hidden',
       backgroundColor: '#FAFCFF',
       borderStartStartRadius: '5px',
+      padding: '2vw',
     },
   });
 };
