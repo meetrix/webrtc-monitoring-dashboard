@@ -76,10 +76,8 @@ export const SignupAsync = createAsyncThunk(
     try {
       const response = await userSignupApi(data);
       if (response.status === 200) {
-        const token = response?.data?.data?.token;
-        await setHeader(token);
-        await setToken(token);
-        dispatch(getProfileAsync(null));
+        await setHeader('');
+        await setToken('');
       }
       dispatch(
         appActions.triggerAlert({
@@ -107,11 +105,10 @@ export const getProfileAsync = createAsyncThunk(
       dispatch(appActions.appLoadingStart());
 
       const response = await getUserProfilepApi();
-
       // const permissions = filterRolePermissions(response?.data?.data?.role);
       // dispatch(actions.updatePermission(permissions));
       dispatch(appActions.appLoadingCompleted());
-      return response.data;
+      return response?.data;
     } catch (err) {
       await setToken('');
       return rejectWithValue(err);

@@ -48,7 +48,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setUser(_user);
       setAPI(api);
     };
-    getProfile();
+    // getProfile();
   }, []);
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
