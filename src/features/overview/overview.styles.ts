@@ -3,7 +3,10 @@ import { Theme } from '@mui/material';
 
 const styles = (theme: Theme) => {
   return createStyles({
-    root: {},
+    root: {
+      height: '100%',
+      overflow: 'auto',
+    },
   });
 };
 
