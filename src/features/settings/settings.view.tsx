@@ -86,7 +86,11 @@ const TokenComponent = ({
         </div>
       </div>
       <div style={{ display: 'flex', flexGrow: 1 }}>
-        <Link to={`/troubleshooter?token=${_id}`} className={classes.link}>
+        <Link
+          to={`/troubleshooter?token=${_id}`}
+          className={classes.link}
+          target="_blank"
+        >
           Troubleshooter URL
         </Link>
         <ContentCopyIcon
