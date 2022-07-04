@@ -9,6 +9,7 @@ const styles = (theme: Theme) => {
     },
     heading: {
       fontWeight: 600,
+      marginBottom: '20px',
     },
     subHeading: {
       margin: '3vh 0 2vh',
@@ -39,6 +40,9 @@ const styles = (theme: Theme) => {
     },
     responseText: {
       marginTop: '10px',
+    },
+    textField: {
+      margin: '10px 0px',
     },
   });
 };

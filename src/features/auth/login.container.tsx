@@ -14,7 +14,13 @@ const LoginContainer: React.FC<ILoginContainer> = ({}: ILoginContainer) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.isAuthenticated) navigate('/dashboard');
+    if (auth.isAuthenticated) {
+      if (auth?.user?.isFirstTimeUser) {
+        navigate('/dashboard/settings');
+      } else {
+        navigate('/dashboard');
+      }
+    }
   }, [auth.isAuthenticated]);
 
   useEffect(() => {
