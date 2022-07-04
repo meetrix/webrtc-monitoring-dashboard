@@ -132,6 +132,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={name.error}
         helperText={name.error && 'Please insert your name.'}
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <TextField
         id="sign-up-company"
@@ -140,6 +141,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={companyName.error}
         helperText={companyName.error && 'Please insert company name.'}
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <TextField
         id="sign-up-contact-number"
@@ -151,6 +153,7 @@ const SignupView: React.FC<ISignupView> = ({
           contactNumber.error && 'Please insert a valid contact number'
         }
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <TextField
         id="sign-up-email"
@@ -159,6 +162,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={email.error}
         helperText={email.error && 'Please insert a valid email address.'}
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <PasswordTextField
         id="sign-up-password"
@@ -167,6 +171,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={password.error}
         helperText={password.error && 'Please insert a valid password'}
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <PasswordTextField
         id="sign-up-repeat-assword"
@@ -175,6 +180,7 @@ const SignupView: React.FC<ISignupView> = ({
         error={repeatPassword.error}
         helperText={repeatPassword.error && 'Passwords are not matching'}
         onKeyDown={_handleEnterPress}
+        customStyles={classes.textField}
       />
       <div className={classes.buttonWrapper}>
         <Link to="/signin" className={classes.link}>
