@@ -39,7 +39,7 @@ const EmailRouteContainer: React.FC<IEmailRouteContainer> = ({}: IEmailRouteCont
         if (resetpassword) {
           navigate(`/resetpassword?token=${token}`);
         } else if (accountconfirmation) {
-          navigate('/dashboard');
+          navigate('/dashboard/settings');
         }
       } else if (responseStatus === 'false') {
         if (resetpassword) {

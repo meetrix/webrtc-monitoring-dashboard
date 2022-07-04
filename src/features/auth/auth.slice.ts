@@ -3,9 +3,10 @@ import { RootState } from '../../app/store';
 import {
   userSigninApi,
   userSignupApi,
-  getUserProfilepApi,
+  getUserProfileApi,
   updateUserProfileApi,
   updateUserPasswordApi,
+  clearFirstTimeUserFlagApi,
 } from './auth.api';
 import { setToken } from '../../helper/localStorage';
 import { setHeader } from '../../app/axios';
@@ -54,7 +55,6 @@ export const logInAsync = createAsyncThunk(
           childern: response?.data?.message || '',
         })
       );
-      dispatch(getProfileAsync(null));
 
       return response.data;
     } catch (error: any) {
@@ -104,7 +104,7 @@ export const getProfileAsync = createAsyncThunk(
     try {
       dispatch(appActions.appLoadingStart());
 
-      const response = await getUserProfilepApi();
+      const response = await getUserProfileApi();
       // const permissions = filterRolePermissions(response?.data?.data?.role);
       // dispatch(actions.updatePermission(permissions));
       dispatch(appActions.appLoadingCompleted());
@@ -165,6 +165,18 @@ export const updateUserPasswordAsync = createAsyncThunk(
     }
   }
 );
+
+export const clearFirstTimeUserFlagAsync = createAsyncThunk(
+  'auth/first-time',
+  async (data: any, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await clearFirstTimeUserFlagApi();
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -217,6 +229,24 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
     });
     builder.addCase(updateProfileAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.isAuthenticated = false;
+    });
+
+    // clear first time user flag
+    builder.addCase(clearFirstTimeUserFlagAsync.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(clearFirstTimeUserFlagAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = {
+        ...state.user,
+        data: { ...state.user.data, isFirstTimeUser: false },
+      };
+      state.isAuthenticated = true;
+    });
+    builder.addCase(clearFirstTimeUserFlagAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.isAuthenticated = false;

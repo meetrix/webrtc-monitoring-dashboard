@@ -4,7 +4,10 @@ import { userVerifyApi, resetApi } from './emailRoute.api';
 import { setToken } from '../../helper/localStorage';
 import { setHeader } from '../../app/axios';
 import { actions as appActions } from '../app/app.slice';
-import { getProfileAsync } from '../auth/auth.slice';
+import {
+  clearFirstTimeUserFlagAsync,
+  getProfileAsync,
+} from '../auth/auth.slice';
 
 export interface IVerifyState {
   responseStatus: string;
@@ -29,6 +32,7 @@ export const VerifyAsync = createAsyncThunk(
         await setHeader(token);
         await setToken(token);
         dispatch(getProfileAsync(null));
+        dispatch(clearFirstTimeUserFlagAsync(null));
       }
       return response.data;
     } catch (error: any) {
