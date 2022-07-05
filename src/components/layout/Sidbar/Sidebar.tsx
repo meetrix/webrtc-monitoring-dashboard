@@ -104,12 +104,12 @@ const Sidebar = ({ classes }: ISidebarProps) => {
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
-    {
-      label: 'Debugger',
-      path: '',
-      icon: '',
-      subItem: true,
-    },
+    // {
+    //   label: 'Debugger',
+    //   path: '/dashboard',
+    //   icon: '',
+    //   subItem: true,
+    // },
     {
       label: 'Incoming Connections',
       path: '/dashboard',
