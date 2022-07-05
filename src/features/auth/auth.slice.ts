@@ -48,7 +48,6 @@ export const logInAsync = createAsyncThunk(
         await setHeader(token);
         await setToken(token);
         dispatch(getProfileAsync(null));
-        dispatch(clearFirstTimeUserFlagAsync(null));
       }
       dispatch(
         appActions.triggerAlert({
