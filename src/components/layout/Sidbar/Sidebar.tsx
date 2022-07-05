@@ -88,7 +88,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Troubleshooter',
-      path: '/dashboard',
+      path: '',
       icon: '',
       subItem: true,
     },
@@ -100,7 +100,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Detailed View',
-      path: '/dashboard',
+      path: '/dashboard/detailed-view',
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
@@ -167,7 +167,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
               data.subItem && classes.subListItem,
               classes.listItem
             )}
-            onClick={() => handleOnClick(data)}
+            onClick={() => !data.subItem && handleOnClick(data)}
             selected={selectedItem === data.label}
             disableRipple
           >
