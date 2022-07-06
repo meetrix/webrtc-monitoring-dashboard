@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
-import { validateEmail, validatePassword } from '../../helper/validation';
+import { isEmailValid, isPasswordValid } from '../../helper/validation';
 import styles from './auth.styles';
 
 import { Logo as DefaultLogo } from '../../assets/icons';
@@ -60,13 +60,13 @@ const LoginView: React.FC<ILoginView> = ({
   };
 
   const _emailOnChange = (e: { target: { value: string } }) => {
-    const error = validateEmail(e.target.value);
+    const error = isEmailValid(e.target.value);
     setEmail({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
 
   const _passwordOnChange = (e: { target: { value: string } }) => {
-    const error = validatePassword(e.target.value);
+    const error = isPasswordValid(e.target.value);
     setPassword({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };

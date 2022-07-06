@@ -9,7 +9,7 @@ import { LinearProgress } from '../../components/Progress';
 import styles from './resetPassword.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { resetPasswordAsync, selectResetPassword } from './resetPassword.slice';
-import { validatePassword } from '../../helper/validation';
+import { isPasswordValid } from '../../helper/validation';
 import { PasswordTextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { LoginLayout } from '../../components/layout';
@@ -37,12 +37,12 @@ const ResetPassword: React.FC<IResetPasswordView> = ({
   });
 
   const newPasswordOnChange = (event: { target: { value: string } }) => {
-    const isError = validatePassword(event.target.value);
+    const isError = isPasswordValid(event.target.value);
     setNewPassword({ value: event.target.value, isError });
   };
 
   const confirmPasswordOnChange = (event: { target: { value: string } }) => {
-    const isError = validatePassword(event.target.value);
+    const isError = isPasswordValid(event.target.value);
     setConfirmPassword({ value: event.target.value, isError });
   };
 

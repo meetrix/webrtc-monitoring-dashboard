@@ -10,11 +10,11 @@ import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
 import {
-  validateCompanyName,
-  validateEmail,
-  validateName,
-  validatePassword,
-  validatePhoneNumber,
+  isCompanyNameValid,
+  isEmailValid,
+  isNameValid,
+  isPasswordValid,
+  isPhoneNumberValid,
 } from '../../helper/validation';
 import styles from './auth.styles';
 import { LoginLayout } from '../../components/layout';
@@ -91,28 +91,28 @@ const SignupView: React.FC<ISignupView> = ({
   };
 
   const _nameOnChange = (e: { target: { value: string } }) => {
-    const error = validateName(e.target.value);
+    const error = isNameValid(e.target.value);
     setName({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
   const _companyNameOnChange = (e: { target: { value: string } }) => {
-    const error = validateCompanyName(e.target.value);
+    const error = isCompanyNameValid(e.target.value);
     setCompanyName({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
   const _contactOnChange = (e: { target: { value: string } }) => {
-    const error = validatePhoneNumber(e.target.value);
+    const error = isPhoneNumberValid(e.target.value);
     setContactNumber({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
 
   const _emailOnChange = (e: { target: { value: string } }) => {
-    const error = validateEmail(e.target.value);
+    const error = isEmailValid(e.target.value);
     setEmail({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
   const _passwordOnChange = (e: { target: { value: string } }) => {
-    const error = validatePassword(e.target.value);
+    const error = isPasswordValid(e.target.value);
     setPassword({ value: e.target.value, error });
     if (errorMsg) setErrorMsg('');
   };
