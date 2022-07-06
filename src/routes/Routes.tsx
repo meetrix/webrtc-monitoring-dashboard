@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { LoginView, SignupView } from '../features/auth';
 import RouteWrapper from './RouteWrapper';
 import Clients from '../features/clients/Clients';
-import Debugger from '../features/debugger/Debugger';
+// import Debugger from '../features/debugger/Debugger';
 import { EmailRoute } from '../features/emailRoute';
 import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
@@ -12,16 +12,17 @@ import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { Settings } from '../features/settings';
 import { CallStatMonitoring } from '../features/callStats';
+import { DetailedView } from '../features/detailedView';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
 
 const routesList = [
-  {
-    path: '/',
-    isPrivate: false,
-    component: <Debugger />,
-  },
+  // {
+  //   path: '/',
+  //   isPrivate: false,
+  //   component: <Debugger />,
+  // },
   {
     path: '/signin',
     isPrivate: false,
@@ -49,13 +50,13 @@ const routesList = [
     hasNavbar: true,
     hasFooter: true,
   },
-  {
-    path: '/debugger',
-    isPrivate: true,
-    component: <Debugger />,
-    hasNavbar: true,
-    hasFooter: true,
-  },
+  // {
+  //   path: '/debugger',
+  //   isPrivate: true,
+  //   component: <Debugger />,
+  //   hasNavbar: true,
+  //   hasFooter: true,
+  // },
   {
     path: '/emailroute',
     isPrivate: false,
@@ -111,6 +112,13 @@ const routesList = [
     hasSidebar: false,
     component: <Troubleshooter />,
     hasNavbar: false,
+  },
+  {
+    path: '/dashboard/detailed-view',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <DetailedView />,
+    hasNavbar: true,
   },
 ];
 
