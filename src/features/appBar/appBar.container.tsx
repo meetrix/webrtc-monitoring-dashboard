@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setHeader } from '../../app/axios';
 import { setToken } from '../../helper/localStorage';
-import { selectAuth, actions as authAction } from '../auth/auth.slice';
+import {
+  selectAuth,
+  actions as authAction,
+  getProfileAsync,
+} from '../auth/auth.slice';
 // import { ScheduleMeetingModal, InstantMeetingmodal } from '../scheduleMeeting';
 import { AppBar } from '../../components/layout';
 
@@ -24,10 +28,13 @@ const AppBarContainer: React.FC<IAppBarContainer> = ({}: IAppBarContainer) => {
     navigate('/signin');
     navigate(0); // refresh the application after signout
   };
+  const _getUserProfile = () => {
+    dispatch<any>(getProfileAsync(null));
+  };
 
   return (
     <>
-      <AppBar auth={auth} signOut={_signOut} />
+      <AppBar auth={auth} signOut={_signOut} getUserProfile={_getUserProfile} />
       {/* 
       <ScheduleMeetingModal />
       <InstantMeetingmodal /> */}

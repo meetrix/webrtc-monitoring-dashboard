@@ -4,7 +4,11 @@ import React, { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginView from './login.view';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { logInAsync, selectAuth } from './auth.slice';
+import {
+  clearFirstTimeUserFlagAsync,
+  logInAsync,
+  selectAuth,
+} from './auth.slice';
 
 export interface ILoginContainer {}
 
@@ -14,7 +18,14 @@ const LoginContainer: React.FC<ILoginContainer> = ({}: ILoginContainer) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.isAuthenticated) navigate('/');
+    if (auth.isAuthenticated) {
+      if (auth?.user?.isFirstTimeUser) {
+        navigate('/dashboard/settings');
+        dispatch<any>(clearFirstTimeUserFlagAsync(null));
+      } else {
+        navigate('/dashboard');
+      }
+    }
   }, [auth.isAuthenticated]);
 
   useEffect(() => {

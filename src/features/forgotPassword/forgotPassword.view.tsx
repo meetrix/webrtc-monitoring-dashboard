@@ -6,7 +6,7 @@ import { Grid, Alert, Paper } from '@mui/material';
 import { LinearProgress } from '../../components/Progress';
 import { TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
-import { validateEmail } from '../../helper/validation';
+import { isEmailValid } from '../../helper/validation';
 
 import styles from './forgotPassword.styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -35,7 +35,7 @@ const ForgotPassword: React.FC<IForgotPasswordView> = ({
   });
 
   const emailOnChange = (event: { target: { value: string } }) => {
-    const isError = validateEmail(event.target.value);
+    const isError = isEmailValid(event.target.value);
     setEmail({ value: event.target.value, isError });
   };
 

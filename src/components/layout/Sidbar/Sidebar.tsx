@@ -145,7 +145,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     if (index1 === index2) {
       setSelectedItem(selectedItem);
     } else {
-      setSelectedItem(SidebarItems[index2].label);
+      setSelectedItem(SidebarItems[index2]?.label);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname]);
