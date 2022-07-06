@@ -374,11 +374,13 @@ const DetailedView: React.FC<IDetailedView> = ({
                           }}
                         />
                       </TableCell> */}
+                      <TableCell align="center">{row.email}</TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
+                        align="center"
                       >
                         {row._id}
                       </TableCell>
