@@ -36,57 +36,12 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import styles from './detailedView.styles';
 import DetailedViewTableHead from './detailedViewTableHead';
 import TablePaginationActions from './detailedViewPagination';
+import { isHexadecimal } from '../../helper/validation';
 
 interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
   detailViewList: any;
   getTroubleshooterData: Function;
 }
-
-// Sort table using connected date and the test ID
-const useSortableData = (
-  troubleshooterDetailsForSort: any,
-  config: { key: any; direction: string }
-) => {
-  const sortedItems = React.useMemo(() => {
-    const sortableItems = [...troubleshooterDetailsForSort];
-    if (config !== null) {
-      sortableItems.sort((a, b) => {
-        if (a[config.key] < b[config.key]) {
-          return config.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[config.key] > b[config.key]) {
-          return config.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sortableItems;
-  }, [troubleshooterDetailsForSort, config]);
-
-  return { troubleshooterDetailsForSort: sortedItems };
-};
-
-// Sort the table using browser version
-const useBrowserVersionToSort = (
-  troubleshooterDetailsForBrowserVersionSort: any,
-  direction: string
-) => {
-  const sortedItems = useMemo(() => {
-    const sortableItems = [...troubleshooterDetailsForBrowserVersionSort];
-    sortableItems.sort((a, b) => {
-      if (a?.metadata?.browser?.version < b.metadata?.browser?.version) {
-        return direction === 'ascending' ? -1 : 1;
-      }
-      if (a.metadata?.browser?.version > b.metadata?.browser?.version) {
-        return direction === 'ascending' ? 1 : -1;
-      }
-      return 0;
-    });
-    return sortableItems;
-  }, [troubleshooterDetailsForBrowserVersionSort, direction]);
-
-  return { troubleshooterDetailsForBrowserVersionSort: sortedItems };
-};
 
 const popperSx: SxProps = {
   marginTop: '10px',
@@ -125,37 +80,12 @@ const DetailedView: React.FC<IDetailedView> = ({
   );
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(new Date());
-  const [detailCount, setDetailCount] = useState<number>(detailViewList?.total);
-  const tempDetailList: any[] = [];
   const startDateFormat = moment(startDate).format('DD/MM/yyyy');
   const endDateFormat = moment(endDate).format('DD/MM/yyyy');
-  // const date1 = '2016-10-19';
-  // const dateFormat = 'dd/MM/yyyy';
-  // const toDateFormat = moment(
-  //   endDate !== null ? endDate?.toString : new Date()
-  // ).format(dateFormat);
-  // console.log(moment(toDateFormat, dateFormat, true).isValid());
 
   useEffect(() => {
     if (detailViewList && detailViewList.sessions.length) {
-      // detailViewList.sessions
-      //   .filter((row: any) => {
-      //     let filterPass = true;
-      //     const date = new Date(row.createdAt);
-      //     if (startDate) {
-      //       filterPass = filterPass && new Date(startDate) < date;
-      //     }
-      //     if (endDate) {
-      //       filterPass = filterPass && new Date(endDate) > date;
-      //     }
-      //     return filterPass;
-      //   })
-      //   .filter((item: any) => item._id.includes(search))
-      //   .map((item: any) => {
-      //     tempDetailList.push(item);
-      //   });
       setInitialDetailList(detailViewList.sessions);
-      setDetailCount(tempDetailList.length);
     } else if (detailViewList && detailViewList.sessions.length === 0) {
       setInitialDetailList([]);
     }
@@ -191,7 +121,7 @@ const DetailedView: React.FC<IDetailedView> = ({
       direction: sortDirection,
       startTime: startDate && startDate !== null ? startDate : 0,
       endTime: endDate !== null ? endDate : 0,
-      testId: search,
+      testId: search.length === 24 && isHexadecimal(search) ? search : '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, orderBy, sortDirection, startDate, endDate, search]);
@@ -216,10 +146,6 @@ const DetailedView: React.FC<IDetailedView> = ({
 
   const handleEndDate = (date: Date | null) => {
     setEndDate(date);
-    setPage(0);
-  };
-  const handleClearClick = () => {
-    setStartDate(null);
     setPage(0);
   };
 
