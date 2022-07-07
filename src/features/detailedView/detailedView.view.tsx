@@ -39,6 +39,7 @@ import TablePaginationActions from './detailedViewPagination';
 
 interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
   detailViewList: any;
+  getTroubleshooterData: Function;
 }
 
 // Sort table using connected date and the test ID
@@ -110,78 +111,63 @@ const popperSx: SxProps = {
 const DetailedView: React.FC<IDetailedView> = ({
   classes,
   detailViewList,
+  getTroubleshooterData,
 }: IDetailedView) => {
   const [orderBy, setOrderBy] = useState<string>('_id');
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [sortDirection, setSortDirection] = useState<string>('ascending');
+  const [sortDirection, setSortDirection] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const [initialDetailList, setInitialDetailList] = useState(
-    detailViewList && detailViewList.length > 0 ? detailViewList : []
+    detailViewList && detailViewList.sessions.length > 0
+      ? detailViewList.sessions
+      : []
   );
-
   const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [detailCount, setDetailCount] = useState<number>(detailViewList?.total);
   const tempDetailList: any[] = [];
+  const startDateFormat = moment(startDate).format('DD/MM/yyyy');
+  const endDateFormat = moment(endDate).format('DD/MM/yyyy');
+  // const date1 = '2016-10-19';
+  // const dateFormat = 'dd/MM/yyyy';
+  // const toDateFormat = moment(
+  //   endDate !== null ? endDate?.toString : new Date()
+  // ).format(dateFormat);
+  // console.log(moment(toDateFormat, dateFormat, true).isValid());
 
   useEffect(() => {
-    if (detailViewList && detailViewList.length) {
-      detailViewList
-        .filter((row: any) => {
-          let filterPass = true;
-          const date = new Date(row.createdAt);
-          if (startDate) {
-            filterPass = filterPass && new Date(startDate) < date;
-          }
-          if (endDate) {
-            filterPass = filterPass && new Date(endDate) > date;
-          }
-          return filterPass;
-        })
-        .filter((item: any) => item._id.includes(search))
-        .map((item: any) => {
-          tempDetailList.push(item);
-        });
-      setInitialDetailList(tempDetailList);
+    if (detailViewList && detailViewList.sessions.length) {
+      // detailViewList.sessions
+      //   .filter((row: any) => {
+      //     let filterPass = true;
+      //     const date = new Date(row.createdAt);
+      //     if (startDate) {
+      //       filterPass = filterPass && new Date(startDate) < date;
+      //     }
+      //     if (endDate) {
+      //       filterPass = filterPass && new Date(endDate) > date;
+      //     }
+      //     return filterPass;
+      //   })
+      //   .filter((item: any) => item._id.includes(search))
+      //   .map((item: any) => {
+      //     tempDetailList.push(item);
+      //   });
+      setInitialDetailList(detailViewList.sessions);
+      setDetailCount(tempDetailList.length);
+    } else if (detailViewList && detailViewList.sessions.length === 0) {
+      setInitialDetailList([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderBy, detailViewList, sortDirection, startDate, endDate, search]);
-
-  const { troubleshooterDetailsForSort } = useSortableData(
-    initialDetailList && initialDetailList.length > 0 ? initialDetailList : [],
-    {
-      key: orderBy,
-      direction: sortDirection,
-    }
-  );
-  const {
-    troubleshooterDetailsForBrowserVersionSort,
-  } = useBrowserVersionToSort(
-    initialDetailList && initialDetailList.length > 0 ? initialDetailList : [],
-    sortDirection
-  );
-
-  const [troubleshooterDetails, setTroubleshooterDetails] = useState(
-    troubleshooterDetailsForSort
-  );
-
-  useEffect(() => {
-    if (orderBy === 'browserVersion') {
-      setTroubleshooterDetails(troubleshooterDetailsForBrowserVersionSort);
-    } else {
-      setTroubleshooterDetails(troubleshooterDetailsForSort);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderBy, detailViewList, sortDirection, initialDetailList]);
 
   const handleSelect = (event: SelectChangeEvent) => {
     setOrderBy(event.target.value as string);
   };
 
   const emptyRows =
-    page > 0
-      ? Math.max(0, (1 + page) * rowsPerPage - troubleshooterDetails.length)
-      : 0;
+    page > 0 ? Math.max(0, rowsPerPage - initialDetailList?.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -197,17 +183,44 @@ const DetailedView: React.FC<IDetailedView> = ({
     setPage(0);
   };
 
+  useEffect(() => {
+    getTroubleshooterData({
+      limit: rowsPerPage,
+      offset: page * rowsPerPage,
+      sortBy: orderBy,
+      direction: sortDirection,
+      startTime: startDate && startDate !== null ? startDate : 0,
+      endTime: endDate !== null ? endDate : 0,
+      testId: search,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, rowsPerPage, orderBy, sortDirection, startDate, endDate, search]);
+
   const handleOrderButtonClick = () => {
-    if (sortDirection === 'ascending') {
-      setSortDirection('descending');
+    if (sortDirection === 1) {
+      setSortDirection(-1);
     }
-    if (sortDirection === 'descending') {
-      setSortDirection('ascending');
+    if (sortDirection === -1) {
+      setSortDirection(1);
     }
   };
 
   const handleSearch = (event: any) => {
     setSearch(event.target.value);
+  };
+
+  const handleStartDate = (date: Date | null) => {
+    setStartDate(date);
+    setPage(0);
+  };
+
+  const handleEndDate = (date: Date | null) => {
+    setEndDate(date);
+    setPage(0);
+  };
+  const handleClearClick = () => {
+    setStartDate(null);
+    setPage(0);
   };
 
   return (
@@ -236,7 +249,7 @@ const DetailedView: React.FC<IDetailedView> = ({
               <DesktopDatePicker
                 inputFormat="dd/MM/yyyy"
                 value={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => handleStartDate(date)}
                 maxDate={new Date()}
                 PaperProps={{
                   sx: popperSx,
@@ -246,6 +259,10 @@ const DetailedView: React.FC<IDetailedView> = ({
                     {...params}
                     InputLabelProps={{ shrink: false }}
                     className={classes.datePicker}
+                    inputProps={{ readOnly: true }}
+                    value={
+                      startDateFormat !== 'Invalid date' ? startDateFormat : ''
+                    }
                   />
                 )}
               />
@@ -257,7 +274,7 @@ const DetailedView: React.FC<IDetailedView> = ({
               <DesktopDatePicker
                 inputFormat="dd/MM/yyyy"
                 value={endDate}
-                onChange={(date) => setEndDate(date)}
+                onChange={(date) => handleEndDate(date)}
                 maxDate={new Date()}
                 PaperProps={{
                   sx: popperSx,
@@ -267,6 +284,10 @@ const DetailedView: React.FC<IDetailedView> = ({
                     {...params}
                     InputLabelProps={{ shrink: false }}
                     className={classes.datePicker}
+                    inputProps={{ readOnly: true }}
+                    value={
+                      endDateFormat !== 'Invalid date' ? endDateFormat : ''
+                    }
                   />
                 )}
               />
@@ -310,7 +331,7 @@ const DetailedView: React.FC<IDetailedView> = ({
                   Date Connected
                 </MenuItem>
                 <MenuItem
-                  value="browserVersion"
+                  value="metadata.browser.version"
                   className={classes.paperTextDark}
                   key="browserVersion"
                 >
@@ -322,7 +343,7 @@ const DetailedView: React.FC<IDetailedView> = ({
               onClick={handleOrderButtonClick}
               className={classes.iconButton}
             >
-              {sortDirection === 'ascending' ? (
+              {sortDirection === 1 ? (
                 <Tooltip
                   title="Ascending order"
                   classes={{
@@ -351,18 +372,13 @@ const DetailedView: React.FC<IDetailedView> = ({
             <Table sx={{ minWidth: 750 }} stickyHeader>
               <DetailedViewTableHead classes={classes} />
               <TableBody>
-                {(rowsPerPage > 0
-                  ? troubleshooterDetails?.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : []
-                ).map((row: any, index: any) => {
-                  const labelId = `detailed-view-table-${index}`;
+                {(rowsPerPage > 0 ? initialDetailList : []).map(
+                  (row: any, index: any) => {
+                    const labelId = `detailed-view-table-${index}`;
 
-                  return (
-                    <TableRow tabIndex={-1} key={row._id}>
-                      {/* <TableCell
+                    return (
+                      <TableRow tabIndex={-1} key={row._id}>
+                        {/* <TableCell
                         padding="checkbox"
                         className={classes.tableCells}
                       >
@@ -374,55 +390,55 @@ const DetailedView: React.FC<IDetailedView> = ({
                           }}
                         />
                       </TableCell> */}
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row._id}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.metadata.browser.name}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.metadata.browser.version}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.metadata.os.name} {row.metadata.os.version}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.tests.camera.status ? (
-                          <DoneIcon className={classes.tickIcon} />
-                        ) : (
-                          <CloseIcon className={classes.crossIcon} />
-                        )}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.tests.microphone.status ? (
-                          <DoneIcon className={classes.tickIcon} />
-                        ) : (
-                          <CloseIcon className={classes.crossIcon} />
-                        )}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.tests.network.status ? (
-                          <DoneIcon className={classes.tickIcon} />
-                        ) : (
-                          <CloseIcon className={classes.crossIcon} />
-                        )}
-                      </TableCell>
-                      <TableCell align="center">
-                        {row.tests.browser.status ? (
-                          <DoneIcon className={classes.tickIcon} />
-                        ) : (
-                          <CloseIcon className={classes.crossIcon} />
-                        )}
-                      </TableCell>
-                      <TableCell align="center">
-                        {moment(row.createdAt).format('D,MMM,YYYY,hh:mm A')}
-                      </TableCell>
-                      {/* <TableCell
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {row._id}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.metadata.browser.name}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.metadata.browser.version}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.metadata.os.name} {row.metadata.os.version}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.tests.camera.status ? (
+                            <DoneIcon className={classes.tickIcon} />
+                          ) : (
+                            <CloseIcon className={classes.crossIcon} />
+                          )}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.tests.microphone.status ? (
+                            <DoneIcon className={classes.tickIcon} />
+                          ) : (
+                            <CloseIcon className={classes.crossIcon} />
+                          )}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.tests.network.status ? (
+                            <DoneIcon className={classes.tickIcon} />
+                          ) : (
+                            <CloseIcon className={classes.crossIcon} />
+                          )}
+                        </TableCell>
+                        <TableCell align="center">
+                          {row.tests.browser.status ? (
+                            <DoneIcon className={classes.tickIcon} />
+                          ) : (
+                            <CloseIcon className={classes.crossIcon} />
+                          )}
+                        </TableCell>
+                        <TableCell align="center">
+                          {moment(row.createdAt).format('D,MMM,YYYY,hh:mm A')}
+                        </TableCell>
+                        {/* <TableCell
                         align="center"
                         className={clsx(
                           isItemSelected && classes.selectedRowCel
@@ -430,9 +446,10 @@ const DetailedView: React.FC<IDetailedView> = ({
                       >
                         See more
                       </TableCell> */}
-                    </TableRow>
-                  );
-                })}
+                      </TableRow>
+                    );
+                  }
+                )}
                 {emptyRows > 0 && (
                   <TableRow
                     style={{
@@ -448,7 +465,7 @@ const DetailedView: React.FC<IDetailedView> = ({
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             colSpan={3}
-            count={troubleshooterDetails?.length}
+            count={detailViewList?.total}
             rowsPerPage={rowsPerPage}
             page={page}
             SelectProps={{
