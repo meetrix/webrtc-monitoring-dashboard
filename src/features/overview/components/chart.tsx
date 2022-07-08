@@ -24,7 +24,13 @@ const ChartComponent: React.FC<IChartComponent> = ({
   return (
     <Paper elevation={0} sx={{ height: '100%' }}>
       <Box sx={{ margin: '10px' }}>
-        <Box sx={{ display: 'flex' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingTop: '10px',
+          }}
+        >
           <Typography variant="h6" sx={{ color: theme.palette.secondary.dark }}>
             {title}
           </Typography>

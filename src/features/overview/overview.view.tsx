@@ -17,6 +17,7 @@ interface IDatePicker {
   value: any;
   onChange: (value: any, keyboardInputValue?: string | undefined) => void;
   maxDate?: any;
+  openTo?: any;
 }
 
 const sampleData = [
@@ -72,7 +73,11 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
-  const DatePicker = ({ value, onChange, maxDate }: IDatePicker) => {
+  const [testByDate, setTestByDate] = useState<Date | null>(null);
+  const [testbyCatagory, setTestbyCategory] = useState<Date | null>(null);
+  const [lineChartDate, setLineChartDate] = useState<Date | null>(null);
+
+  const DatePicker = ({ value, onChange, maxDate, openTo }: IDatePicker) => {
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DesktopDatePicker
@@ -80,6 +85,7 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
           value={value}
           onChange={(date) => onChange(date)}
           maxDate={maxDate}
+          openTo={openTo}
           PaperProps={{
             sx: popperSx,
           }}
@@ -106,7 +112,9 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
             onChange={setStartDate}
             maxDate={new Date()}
           />
-          <Typography variant="body1">&nbsp;To: &nbsp;</Typography>
+          <Typography sx={{ marginLeft: 2 }} variant="body1">
+            To: &nbsp;
+          </Typography>
           <DatePicker
             value={endDate}
             onChange={setEndDate}
@@ -121,6 +129,14 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
             chartType="ColumnChart"
             options={chart1Options}
             title="Failed vs Succeful Tests by Date"
+            topRightElement={
+              <DatePicker
+                value={testByDate}
+                onChange={setTestByDate}
+                maxDate={new Date()}
+                openTo="month"
+              />
+            }
           />
         </Grid>
         <Grid item xs={6}>
@@ -129,6 +145,14 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
             chartType="ColumnChart"
             options={chart2Options}
             title="Failed vs Succeful Tests by Category"
+            topRightElement={
+              <DatePicker
+                value={testbyCatagory}
+                onChange={setTestbyCategory}
+                maxDate={new Date()}
+                openTo="day"
+              />
+            }
           />
         </Grid>
         <Grid item xs={12}>
@@ -137,6 +161,14 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
             chartType="LineChart"
             options={chart1Options}
             title="Failed vs Succeful Tests"
+            topRightElement={
+              <DatePicker
+                value={lineChartDate}
+                onChange={setLineChartDate}
+                maxDate={new Date()}
+                openTo="month"
+              />
+            }
           />
         </Grid>
       </Grid>
