@@ -115,7 +115,7 @@ const routesList = [
   },
   {
     path: '/dashboard/detailed-view',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <DetailedView />,
     hasNavbar: true,
