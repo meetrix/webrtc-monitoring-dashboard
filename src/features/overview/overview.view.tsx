@@ -29,13 +29,33 @@ const sampleData = [
   ['2050', 26, 19],
 ];
 
+const TestByDateSample = [
+  ['Day', 'Success', 'Fail'],
+  ['Mon', 10, 24],
+  ['Tue', 16, 22],
+  ['Wed', 28, 19],
+  ['Thu', 24, 19],
+  ['Fri', 26, 14],
+  ['Sat', 26, 16],
+  ['Sun', 15, 13],
+];
+
+const TestByDateCategory = [
+  ['Category', 'Success', 'Fail'],
+  ['Camera', 10, 24],
+  ['Microphone', 16, 22],
+  ['Network', 28, 19],
+  ['Browser', 24, 19],
+];
+
 const chart1Options = {
   height: 400,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
   chartArea: {
-    width: '95%',
+    width: '94%',
   },
+  colors: ['#5ECCC8', '#EB514A'],
 };
 
 const chart2Options = {
@@ -44,8 +64,9 @@ const chart2Options = {
   bar: { groupWidth: '75%' },
   isStacked: true,
   chartArea: {
-    width: '95%',
+    width: '94%',
   },
+  colors: ['#5ECCC8', '#EB514A'],
 };
 
 const popperSx: any = {
@@ -125,7 +146,7 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Chart
-            data={sampleData}
+            data={TestByDateSample}
             chartType="ColumnChart"
             options={chart1Options}
             title="Failed vs Succeful Tests by Date"
@@ -141,7 +162,7 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
         </Grid>
         <Grid item xs={6}>
           <Chart
-            data={sampleData}
+            data={TestByDateCategory}
             chartType="ColumnChart"
             options={chart2Options}
             title="Failed vs Succeful Tests by Category"
