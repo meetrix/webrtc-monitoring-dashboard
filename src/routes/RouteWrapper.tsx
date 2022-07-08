@@ -39,7 +39,6 @@ const styles = (theme: Theme) => {
       },
     },
     maxWidth: {
-      display: 'flex',
       width: '100%',
     },
     fullScreenBodyWrapper: {

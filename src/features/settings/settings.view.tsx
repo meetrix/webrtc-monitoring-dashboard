@@ -86,7 +86,11 @@ const TokenComponent = ({
         </div>
       </div>
       <div style={{ display: 'flex', flexGrow: 1 }}>
-        <Link to={`/troubleshooter?token=${_id}`} className={classes.link}>
+        <Link
+          to={`/troubleshooter?token=${_id}`}
+          className={classes.link}
+          target="_blank"
+        >
           Troubleshooter URL
         </Link>
         <ContentCopyIcon
@@ -223,7 +227,7 @@ const Settings: React.FC<ISettingsView> = ({
   };
 
   useEffect(() => {
-    actions.getICEServerConfig(token);
+    if (token) actions.getICEServerConfig(token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, isServerSettingsPage]);
 

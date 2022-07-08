@@ -1,9 +1,9 @@
 /* eslint-disable no-useless-escape */
-export const validatePassword = (input: string) => {
+export const isPasswordValid = (input: string) => {
   return !input || input.length < 8;
 };
 
-export const validateEmail = (input: string) => {
+export const isEmailValid = (input: string) => {
   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const result = reg.test(input);
   const b1 = input === '';
@@ -18,13 +18,17 @@ export const isAlphanumeric = (input: string) => {
   return true;
 };
 
-export const validateName = (input: string) => {
+export const isNameValid = (input: string) => {
   const regex = /^[a-zA-Z].*[\s\.]*$/g;
   if (regex.test(input)) return false;
   return true;
 };
 
-export const validatePhoneNumber = (input: string) => {
+export const isCompanyNameValid = (input: string) => {
+  return !input || input.length === 0;
+};
+
+export const isPhoneNumberValid = (input: string) => {
   const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
   if (regex.test(input)) return false;
   return true;

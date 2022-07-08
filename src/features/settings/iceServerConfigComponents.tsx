@@ -271,6 +271,7 @@ export const SharedSecretComponent = ({
                   classes.textField,
                   classes.passwordTextField
                 )}
+                tooltipOpen={false}
               />
               <Button
                 id="shared-secret-save-settings"
