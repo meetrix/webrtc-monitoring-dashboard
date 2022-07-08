@@ -10,17 +10,15 @@ import { selectConfig } from './settings.slice';
 
 const renderResponseMessage = ({
   responseStatus,
-  config,
   classes,
   setSaveButtonClicked,
 }: {
   responseStatus: string;
-  config: any;
   classes: any;
   // eslint-disable-next-line @typescript-eslint/ban-types
   setSaveButtonClicked: Function;
 }) => {
-  if (responseStatus === 'true' && config) {
+  if (responseStatus === 'true') {
     return (
       <div>
         <Alert
@@ -113,7 +111,6 @@ export const URLFetchComponent = ({
         {saveButtonClicked &&
           renderResponseMessage({
             responseStatus,
-            config,
             classes,
             setSaveButtonClicked,
           })}
@@ -207,7 +204,6 @@ export const StaticICEServerComponent = ({
         staticInput.length > 0 &&
         renderResponseMessage({
           responseStatus,
-          config,
           classes,
           setSaveButtonClicked,
         })}
@@ -301,7 +297,6 @@ export const SharedSecretComponent = ({
       {saveButtonClicked &&
         renderResponseMessage({
           responseStatus,
-          config,
           classes,
           setSaveButtonClicked,
         })}
