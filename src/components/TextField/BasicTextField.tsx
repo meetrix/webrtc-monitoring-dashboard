@@ -25,6 +25,8 @@ const styles = (theme: Theme) => {
       '& .MuiFormHelperText-contained': {
         position: 'absolute',
         bottom: -20,
+        margin: '0px',
+        fontSize: theme.typography.body2.fontSize,
       },
       // '& legend': {
       //   width: '0 !important',
