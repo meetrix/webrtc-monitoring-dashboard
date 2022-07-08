@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { memo, useState } from 'react';
 import { withStyles, WithStyles } from '@mui/styles';
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { TextField, PasswordTextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { Typography } from '../../components/Typography';
-import { validateEmail, validatePassword } from '../../helper/validation';
+import { isEmailValid, isPasswordValid } from '../../helper/validation';
 import styles from './auth.styles';
 
 import { Logo as DefaultLogo } from '../../assets/icons';
@@ -27,19 +27,14 @@ const LoginView: React.FC<ILoginView> = ({
 }: ILoginView) => {
   const [email, setEmail] = useState({ error: false, value: '' });
   const [password, setPassword] = useState({ error: false, value: '' });
+  const [errorMsg, setErrorMsg] = useState('');
 
   const _validate = () => {
     let isValidate = true;
 
-    if (email.error || password.error) isValidate = false;
-    if (!email.value) {
+    if (!email.value || !password.value) {
       isValidate = false;
-      setEmail({ ...email, error: true });
-    }
-
-    if (!password.value) {
-      isValidate = false;
-      setPassword({ ...password, error: true });
+      setErrorMsg('Please enter valid email and password');
     }
 
     return isValidate;
@@ -57,14 +52,23 @@ const LoginView: React.FC<ILoginView> = ({
     }
   };
 
+  const renderResponseMessage = () => {
+    if (errorMsg) {
+      return <Alert severity="error">{errorMsg}</Alert>;
+    }
+    return null;
+  };
+
   const _emailOnChange = (e: { target: { value: string } }) => {
-    const error = validateEmail(e.target.value);
+    const error = isEmailValid(e.target.value);
     setEmail({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
 
   const _passwordOnChange = (e: { target: { value: string } }) => {
-    const error = validatePassword(e.target.value);
+    const error = isPasswordValid(e.target.value);
     setPassword({ value: e.target.value, error });
+    if (errorMsg) setErrorMsg('');
   };
   return (
     <LoginLayout>
@@ -79,6 +83,7 @@ const LoginView: React.FC<ILoginView> = ({
         error={email.error}
         helperText={email.error && 'Please insert a valid email address.'}
         onKeyDown={_handleEnterPress}
+        required
       />
       <PasswordTextField
         id="sign-in-password"
@@ -87,7 +92,9 @@ const LoginView: React.FC<ILoginView> = ({
         error={password.error}
         helperText={password.error && 'Please insert a valid password'}
         onKeyDown={_handleEnterPress}
+        tooltipOpen={false}
       />
+      <div className={classes.responseText}>{renderResponseMessage()}</div>
       <div className={classes.buttonWrapper}>
         <Link to="/signup" className={classes.link}>
           Create an account

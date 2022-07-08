@@ -88,7 +88,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Troubleshooter',
-      path: '/dashboard',
+      path: '',
       icon: '',
       subItem: true,
     },
@@ -100,16 +100,16 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Detailed View',
-      path: '/dashboard',
+      path: '/dashboard/detailed-view',
       icon: <FormatLineSpacingRoundedIcon />,
       subItem: false,
     },
-    {
-      label: 'Debugger',
-      path: '/dashboard',
-      icon: '',
-      subItem: true,
-    },
+    // {
+    //   label: 'Debugger',
+    //   path: '/dashboard',
+    //   icon: '',
+    //   subItem: true,
+    // },
     {
       label: 'Incoming Connections',
       path: '/dashboard',
@@ -145,7 +145,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     if (index1 === index2) {
       setSelectedItem(selectedItem);
     } else {
-      setSelectedItem(SidebarItems[index2].label);
+      setSelectedItem(SidebarItems[index2]?.label);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname]);
@@ -167,7 +167,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
               data.subItem && classes.subListItem,
               classes.listItem
             )}
-            onClick={() => handleOnClick(data)}
+            onClick={() => !data.subItem && handleOnClick(data)}
             selected={selectedItem === data.label}
             disableRipple
           >

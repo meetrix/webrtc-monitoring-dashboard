@@ -38,6 +38,9 @@ const styles = (theme: Theme) => {
       textDecoration: 'none',
       color: '#707070',
     },
+    responseText: {
+      marginTop: '10px',
+    },
     textField: {
       margin: '10px 0px',
     },
