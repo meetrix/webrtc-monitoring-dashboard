@@ -14,7 +14,7 @@ const SignupContainer: React.FC<ISignupContainer> = ({}: ISignupContainer) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.isAuthenticated) navigate('/');
+    if (auth.isAuthenticated) navigate('/dashboard');
   }, [auth.isAuthenticated]);
 
   useEffect(() => {

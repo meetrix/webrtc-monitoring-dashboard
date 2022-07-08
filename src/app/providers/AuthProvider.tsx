@@ -2,10 +2,12 @@ import debugLib from 'debug';
 import React, { useContext, useEffect, useState } from 'react';
 import config from '../../config';
 import { ACCOUNT_PROFILE } from '../../constants/apiRoutes';
+import { selectAuth } from '../../features/auth/auth.slice';
 import { setAPI } from '../../utils/apiUtils';
 import { AxiosWrapper } from '../../utils/axiosWrapper';
 import { getToken, setToken } from '../../utils/localStorageUtils';
 import { getUrlParams } from '../../utils/urlUtils';
+import { useAppSelector } from '../hooks';
 
 const debug = debugLib('AuthProvider');
 
@@ -23,9 +25,10 @@ export const AuthContext = React.createContext<AuthContextType>({
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>({ email: '' });
+  const auth = useAppSelector(selectAuth);
   useEffect(() => {
     const getProfile = async () => {
-      const { baseURL } = config.api;
+      const { baseURLv1: baseURL } = config.api;
 
       // retrieve token from URL if there any
       const { token: _token } = getUrlParams();
@@ -48,8 +51,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       setUser(_user);
       setAPI(api);
     };
-    getProfile();
-  }, []);
+    if (auth.isAuthenticated) getProfile();
+  }, [auth.isAuthenticated]);
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );

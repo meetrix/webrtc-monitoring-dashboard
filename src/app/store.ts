@@ -8,6 +8,7 @@ import counterReducer from '../features/counter/counterSlice';
 import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
 import { resetPasswordReducer } from '../features/resetPassword';
+import { detailedViewReducer } from '../features/detailedView';
 import { settingsReducer } from '../features/settings';
 
 export const store = configureStore({
@@ -19,6 +20,7 @@ export const store = configureStore({
     verify: verifyReducer,
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
+    troubleshooterDetails: detailedViewReducer,
     settings: settingsReducer,
     [api.reducerPath]: api.reducer
   },
