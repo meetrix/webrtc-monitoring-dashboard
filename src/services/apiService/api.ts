@@ -6,7 +6,7 @@ export type Domain = string;
 
 // Refer to: https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.api.baseURL,
+  baseUrl: config.api.baseURLv1,
   prepareHeaders: (headers) => {
     headers.set('authorization', `Bearer ${getToken()}`);
     return headers;
