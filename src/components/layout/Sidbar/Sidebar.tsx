@@ -94,7 +94,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Overview',
-      path: '/dashboard',
+      path: '/overview',
       icon: <EqualizerRoundedIcon />,
       subItem: false,
     },

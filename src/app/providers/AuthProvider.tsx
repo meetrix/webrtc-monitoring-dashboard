@@ -28,7 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const auth = useAppSelector(selectAuth);
   useEffect(() => {
     const getProfile = async () => {
-      const { baseURL } = config.api;
+      const { baseURLv1: baseURL } = config.api;
 
       // retrieve token from URL if there any
       const { token: _token } = getUrlParams();

@@ -33,3 +33,8 @@ export const isPhoneNumberValid = (input: string) => {
   if (regex.test(input)) return false;
   return true;
 };
+export const isHexadecimal = (input: string) => {
+  const regexp = /^[0-9a-fA-F]+$/;
+  if (regexp.test(input)) return true;
+  return false;
+};
