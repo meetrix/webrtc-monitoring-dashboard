@@ -84,6 +84,7 @@ const LoginView: React.FC<ILoginView> = ({
         helperText={email.error && 'Please insert a valid email address.'}
         onKeyDown={_handleEnterPress}
         required
+        customStyles={classes.textField}
       />
       <PasswordTextField
         id="sign-in-password"
@@ -93,6 +94,7 @@ const LoginView: React.FC<ILoginView> = ({
         helperText={password.error && 'Please insert a valid password'}
         onKeyDown={_handleEnterPress}
         tooltipOpen={false}
+        customStyles={classes.textField}
       />
       <div className={classes.responseText}>{renderResponseMessage()}</div>
       <div className={classes.buttonWrapper}>

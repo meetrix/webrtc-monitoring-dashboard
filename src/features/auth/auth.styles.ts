@@ -9,7 +9,7 @@ const styles = (theme: Theme) => {
     },
     heading: {
       fontWeight: 600,
-      marginBottom: '20px',
+      marginBottom: '10px',
     },
     subHeading: {
       margin: '3vh 0 2vh',
@@ -42,7 +42,7 @@ const styles = (theme: Theme) => {
       marginTop: '10px',
     },
     textField: {
-      margin: '10px 0px',
+      margin: '12px 0px',
     },
   });
 };
