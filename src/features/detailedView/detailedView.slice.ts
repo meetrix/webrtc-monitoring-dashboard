@@ -20,9 +20,9 @@ const initialState: IDetailedView = {
 
 export const troubleshooterGetAllAsync = createAsyncThunk(
   'troubleshooter/getAll',
-  async (data: void, { rejectWithValue, dispatch }) => {
+  async (data: any, { rejectWithValue, dispatch }) => {
     try {
-      const response = await troubleshooterDetailsGetAllApi();
+      const response = await troubleshooterDetailsGetAllApi(data);
       return response?.data?.data;
     } catch (error: any) {
       return rejectWithValue(error);

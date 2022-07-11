@@ -16,6 +16,7 @@ import { DetailedView } from '../features/detailedView';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
+import { Overview } from '../features/overview';
 
 const routesList = [
   // {
@@ -59,49 +60,49 @@ const routesList = [
   // },
   {
     path: '/emailroute',
-    isPrivate: true,
+    isPrivate: false,
     component: <EmailRoute />,
     hasNavbar: true,
     hasFooter: true,
   },
   {
     path: '/verificationtoken_expired',
-    isPrivate: true,
+    isPrivate: false,
     component: <VerificationLinkExpirationMessage />,
     hasNavbar: true,
     hasFooter: true,
   },
   {
     path: '/resetpasswordtoken_expired',
-    isPrivate: true,
+    isPrivate: false,
     component: <ResetLinkExpirationMessage />,
     hasNavbar: true,
     hasFooter: true,
   },
   {
     path: '/dashboard',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <Home />,
     hasNavbar: true,
   },
   {
     path: '/dashboard/settings',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <Settings />,
     hasNavbar: true,
   },
   {
     path: '/dashboard/call-stat-monitoring',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <CallStatMonitoring />,
     hasNavbar: true,
   },
   {
     path: '/dashboard/call-stat-monitoring/see-more',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <CallStatsMoreInfo />,
     hasNavbar: true,
@@ -112,6 +113,12 @@ const routesList = [
     hasSidebar: false,
     component: <Troubleshooter />,
     hasNavbar: false,
+  },
+  {
+    path: '/overview',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <Overview />,
   },
   {
     path: '/dashboard/detailed-view',

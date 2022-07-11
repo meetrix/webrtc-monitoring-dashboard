@@ -21,6 +21,7 @@ import { withStyles, WithStyles, createStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { Dropdown } from '../../Dropdown';
+import { getToken } from '../../../helper/localStorage';
 
 const styles = (theme: Theme) => {
   return createStyles({
@@ -98,10 +99,17 @@ export interface IAppBarProps extends WithStyles<typeof styles> {
     user: any;
   };
   signOut: () => void;
+  getUserProfile: () => void;
 }
 
-const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
+const AppBarView = ({
+  classes,
+  auth,
+  signOut,
+  getUserProfile,
+}: IAppBarProps) => {
   const navigate = useNavigate();
+  const token = getToken();
 
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [mobileView, setMobileView] = useState(false);
@@ -121,7 +129,12 @@ const AppBarView = ({ classes, auth, signOut }: IAppBarProps) => {
       window.removeEventListener('resize', () => setResponsiveness());
     };
   }, []);
+
   const { user } = auth;
+
+  useEffect(() => {
+    if (token) getUserProfile();
+  }, []);
 
   const toggleProfile = (event: any) => {
     setProfileAnchorEl(event?.currentTarget);

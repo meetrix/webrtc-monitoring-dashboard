@@ -16,13 +16,21 @@ const DetailedViewAsyncContainer: React.FC<IDetailedViewContainer> = ({}: IDetai
   const troubleshooterDetails = useAppSelector(selectDetailView);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (!mockStats) {
-      dispatch<any>(troubleshooterGetAllAsync());
-    }
-  }, [dispatch, mockStats]);
+  // useEffect(() => {
+  //   if (!mockStats) {
+  //     dispatch<any>(troubleshooterGetAllAsync(2));
+  //   }
+  // }, [dispatch, mockStats]);
+  const getTroubleshooterData = (data: any) => {
+    dispatch<any>(troubleshooterGetAllAsync(data));
+  };
 
-  return <DetailedView detailViewList={troubleshooterDetails} />;
+  return (
+    <DetailedView
+      detailViewList={troubleshooterDetails}
+      getTroubleshooterData={getTroubleshooterData}
+    />
+  );
 };
 
 export default memo(DetailedViewAsyncContainer);

@@ -7,6 +7,7 @@ import {
   OutlinedInput,
   OutlinedInputProps,
   Theme,
+  Tooltip,
 } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -47,6 +48,13 @@ const styles = (theme: Theme) => {
       position: 'absolute',
       bottom: '-20px',
     },
+    tooltip: {
+      background: '#d6d6d6',
+      marginTop: '4px !important',
+      color: theme.palette.common.black,
+      border: '1px solid #DAE3FA',
+      fontWeight: 'bold',
+    },
   });
 };
 
@@ -65,6 +73,7 @@ export interface IPasswordTextField
   disabled?: boolean;
   required?: boolean;
   customStyles?: string;
+  tooltipOpen?: boolean;
 }
 
 export const PasswordTextField: React.FC<IPasswordTextField> = ({
@@ -80,6 +89,7 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
   disabled = false,
   required = false,
   customStyles,
+  tooltipOpen,
 }: IPasswordTextField) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -96,30 +106,39 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
       {label && (
         <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       )}
-      <OutlinedInput
-        id="outlined-adornment-password"
-        label={label}
-        type={showPassword ? 'text' : 'password'}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        error={error}
-        disabled={disabled}
-        required={required}
-        onKeyDown={onKeyDown}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              edge="end"
-              size="small"
-            >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <Tooltip
+        title="Password must be at least 8 characters long"
+        open={tooltipOpen}
+        classes={{
+          tooltip: classes.tooltip,
+        }}
+        placement="bottom-end"
+      >
+        <OutlinedInput
+          id="outlined-adornment-password"
+          label={label}
+          type={showPassword ? 'text' : 'password'}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          error={error}
+          disabled={disabled}
+          required={required}
+          onKeyDown={onKeyDown}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                edge="end"
+                size="small"
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </Tooltip>
       <Typography variant="body2" color="error" className={classes.helperText}>
         {error && helperText}
       </Typography>

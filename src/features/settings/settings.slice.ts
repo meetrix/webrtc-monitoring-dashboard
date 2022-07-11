@@ -112,7 +112,12 @@ export const iceServerConfigGetAsync = createAsyncThunk(
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
-  reducers: {},
+  reducers: {
+    clearConfigs(state) {
+      state.config = initialState.config;
+      state.iceServerConfigType = initialState.iceServerConfigType;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(pluginGetAllAsync.pending, (state, action) => {
       state.loading = true;
@@ -199,8 +204,8 @@ export const settingsSlice = createSlice({
     builder.addCase(iceServerConfigGetAsync.fulfilled, (state, action) => {
       state.loading = false;
       state.responseStatus = 'true';
-      state.config = action.payload;
-      state.iceServerConfigType = action.payload.mode;
+      state.config = action?.payload;
+      state.iceServerConfigType = action?.payload?.mode;
     });
     builder.addCase(iceServerConfigGetAsync.rejected, (state, action) => {
       state.loading = false;
@@ -210,7 +215,7 @@ export const settingsSlice = createSlice({
 });
 
 export const { actions } = settingsSlice;
-
+export const { clearConfigs } = settingsSlice.actions;
 export const selectPlugins = (state: RootState) => state.settings.plugins;
 export const selectConfig = (state: RootState) => state.settings;
 

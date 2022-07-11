@@ -94,7 +94,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     },
     {
       label: 'Overview',
-      path: '/dashboard',
+      path: '/overview',
       icon: <EqualizerRoundedIcon />,
       subItem: false,
     },
@@ -145,7 +145,7 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     if (index1 === index2) {
       setSelectedItem(selectedItem);
     } else {
-      setSelectedItem(SidebarItems[index2].label);
+      setSelectedItem(SidebarItems[index2]?.label);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname]);

@@ -8,7 +8,7 @@ export const userSignupApi = (data: any) => {
   return api.post('account/register', data);
 };
 
-export const getUserProfilepApi = () => {
+export const getUserProfileApi = () => {
   return api.get('account/profile');
 };
 
@@ -18,4 +18,8 @@ export const updateUserProfileApi = (data: any) => {
 
 export const updateUserPasswordApi = (data: any) => {
   return api.post('account/password', data);
+};
+
+export const clearFirstTimeUserFlagApi = () => {
+  return api.post('account/first-time');
 };
