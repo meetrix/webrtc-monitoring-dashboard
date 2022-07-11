@@ -11,9 +11,9 @@ import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/Res
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { Settings } from '../features/settings';
-import { CallStatMonitoring } from '../features/callStats';
+// import { CallStatMonitoring } from '../features/callStats';
 import { DetailedView } from '../features/detailedView';
-import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
+// import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
 import { Overview } from '../features/overview';
@@ -93,20 +93,20 @@ const routesList = [
     component: <Settings />,
     hasNavbar: true,
   },
-  {
-    path: '/dashboard/call-stat-monitoring',
-    isPrivate: true,
-    hasSidebar: true,
-    component: <CallStatMonitoring />,
-    hasNavbar: true,
-  },
-  {
-    path: '/dashboard/call-stat-monitoring/see-more',
-    isPrivate: true,
-    hasSidebar: true,
-    component: <CallStatsMoreInfo />,
-    hasNavbar: true,
-  },
+  // {
+  //   path: '/dashboard/call-stat-monitoring',
+  //   isPrivate: true,
+  //   hasSidebar: true,
+  //   component: <CallStatMonitoring />,
+  //   hasNavbar: true,
+  // },
+  // {
+  //   path: '/dashboard/call-stat-monitoring/see-more',
+  //   isPrivate: true,
+  //   hasSidebar: true,
+  //   component: <CallStatsMoreInfo />,
+  //   hasNavbar: true,
+  // },
   {
     path: '/troubleshooter',
     isPrivate: false,
