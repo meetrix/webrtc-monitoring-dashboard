@@ -16,6 +16,7 @@ import { DetailedView } from '../features/detailedView';
 import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
+import { Overview } from '../features/overview';
 
 const routesList = [
   // {
@@ -112,6 +113,12 @@ const routesList = [
     hasSidebar: false,
     component: <Troubleshooter />,
     hasNavbar: false,
+  },
+  {
+    path: '/overview',
+    isPrivate: false,
+    hasSidebar: true,
+    component: <Overview />,
   },
   {
     path: '/dashboard/detailed-view',

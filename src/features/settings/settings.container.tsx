@@ -5,6 +5,7 @@ import Settings from './settings.view';
 import { getUrlParams } from '../../utils/urlUtils';
 import { mockIncomingConnection } from '../../mocks/report';
 import {
+  clearConfigs,
   iceServerConfigGetAsync,
   iceServerConfigSetAsync,
   pluginCreateAsync,
@@ -50,6 +51,9 @@ const SettingsAsyncContainer: React.FC<ISettingsAsyncContainer> = ({}: ISettings
         },
         getICEServerConfig: (data: any) => {
           dispatch<any>(iceServerConfigGetAsync(data));
+        },
+        clearICEServerConfig: () => {
+          dispatch<any>(clearConfigs());
         },
       }}
       tokenList={IncomingConnectionMock}

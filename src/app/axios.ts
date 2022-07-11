@@ -5,7 +5,7 @@ import config from '../config';
 const token = getToken();
 
 const api = axios.create({
-  baseURL: config.api.baseURL,
+  baseURL: config.api.baseURLv1,
   headers: {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',

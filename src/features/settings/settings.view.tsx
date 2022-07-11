@@ -227,9 +227,13 @@ const Settings: React.FC<ISettingsView> = ({
   };
 
   useEffect(() => {
-    if (token) actions.getICEServerConfig(token);
+    if (token && isServerSettingsPage) actions.getICEServerConfig(token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, isServerSettingsPage]);
+
+  useEffect(() => {
+    if (!isServerSettingsPage) actions.clearICEServerConfig();
+  }, [isServerSettingsPage]);
 
   useEffect(() => {
     // eslint-disable-next-line no-lone-blocks
