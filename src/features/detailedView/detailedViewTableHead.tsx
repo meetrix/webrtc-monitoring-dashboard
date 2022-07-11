@@ -12,6 +12,7 @@ import styles from './detailedView.styles';
 type TableHeadProps = WithStyles<ButtonProps & typeof styles>;
 
 const columns = [
+  { id: 'email', headerName: 'Client ID', flex: 1 },
   { id: 'id', headerName: 'Test ID', flex: 1 },
   { id: 'browserName', headerName: 'Browser Name', flex: 1 },
   { id: 'browserVersion', headerName: 'Browser Version', flex: 1 },
