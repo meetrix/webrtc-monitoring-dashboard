@@ -116,7 +116,7 @@ const routesList = [
   },
   {
     path: '/overview',
-    isPrivate: false,
+    isPrivate: true,
     hasSidebar: true,
     component: <Overview />,
     hasNavbar: true,
