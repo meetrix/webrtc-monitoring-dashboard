@@ -71,6 +71,9 @@ const TokenComponent = ({
     setServerSettingsPage();
     setDomainName(domain);
   };
+
+  const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+
   return (
     <div className={classes.tokenRoot}>
       <div className={classes.tokenTitleWrapper}>
@@ -97,7 +100,7 @@ const TokenComponent = ({
           className={classes.copyIcon}
           onClick={() => {
             navigator.clipboard.writeText(
-              `http://localhost:3000/troubleshooter?token=${_id}`
+              `${publicUrl.origin}/troubleshooter?token=${_id}`
             );
           }}
         />
