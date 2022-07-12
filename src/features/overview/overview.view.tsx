@@ -20,9 +20,6 @@ interface IDatePicker {
   openTo?: any;
 }
 
-const heightOutput = document.querySelector('#height');
-const widthOutput = document.querySelector('#width');
-
 const sampleData = [
   ['Tests', 'Success', 'Fail'],
   ['2010', 10, 24],
