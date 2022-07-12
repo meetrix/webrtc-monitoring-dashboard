@@ -23,7 +23,7 @@ const LoginContainer: React.FC<ILoginContainer> = ({}: ILoginContainer) => {
         navigate('/dashboard/settings');
         dispatch<any>(clearFirstTimeUserFlagAsync(null));
       } else {
-        navigate('/dashboard');
+        navigate('/overview');
       }
     }
   }, [auth.isAuthenticated]);

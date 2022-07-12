@@ -44,6 +44,14 @@ const SignupView: React.FC<ISignupView> = ({
 
   const _validate = () => {
     let isValidate = true;
+    if (
+      name.error ||
+      email.error ||
+      password.error ||
+      repeatPassword.error ||
+      companyName.error
+    )
+      isValidate = false;
 
     if (
       !email.value ||

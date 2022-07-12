@@ -4,7 +4,6 @@ import { Theme } from '@mui/material';
 const styles = (theme: Theme) => {
   return createStyles({
     root: {
-      padding: '5vh 2vw 3vh 4vw',
       display: 'flex',
       flexDirection: 'column',
       height: 'calc(100% - 8vh)',
