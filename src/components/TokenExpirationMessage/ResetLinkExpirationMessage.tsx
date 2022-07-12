@@ -113,6 +113,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 6,
       boxShadow: theme.shadows[5],
       padding: '0px 0px 0px',
+      zIndex: 1,
       // padding: theme.spacing(1, 4, 30),
     },
     backDrop: {
@@ -203,7 +204,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '1.5rem',
       margin: '1em 0 2em',
       // marginRight: '3rem',
-      backgroundColor: '#ff00001f',
+      backgroundColor: '#F9FBFF',
       color: '#3e3e3e',
       textAlign: 'center',
       borderRadius: 5,
@@ -214,19 +215,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     supporLink: {
       textDecoration: 'underline',
-      color: '#D75B53',
+      color: '#4A74E9',
       paddingLeft: '8px',
       '&:hover': {
-        color: '#D75B53',
+        color: '#4A74E9',
         textDecoration: 'underline',
       },
     },
     signInLink: {
       textDecoration: 'none',
-      color: '#DA4453',
+      color: '#4A74E9',
       fontWeight: 'bold',
       '&:hover': {
-        color: '#DA4453',
+        color: '#4A74E9',
         textDecoration: 'none',
       },
       // paddingLeft:'8px',
@@ -311,17 +312,17 @@ const ResetLinkExpirationMessage = () => {
                       The verification link you have followed is already used or
                       expired.
                       <br />
-                      please
+                      Please
                       <a href="signin" className={classes.signInLink}>
                         {' '}
                         sign in{' '}
                       </a>
-                      or
+                      {/* or
                       <a href="forgotpassword" className={classes.signInLink}>
                         {' '}
                         reset{' '}
                       </a>
-                      your credentials again
+                      your credentials again */}
                     </div>
                   </Grid>
                 </Paper>
