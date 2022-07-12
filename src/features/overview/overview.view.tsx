@@ -20,8 +20,11 @@ interface IDatePicker {
   openTo?: any;
 }
 
+const heightOutput = document.querySelector('#height');
+const widthOutput = document.querySelector('#width');
+
 const sampleData = [
-  ['Year', 'Data1', 'Data2'],
+  ['Tests', 'Success', 'Fail'],
   ['2010', 10, 24],
   ['2020', 16, 22],
   ['2030', 28, 19],
@@ -48,22 +51,26 @@ const TestByDateCategory = [
   ['Browser', 24, 19],
 ];
 
+console.log('kkkk heightOutput', window.innerHeight);
+
 const chart1Options = {
-  height: 400,
+  height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
   chartArea: {
+    height: '84%',
     width: '94%',
   },
   colors: ['#5ECCC8', '#EB514A'],
 };
 
 const chart2Options = {
-  height: 400,
+  height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
   isStacked: true,
   chartArea: {
+    height: '84%',
     width: '94%',
   },
   colors: ['#5ECCC8', '#EB514A'],
@@ -143,7 +150,13 @@ const Overview: React.FC<IOverviewView> = ({ classes }: IOverviewView) => {
           />
         </Box>
       </Box>
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          height: 'calc(100% - 37px)',
+        }}
+      >
         <Grid item xs={6}>
           <Chart
             data={TestByDateSample}

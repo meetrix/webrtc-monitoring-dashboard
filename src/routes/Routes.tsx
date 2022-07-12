@@ -119,6 +119,7 @@ const routesList = [
     isPrivate: false,
     hasSidebar: true,
     component: <Overview />,
+    hasNavbar: true,
   },
   {
     path: '/dashboard/detailed-view',

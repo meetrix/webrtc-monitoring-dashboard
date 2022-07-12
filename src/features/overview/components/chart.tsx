@@ -31,7 +31,10 @@ const ChartComponent: React.FC<IChartComponent> = ({
             paddingTop: '10px',
           }}
         >
-          <Typography variant="h6" sx={{ color: theme.palette.secondary.dark }}>
+          <Typography
+            variant="body1"
+            sx={{ color: theme.palette.secondary.dark }}
+          >
             {title}
           </Typography>
           <Box>{topRightElement}</Box>
