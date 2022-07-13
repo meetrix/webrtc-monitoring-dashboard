@@ -9,6 +9,7 @@ import debuggerSlice from '../features/debugger/debuggerSlice';
 import { api } from '../services/apiService/api';
 import { resetPasswordReducer } from '../features/resetPassword';
 import { detailedViewReducer } from '../features/detailedView';
+import { summaryViewReducer } from '../features/overview';
 import { settingsReducer } from '../features/settings';
 
 export const store = configureStore({
@@ -21,6 +22,7 @@ export const store = configureStore({
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
     troubleshooterDetails: detailedViewReducer,
+    troubleshooterSummary: summaryViewReducer,
     settings: settingsReducer,
     [api.reducerPath]: api.reducer
   },

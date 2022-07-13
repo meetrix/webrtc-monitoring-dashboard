@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/ban-types */
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 
 import {
@@ -119,8 +119,11 @@ const DetailedView: React.FC<IDetailedView> = ({
       offset: page * rowsPerPage,
       sortBy: orderBy,
       direction: sortDirection,
-      startTime: startDate && startDate !== null ? startDate : 0,
-      endTime: endDate !== null ? endDate : 0,
+      startTime:
+        startDate && startDate !== null
+          ? startDate.toISOString().substring(0, 10)
+          : 0,
+      endTime: endDate !== null ? endDate.toISOString().substring(0, 10) : 0,
       testId: search.length === 24 && isHexadecimal(search) ? search : '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
