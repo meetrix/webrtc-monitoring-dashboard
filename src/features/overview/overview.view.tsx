@@ -158,12 +158,16 @@ const Overview: React.FC<IOverviewView> = ({
   );
   const [endDate, setEndDate] = useState<Date>(now);
 
-  const [testByDate, setTestByDate] = useState<Date>(now);
-  const selectedMonthBar = moment(testByDate).format('MMM yyyy');
-  const [testByCategory, setTestByCategory] = useState<Date>(now);
-  const selectedDate = moment(testByCategory).format('yyyy-MM-DD');
+  const [testsByWeekdayDate, setTestsByWeekdayDate] = useState<Date>(now);
+  const testsByWeekdaySelectedMonth = moment(testsByWeekdayDate).format(
+    'MMM yyyy'
+  );
+  const [testsByCategoryDate, setTestsByCategoryDate] = useState<Date>(now);
+  const testsByCategorySelectedDate = moment(testsByCategoryDate).format(
+    'yyyy-MM-DD'
+  );
   const [lineChartDate, setLineChartDate] = useState<Date>(now);
-  const selectedMonthLine = moment(lineChartDate).format('MMM yyyy');
+  const lineChartSelectedMonth = moment(lineChartDate).format('MMM yyyy');
 
   useEffect(() => {
     if (!mockStats) {
@@ -187,82 +191,17 @@ const Overview: React.FC<IOverviewView> = ({
       };
     }) || [];
 
-  const testByDateData0 = summary
-    .filter((stats) => stats.month === selectedMonthBar)
-    .reduce((acc, stats) => {
-      return {
-        ...acc,
-        [stats.day]: [
-          (acc[stats.day]?.[0] || 0) + stats.passed,
-          (acc[stats.day]?.[1] || 0) + stats.total - stats.passed,
-        ] as [number, number],
-      };
-    }, {} as { [day: string]: [number, number] });
-  const testByDateData = [
-    ['Day', 'Success', 'Fail'],
-    ...['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => [
-      day,
-      testByDateData0[day]?.[0] || 0,
-      testByDateData0[day]?.[1] || 0,
-    ]),
-  ];
+  const testByDateData = extractTestDataByWeekday(
+    summary,
+    testsByWeekdaySelectedMonth
+  );
 
-  const testByCategoryData0 = summary
-    .filter((stats) => stats._id === selectedDate)
-    .reduce(
-      (acc, stats) => ({
-        Camera: [
-          acc.Camera[0] + stats.camera,
-          acc.Camera[1] + stats.total - stats.camera,
-        ] as [number, number],
-        Microphone: [
-          acc.Microphone[0] + stats.microphone,
-          acc.Microphone[1] + stats.total - stats.microphone,
-        ] as [number, number],
-        Browser: [
-          acc.Browser[0] + stats.browser,
-          acc.Browser[1] + stats.total - stats.browser,
-        ] as [number, number],
-        Network: [
-          acc.Network[0] + stats.network,
-          acc.Network[1] + stats.total - stats.network,
-        ] as [number, number],
-      }),
-      {
-        Camera: [0, 0],
-        Microphone: [0, 0],
-        Browser: [0, 0],
-        Network: [0, 0],
-      } as { [category: string]: [number, number] }
-    );
-  const testByCategoryData = [
-    ['Category', 'Success', 'Fail'],
-    ...['Browser', 'Microphone', 'Camera', 'Network'].map((category) => [
-      category,
-      testByCategoryData0[category][0],
-      testByCategoryData0[category][1],
-    ]),
-  ];
+  const testByCategoryData = extractTestDataByCategory(
+    summary,
+    testsByCategorySelectedDate
+  );
 
-  const lineChartData0 = summary
-    .filter((stats) => stats.month === selectedMonthLine)
-    .reduce((acc, stats) => {
-      return {
-        ...acc,
-        [stats.date.date()]: [
-          (acc[stats.date.date()]?.[0] || 0) + stats.passed,
-          (acc[stats.date.date()]?.[1] || 0) + stats.total - stats.passed,
-        ] as [number, number],
-      };
-    }, {} as { [day: string]: [number, number] });
-  const lineChartData = [
-    ['Day', 'Success', 'Fail'],
-    ...Array.from(Array(31), (_, index) => index + 1).map((day) => [
-      day,
-      lineChartData0[day]?.[0] || 0,
-      lineChartData0[day]?.[1] || 0,
-    ]),
-  ];
+  const lineChartData = extractLineChartData(summary, lineChartSelectedMonth);
 
   return (
     <div className={classes.root}>
@@ -305,8 +244,8 @@ const Overview: React.FC<IOverviewView> = ({
                 views={['year', 'month']}
                 inputFormat="MMM yyyy"
                 classes={classes.datePicker}
-                value={testByDate}
-                onChange={setTestByDate}
+                value={testsByWeekdayDate}
+                onChange={setTestsByWeekdayDate}
                 maxDate={now}
                 openTo="month"
               />
@@ -322,8 +261,8 @@ const Overview: React.FC<IOverviewView> = ({
             topRightElement={
               <DatePicker
                 classes={classes.datePicker}
-                value={testByCategory}
-                onChange={setTestByCategory}
+                value={testsByCategoryDate}
+                onChange={setTestsByCategoryDate}
                 inputFormat="dd/MM/yyyy"
                 maxDate={now}
                 openTo="day"
@@ -356,3 +295,104 @@ const Overview: React.FC<IOverviewView> = ({
 };
 
 export default memo(withStyles(styles)(Overview));
+
+interface DayDataExtended extends DayData {
+  date: moment.Moment;
+  day: string;
+  month: string;
+}
+
+function extractLineChartData(
+  summary: DayDataExtended[],
+  lineChartSelectedMonth: string
+) {
+  const lineChartData0 = summary
+    .filter((stats) => stats.month === lineChartSelectedMonth)
+    .reduce((acc, stats) => {
+      return {
+        ...acc,
+        [stats.date.date()]: [
+          (acc[stats.date.date()]?.[0] || 0) + stats.passed,
+          (acc[stats.date.date()]?.[1] || 0) + stats.total - stats.passed,
+        ] as [number, number],
+      };
+    }, {} as { [day: string]: [number, number] });
+
+  return [
+    ['Day', 'Success', 'Fail'],
+    ...Array.from(Array(31), (_, index) => index + 1).map((day) => [
+      day,
+      lineChartData0[day]?.[0] || 0,
+      lineChartData0[day]?.[1] || 0,
+    ]),
+  ];
+}
+
+function extractTestDataByCategory(
+  summary: DayDataExtended[],
+  testsByCategorySelectedDate: string
+) {
+  const categories = ['Browser', 'Microphone', 'Camera', 'Network'] as const;
+
+  const testByCategoryData0 = summary
+    .filter((stats) => stats._id === testsByCategorySelectedDate)
+    .reduce(
+      (acc, stats) =>
+        Object.fromEntries(
+          categories.map((category) => [
+            category,
+            [
+              acc[category][0] +
+                stats[
+                  category.toLowerCase() as Lowercase<typeof categories[number]>
+                ],
+              acc[category][1] +
+                stats.total -
+                stats[
+                  category.toLowerCase() as Lowercase<typeof categories[number]>
+                ],
+            ] as [number, number],
+          ])
+        ),
+      Object.fromEntries(categories.map((category) => [category, [0, 0]])) as {
+        [category: string]: [number, number];
+      }
+    );
+
+  return [
+    ['Category', 'Success', 'Fail'],
+    ...categories.map((category) => [
+      category,
+      testByCategoryData0[category][0],
+      testByCategoryData0[category][1],
+    ]),
+  ];
+}
+
+function extractTestDataByWeekday(
+  summary: DayDataExtended[],
+  selectedMonthBar: string
+) {
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  const testByDateData0 = summary
+    .filter((stats) => stats.month === selectedMonthBar)
+    .reduce((acc, stats) => {
+      return {
+        ...acc,
+        [stats.day]: [
+          (acc[stats.day]?.[0] || 0) + stats.passed,
+          (acc[stats.day]?.[1] || 0) + stats.total - stats.passed,
+        ] as [number, number],
+      };
+    }, {} as { [day: string]: [number, number] });
+
+  return [
+    ['Day', 'Success', 'Fail'],
+    ...days.map((day) => [
+      day,
+      testByDateData0[day]?.[0] || 0,
+      testByDateData0[day]?.[1] || 0,
+    ]),
+  ];
+}
