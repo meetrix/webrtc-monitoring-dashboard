@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import { LoginView, SignupView } from '../features/auth';
 import RouteWrapper from './RouteWrapper';
 import Clients from '../features/clients/Clients';
@@ -149,6 +149,7 @@ const RoutesComponent = () => {
             }
           />
         ))}
+        <Route path="/" element={<Navigate to="/Overview" />} />
       </Routes>
     </BrowserRouter>
   );
