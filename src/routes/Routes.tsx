@@ -19,11 +19,13 @@ import { Home } from '../features/home';
 import { Overview } from '../features/overview';
 
 const routesList = [
-  // {
-  //   path: '/',
-  //   isPrivate: false,
-  //   component: <Debugger />,
-  // },
+  {
+    path: '/',
+    isPrivate: true,
+    hasSidebar: true,
+    component: <Overview />,
+    hasNavbar: true,
+  },
   {
     path: '/signin',
     isPrivate: false,
