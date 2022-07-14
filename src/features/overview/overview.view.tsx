@@ -173,7 +173,7 @@ const Overview: React.FC<IOverviewView> = ({
     if (!mockStats) {
       getTroubleshooterData({
         startTime: startDate.toISOString().substring(0, 10),
-        endTime: endDate.toISOString().substring(0, 10),
+        endTime: moment(endDate).add(1, 'day').toISOString().substring(0, 10),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -123,7 +123,10 @@ const DetailedView: React.FC<IDetailedView> = ({
         startDate && startDate !== null
           ? startDate.toISOString().substring(0, 10)
           : 0,
-      endTime: endDate !== null ? endDate.toISOString().substring(0, 10) : 0,
+      endTime:
+        endDate !== null
+          ? moment(endDate).add(1, 'day').toISOString().substring(0, 10)
+          : 0,
       testId: search.length === 24 && isHexadecimal(search) ? search : '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
