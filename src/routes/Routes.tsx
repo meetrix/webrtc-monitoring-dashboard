@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import { LoginView, SignupView } from '../features/auth';
 import RouteWrapper from './RouteWrapper';
 import Clients from '../features/clients/Clients';
@@ -19,13 +19,11 @@ import { Home } from '../features/home';
 import { Overview } from '../features/overview';
 
 const routesList = [
-  {
-    path: '/',
-    isPrivate: true,
-    hasSidebar: true,
-    component: <Overview />,
-    hasNavbar: true,
-  },
+  // {
+  //   path: '/',
+  //   isPrivate: false,
+  //   component: <Debugger />,
+  // },
   {
     path: '/signin',
     isPrivate: false,
@@ -151,6 +149,7 @@ const RoutesComponent = () => {
             }
           />
         ))}
+        <Route path="/" element={<Navigate to="/Overview" />} />
       </Routes>
     </BrowserRouter>
   );
