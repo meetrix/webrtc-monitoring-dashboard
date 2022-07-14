@@ -58,25 +58,25 @@ const TestByDateCategory = [
   ['Browser', 24, 19],
 ];
 
-const chart1Options = {
+const shortChartsOptions = {
   height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
   chartArea: {
     height: '84%',
-    width: '94%',
+    width: window.innerWidth < 1500 ? '85%' : '90%',
   },
   colors: ['#5ECCC8', '#EB514A'],
 };
 
-const chart2Options = {
+const longChartsOptions = {
   height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
   isStacked: true,
   chartArea: {
     height: '84%',
-    width: '94%',
+    width: '92%',
   },
   colors: ['#5ECCC8', '#EB514A'],
 };
@@ -237,7 +237,7 @@ const Overview: React.FC<IOverviewView> = ({
           <Chart
             data={mockStats ? TestByDateSample : testByDateData}
             chartType="ColumnChart"
-            options={chart1Options}
+            options={shortChartsOptions}
             title="Failed vs Successful Tests by Date"
             topRightElement={
               <DatePicker
@@ -256,7 +256,7 @@ const Overview: React.FC<IOverviewView> = ({
           <Chart
             data={mockStats ? TestByDateCategory : testByCategoryData}
             chartType="ColumnChart"
-            options={chart2Options}
+            options={shortChartsOptions}
             title="Failed vs Successful Tests by Category"
             topRightElement={
               <DatePicker
@@ -274,7 +274,7 @@ const Overview: React.FC<IOverviewView> = ({
           <Chart
             data={mockStats ? sampleData : lineChartData}
             chartType="LineChart"
-            options={chart1Options}
+            options={longChartsOptions}
             title="Failed vs Successful Tests"
             topRightElement={
               <DatePicker
