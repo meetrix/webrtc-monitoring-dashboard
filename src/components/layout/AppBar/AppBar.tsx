@@ -199,7 +199,9 @@ const AppBarView = ({
                     alt={user?.profile?.name}
                     src={user?.profile?.picture}
                   />
-                  {filterFirstName(user?.profile?.name)}
+                  <div style={{ marginLeft: '7px' }}>
+                    {filterFirstName(user?.profile?.name)}
+                  </div>
                 </MenuItem>
               </div>
             )}
