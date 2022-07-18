@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactGA from 'react-ga';
+import * as ReactGA from 'react-ga';
 import TagManager from 'react-gtm-module';
 import { AppContainer } from './features/app';
 import { MainLayout } from './components/layout';
