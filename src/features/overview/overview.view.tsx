@@ -32,11 +32,13 @@ interface IDatePicker {
 
 const sampleData = [
   ['Tests', 'Success', 'Fail'],
-  ['2010', 10, 24],
-  ['2020', 16, 22],
-  ['2030', 28, 19],
-  ['2040', 24, 19],
-  ['2050', 26, 19],
+  ['1', 10, 24],
+  ['5', 16, 22],
+  ['10', 28, 12],
+  ['15', 24, 15],
+  ['20', 26, 18],
+  ['25', 16, 24],
+  ['30', 36, 29],
 ];
 
 const TestByDateSample = [
@@ -73,6 +75,7 @@ const longChartsOptions = {
   height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
+  vAxis: { format: '0' },
   isStacked: true,
   chartArea: {
     height: '84%',
@@ -317,7 +320,6 @@ function extractLineChartData(
         ] as [number, number],
       };
     }, {} as { [day: string]: [number, number] });
-
   return [
     ['Day', 'Success', 'Fail'],
     ...Array.from(Array(31), (_, index) => index + 1).map((day) => [
