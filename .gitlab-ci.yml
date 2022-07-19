@@ -1,6 +1,8 @@
-package:
+staging_package:
   stage: build
   image: node:12-bullseye-slim
+  environment:
+    name: staging
   script:
     - apt update
     - apt install -y bzip2 git
@@ -25,7 +27,6 @@ package:
       - build/webrtc-dashboard.tar.bz2
   only:
     - master
-    - tags
 
 before_script:
   - mkdir -p ~/.ssh
@@ -45,12 +46,44 @@ staging_deploy:
   only:
     - master
 
+production_package:
+  stage: build
+  image: node:12-bullseye-slim
+  environment:
+    name: production
+  script:
+    - apt update
+    - apt install -y bzip2 git
+    - git config --global credential.helper store
+    - echo "https://$GITLAB_DEPLOY_TOKEN_USER:$GITLAB_DEPLOY_TOKEN_PASSWORD@gitlab.com" > ~/.git-credentials
+    # If no .npmrc is included in the repo, generate a temporary one that is configured to install from GitLab's NPM registry
+    - |
+      if [[ ! -f .npmrc ]]; then
+        echo 'No .npmrc found! Creating one now. Please review the following link for more information: https://docs.gitlab.com/ee/user/packages/npm_registry/index.html#project-level-npm-endpoint-1'
+        {
+          echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/packages/npm/"
+          echo "${CI_API_V4_URL#http*:}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+        } >> .npmrc
+      fi
+    - CI=false && npm install --loglevel error
+    - cd node_modules/@peermetrics/webrtc-stats && npm install && npm run build
+    - cd ../../.. && CI=false npm run build
+    - cd build
+    - tar -cjSf webrtc-dashboard.tar.bz2 *
+  artifacts:
+    paths:
+      - build/webrtc-dashboard.tar.bz2
+  only:
+    - tags
+
 production_deploy:
   stage: deploy
   image: kroniak/ssh-client
   environment:
     name: production
   script:
-    - echo dummy echo
+    - scp -o StrictHostKeyChecking=no build/webrtc-dashboard.tar.bz2 $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST:/var/www/webrtc-dashboard/releases/
+    - ssh $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST "cd /var/www/webrtc-dashboard/releases && mkdir $CI_PIPELINE_ID && tar -xf webrtc-dashboard.tar.bz2 -C $CI_PIPELINE_ID"
+    - ssh $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST "cd /var/www/webrtc-dashboard && ln -sfn releases/$CI_PIPELINE_ID current"
   only:
     - tags
