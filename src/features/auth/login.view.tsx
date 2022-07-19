@@ -110,11 +110,11 @@ const LoginView: React.FC<ILoginView> = ({
           customStyles={classes.buttonMargin}
         />
       </div>
-      {/* <div className={classes.forgotPasswordWrapper}>
+      <div className={classes.forgotPasswordWrapper}>
         <Link to="/forgotpassword" className={classes.forgotPassword}>
           Forgotten password?
         </Link>
-      </div> */}
+      </div>
     </LoginLayout>
   );
 };

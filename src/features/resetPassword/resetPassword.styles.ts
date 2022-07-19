@@ -11,8 +11,8 @@ const styles = (theme: Theme) => {
     buttonWrapper: {
       marginTop: '1vh',
       '& .MuiButton-contained.Mui-disabled': {
-        backgroundColor: '#f46775',
-        color: '#ffffffb5',
+        backgroundColor: '#E3F2FF',
+        color: '#2485F6',
       },
     },
     errorText: {
