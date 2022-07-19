@@ -75,8 +75,10 @@ const longChartsOptions = {
   height: window.innerHeight / 3,
   legend: { position: 'top', maxLines: 3 },
   bar: { groupWidth: '75%' },
-  vAxis: { format: '0' },
-  isStacked: true,
+  vAxis: { format: '#' },
+  hAxis: {
+    ticks: [1, 5, 10, 15, 20, 25, 30],
+  },
   chartArea: {
     height: '84%',
     width: '92%',
