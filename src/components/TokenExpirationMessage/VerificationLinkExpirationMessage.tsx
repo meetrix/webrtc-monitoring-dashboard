@@ -283,12 +283,12 @@ const VerificationLinkExpirationMessage = () => {
                         {' '}
                         sign in{' '}
                       </a>
-                      {/* or
+                      or
                       <a href="forgotpassword" className={classes.signInLink}>
                         {' '}
                         reset{' '}
                       </a>
-                      your credentials again */}
+                      your credentials again
                     </div>
                   </Grid>
                 </Paper>

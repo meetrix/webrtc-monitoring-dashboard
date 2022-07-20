@@ -8,7 +8,7 @@ import Clients from '../features/clients/Clients';
 import { EmailRoute } from '../features/emailRoute';
 import VerificationLinkExpirationMessage from '../components/TokenExpirationMessage/VerificationLinkExpirationMessage';
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
-// import { ForgotPassword } from '../features/forgotPassword';
+import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
 import { Settings } from '../features/settings';
 // import { CallStatMonitoring } from '../features/callStats';
@@ -34,11 +34,11 @@ const routesList = [
     isPrivate: false,
     component: <SignupView />,
   },
-  // {
-  //   path: '/forgotpassword',
-  //   isPrivate: false,
-  //   component: <ForgotPassword />,
-  // },
+  {
+    path: '/forgotpassword',
+    isPrivate: false,
+    component: <ForgotPassword />,
+  },
   {
     path: '/resetpassword',
     isPrivate: false,
