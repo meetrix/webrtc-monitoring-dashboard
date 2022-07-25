@@ -35,6 +35,19 @@ const SettingsAsyncContainer: React.FC<ISettingsAsyncContainer> = ({}: ISettings
 
   const IncomingConnectionMock = mockStats ? mockIncomingConnection : plugins;
 
+  const tokens = [...IncomingConnectionMock];
+
+  const sortedTokenList =
+    tokens?.length !== 0
+      ? tokens?.sort((a, b) => {
+          const keyA = a.createdAt || '';
+          const keyB = b.createdAt || '';
+          if (keyA > keyB) return -1;
+          if (keyA < keyB) return 1;
+          return 0;
+        })
+      : [];
+
   return (
     <Settings
       actions={{
@@ -60,7 +73,7 @@ const SettingsAsyncContainer: React.FC<ISettingsAsyncContainer> = ({}: ISettings
           dispatch<any>(setSettingsPage(data));
         },
       }}
-      tokenList={IncomingConnectionMock}
+      tokenList={sortedTokenList}
       isServerSettingsPage={isServerSettingsPage}
     />
   );

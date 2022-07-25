@@ -113,7 +113,16 @@ const styles = (theme: Theme) => {
     copyIcon: {
       fontSize: '12px',
       color: '#5F5F5F',
-      paddingLeft: '2px',
+      padding: '0px 0px 4px 2px',
+      cursor: 'pointer',
+      '& .MuiSvgIcon-root': {
+        fontSize: '12px',
+      },
+      '& .MuiTouchRipple-root': {
+        top: '-2px',
+        left: '-2px',
+        padding: '10px',
+      },
     },
     tokenList: {
       overflow: 'auto',
@@ -164,6 +173,13 @@ const styles = (theme: Theme) => {
       '& .inputWrapper': {
         margin: 0,
       },
+    },
+    tooltip: {
+      background: theme.palette.secondary.light,
+      marginTop: '1px !important',
+      color: theme.palette.primary.main,
+      border: '1px solid #DAE3FA',
+      padding: '7px',
     },
   });
 };
