@@ -12,37 +12,41 @@ const renderResponseMessage = ({
   responseStatus,
   classes,
   setSaveButtonClicked,
+  loading,
 }: {
   responseStatus: string;
   classes: any;
+  loading: boolean;
   // eslint-disable-next-line @typescript-eslint/ban-types
   setSaveButtonClicked: Function;
 }) => {
-  if (responseStatus === 'true') {
-    return (
-      <div>
+  if (loading === false) {
+    if (responseStatus === 'true') {
+      return (
+        <div>
+          <Alert
+            severity="success"
+            id="save_settings_success_alert"
+            onClose={() => setSaveButtonClicked(false)}
+            className={classes.alert}
+          >
+            ICE server configurations saved successfully!
+          </Alert>
+        </div>
+      );
+    }
+    if (responseStatus === 'false') {
+      return (
         <Alert
-          severity="success"
-          id="save_settings_success_alert"
+          severity="error"
+          id="save_settings_error_alert"
           onClose={() => setSaveButtonClicked(false)}
           className={classes.alert}
         >
-          ICE server configurations saved successfully!
+          ICE server configurations could not save successfully!
         </Alert>
-      </div>
-    );
-  }
-  if (responseStatus === 'false') {
-    return (
-      <Alert
-        severity="error"
-        id="save_settings_error_alert"
-        onClose={() => setSaveButtonClicked(false)}
-        className={classes.alert}
-      >
-        ICE server configurations could not save successfully!
-      </Alert>
-    );
+      );
+    }
   }
   return null;
 };
@@ -58,7 +62,7 @@ export const URLFetchComponent = ({
   type: string;
 }) => {
   const iceServerConfig = useAppSelector(selectConfig);
-  const { config, responseStatus } = iceServerConfig;
+  const { config, responseStatus, loading } = iceServerConfig;
   const [url, setURL] = useState('');
   const [saveButtonClicked, setSaveButtonClicked] = useState(false);
 
@@ -112,6 +116,7 @@ export const URLFetchComponent = ({
           renderResponseMessage({
             responseStatus,
             classes,
+            loading,
             setSaveButtonClicked,
           })}
       </div>
@@ -132,7 +137,7 @@ export const StaticICEServerComponent = ({
   type: string;
 }) => {
   const iceServerConfig = useAppSelector(selectConfig);
-  const { config } = iceServerConfig;
+  const { config, loading } = iceServerConfig;
   const [staticInput, setStaticInput] = useState('');
   const [saveButtonClicked, setSaveButtonClicked] = useState(false);
   const [jsonValue, setjsonValue] = useState(null);
@@ -205,6 +210,7 @@ export const StaticICEServerComponent = ({
         renderResponseMessage({
           responseStatus,
           classes,
+          loading,
           setSaveButtonClicked,
         })}
     </>
@@ -224,7 +230,7 @@ export const SharedSecretComponent = ({
   type: string;
 }) => {
   const iceServerConfig = useAppSelector(selectConfig);
-  const { config, responseStatus } = iceServerConfig;
+  const { config, responseStatus, loading } = iceServerConfig;
   const [uri, setURI] = useState('');
   const [secret, setSecret] = useState('');
   const [saveButtonClicked, setSaveButtonClicked] = useState(false);
@@ -298,6 +304,7 @@ export const SharedSecretComponent = ({
         renderResponseMessage({
           responseStatus,
           classes,
+          loading,
           setSaveButtonClicked,
         })}
     </>
