@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Grid } from '@mui/material';
 import clsx from 'clsx';
-import { PasswordTextField, TextField } from '../../components/TextField';
-import { Button } from '../../components/Button';
-import { useAppSelector } from '../../app/hooks';
-import { selectConfig } from './settings.slice';
+import { PasswordTextField, TextField } from '../../../components/TextField';
+import { Button } from '../../../components/Button';
+import { useAppSelector } from '../../../app/hooks';
+import { selectConfig } from '../settings.slice';
 
 const renderResponseMessage = ({
   responseStatus,
