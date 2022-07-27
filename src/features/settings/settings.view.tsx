@@ -13,9 +13,6 @@ import {
   SelectChangeEvent,
   Select,
   MenuItem,
-  IconButton,
-  Tooltip,
-  ClickAwayListener,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
@@ -54,8 +51,6 @@ const TokenComponent = ({
   setDomainName: Function;
 }) => {
   const { domain, _id /* ,createdAt */ } = data;
-  const [tokenCopyButtonClicked, setTokenCopyButtonClicked] = useState(false);
-  const [urlCopyButtonClicked, setURLCopyButtonClicked] = useState(false);
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const open = Boolean(anchorEl);
   // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,128 +76,62 @@ const TokenComponent = ({
 
   return (
     <div className={classes.tokenRoot}>
-      <Grid container spacing={2}>
-        <Grid item sm={4} lg={4}>
-          <div className={classes.tokenTitleWrapper}>
-            <div className={classes.paperTextDark}>{domain}</div>
-            <div style={{ display: 'flex' }}>
-              <div className={classes.paperTextLight}>{_id}</div>
-              <ClickAwayListener
-                onClickAway={() => setTokenCopyButtonClicked(false)}
-              >
-                <div style={{ display: 'flex' }}>
-                  <Tooltip
-                    PopperProps={{
-                      disablePortal: true,
-                    }}
-                    onClose={() => setTokenCopyButtonClicked(false)}
-                    open={tokenCopyButtonClicked}
-                    disableFocusListener
-                    disableHoverListener
-                    disableTouchListener
-                    title="Copied!"
-                    classes={{
-                      tooltip: classes.tooltip,
-                    }}
-                  >
-                    <IconButton
-                      className={classes.copyIcon}
-                      onClick={() => {
-                        navigator.clipboard.writeText(_id);
-                        setTokenCopyButtonClicked(true);
-                      }}
-                    >
-                      <ContentCopyIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-              </ClickAwayListener>
-            </div>
-          </div>
-        </Grid>
-        <Grid
-          item
-          sm={3}
-          lg={4}
-          style={{ display: 'flex', alignItems: 'center' }}
-        >
-          <div style={{ display: 'flex', flexGrow: 1 }}>
-            <Link
-              to={`/troubleshooter?token=${_id}`}
-              className={classes.link}
-              target="_blank"
-            >
-              Troubleshooter URL
-            </Link>
-            <ClickAwayListener
-              onClickAway={() => setURLCopyButtonClicked(false)}
-            >
-              <div style={{ display: 'flex' }}>
-                <Tooltip
-                  PopperProps={{
-                    disablePortal: true,
-                  }}
-                  onClose={() => setURLCopyButtonClicked(false)}
-                  open={urlCopyButtonClicked}
-                  disableFocusListener
-                  disableHoverListener
-                  disableTouchListener
-                  title="Copied!"
-                  classes={{
-                    tooltip: classes.tooltip,
-                  }}
-                >
-                  <IconButton
-                    className={classes.copyIcon}
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        `${publicUrl.origin}/troubleshooter?token=${_id}`
-                      );
-                      setURLCopyButtonClicked(true);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            </ClickAwayListener>
-          </div>
-        </Grid>
-        <Grid
-          item
-          sm={5}
-          lg={4}
-          style={{ display: 'flex', justifyContent: 'end' }}
-        >
-          {/* <Typography variant="body2" className={classes.grayText}>
-            {createdAt.substring(0, 10)}
-            </Typography> */}
-          <Button
-            id="token-delete-button"
-            label="Delete"
-            customStyles={classes.tokenItemButton}
-            onClick={handleRevoke}
+      <div className={classes.tokenTitleWrapper}>
+        <div className={classes.paperTextDark}>{domain}</div>
+        <div style={{ display: 'flex' }}>
+          <div className={classes.paperTextLight}>{_id}</div>
+          <ContentCopyIcon
+            className={classes.copyIcon}
+            onClick={() => {
+              navigator.clipboard.writeText(_id);
+            }}
           />
-          <Button
-            id="token-configure-button"
-            label="Configure"
-            customStyles={classes.tokenItemButton}
-            onClick={handleConfigureButton}
-          />
-          {/* <Menu
-              // id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem onClick={handleRevoke}>Revoke</MenuItem>
-              <MenuItem onClick={handleRegenerate}>Regenerate</MenuItem>
-            </Menu> */}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexGrow: 1 }}>
+        <Link
+          to={`/troubleshooter?token=${_id}`}
+          className={classes.link}
+          target="_blank"
+        >
+          Troubleshooter URL
+        </Link>
+        <ContentCopyIcon
+          className={classes.copyIcon}
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `${publicUrl.origin}/troubleshooter?token=${_id}`
+            );
+          }}
+        />
+      </div>
+      {/* <Typography variant="body2" className={classes.grayText}>
+        {createdAt.substring(0, 10)}
+      </Typography> */}
+      <Button
+        id="token-delete-button"
+        label="Delete"
+        customStyles={classes.tokenItemButton}
+        onClick={handleRevoke}
+      />
+      <Button
+        id="token-configure-button"
+        label="Configure"
+        customStyles={classes.tokenItemButton}
+        onClick={handleConfigureButton}
+      />
+      {/* <Menu
+        // id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleRevoke}>Revoke</MenuItem>
+        <MenuItem onClick={handleRegenerate}>Regenerate</MenuItem>
+      </Menu> */}
     </div>
   );
 };
