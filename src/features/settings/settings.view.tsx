@@ -77,6 +77,17 @@ const TokenComponent = ({
     setDomainName(domain);
   };
 
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      setURLCopyButtonClicked(false);
+      setTokenCopyButtonClicked(false);
+    }, 5000); // 5 seconds
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [urlCopyButtonClicked, tokenCopyButtonClicked]);
+
   const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
 
   return (
@@ -104,6 +115,7 @@ const TokenComponent = ({
                     classes={{
                       tooltip: classes.tooltip,
                     }}
+                    placement="bottom"
                   >
                     <IconButton
                       className={classes.copyIcon}
@@ -151,6 +163,7 @@ const TokenComponent = ({
                   classes={{
                     tooltip: classes.tooltip,
                   }}
+                  placement="bottom"
                 >
                   <IconButton
                     className={classes.copyIcon}

@@ -175,11 +175,12 @@ const styles = (theme: Theme) => {
       },
     },
     tooltip: {
-      background: theme.palette.secondary.light,
+      background: 'transparent',
       marginTop: '1px !important',
-      color: theme.palette.primary.main,
-      border: '1px solid #DAE3FA',
-      padding: '7px',
+      color: '#4caf50',
+      padding: '2px 0px',
+      position: 'absolute',
+      margin: '0px -18px',
     },
   });
 };
