@@ -23,6 +23,9 @@ export interface ISettingsState {
   plugins: IPlugin[];
   config: any;
   iceServerConfigType: string;
+  selectedDomain: string;
+  token: string;
+  isServerSettingsPage: boolean;
 }
 
 const initialState: ISettingsState = {
@@ -33,6 +36,9 @@ const initialState: ISettingsState = {
   plugins: [],
   config: null,
   iceServerConfigType: '',
+  selectedDomain: '',
+  token: '',
+  isServerSettingsPage: false,
 };
 
 // TODO: maybe give plugin its own slice
@@ -116,6 +122,15 @@ export const settingsSlice = createSlice({
     clearConfigs(state) {
       state.config = initialState.config;
       state.iceServerConfigType = initialState.iceServerConfigType;
+    },
+    setDomainName(state, action) {
+      state.selectedDomain = action?.payload;
+    },
+    setToken(state, action) {
+      state.token = action?.payload;
+    },
+    setSettingsPage(state, action) {
+      state.isServerSettingsPage = action?.payload;
     },
   },
   extraReducers: (builder) => {
@@ -215,7 +230,12 @@ export const settingsSlice = createSlice({
 });
 
 export const { actions } = settingsSlice;
-export const { clearConfigs } = settingsSlice.actions;
+export const {
+  clearConfigs,
+  setDomainName,
+  setToken,
+  setSettingsPage,
+} = settingsSlice.actions;
 export const selectPlugins = (state: RootState) => state.settings.plugins;
 export const selectConfig = (state: RootState) => state.settings;
 

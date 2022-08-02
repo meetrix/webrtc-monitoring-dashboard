@@ -147,6 +147,9 @@ const Sidebar = ({ classes }: ISidebarProps) => {
     } else {
       setSelectedItem(SidebarItems[index2]?.label);
     }
+    if (window.location.pathname === '/dashboard/settings/configs') {
+      setSelectedItem('Settings');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname]);
 

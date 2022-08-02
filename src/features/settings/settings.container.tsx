@@ -5,15 +5,16 @@ import Settings from './settings.view';
 import { getUrlParams } from '../../utils/urlUtils';
 import { mockIncomingConnection } from '../../mocks/report';
 import {
+  setSettingsPage,
   clearConfigs,
-  iceServerConfigGetAsync,
-  iceServerConfigSetAsync,
   pluginCreateAsync,
   pluginGetAllAsync,
   pluginRegenerateAsync,
   pluginRevokeAsync,
-  selectConfig,
   selectPlugins,
+  setDomainName,
+  setToken,
+  selectConfig,
 } from './settings.slice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
@@ -25,7 +26,7 @@ const SettingsAsyncContainer: React.FC<ISettingsAsyncContainer> = ({}: ISettings
   const plugins = useAppSelector(selectPlugins);
   const dispatch = useAppDispatch();
   const iceServerConfig = useAppSelector(selectConfig);
-  const { config, iceServerConfigType } = iceServerConfig;
+  const { isServerSettingsPage } = iceServerConfig;
   useEffect(() => {
     if (!mockStats) {
       dispatch<any>(pluginGetAllAsync());
@@ -59,19 +60,21 @@ const SettingsAsyncContainer: React.FC<ISettingsAsyncContainer> = ({}: ISettings
         regenerateToken: (_id: string) => {
           dispatch<any>(pluginRegenerateAsync(_id));
         },
-        setICEServerConfig: (data: any) => {
-          dispatch<any>(iceServerConfigSetAsync(data));
-        },
-        getICEServerConfig: (data: any) => {
-          dispatch<any>(iceServerConfigGetAsync(data));
-        },
         clearICEServerConfig: () => {
           dispatch<any>(clearConfigs());
         },
+        setSelectedDomainName: (data: any) => {
+          dispatch<any>(setDomainName(data));
+        },
+        setSelectedToken: (data: any) => {
+          dispatch<any>(setToken(data));
+        },
+        setIsServerSettingsPage: (data: any) => {
+          dispatch<any>(setSettingsPage(data));
+        },
       }}
       tokenList={sortedTokenList}
-      config={config}
-      iceServerConfigType={iceServerConfigType}
+      isServerSettingsPage={isServerSettingsPage}
     />
   );
 };

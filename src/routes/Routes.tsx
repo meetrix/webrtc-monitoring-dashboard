@@ -10,7 +10,7 @@ import VerificationLinkExpirationMessage from '../components/TokenExpirationMess
 import ResetLinkExpirationMessage from '../components/TokenExpirationMessage/ResetLinkExpirationMessage';
 import { ForgotPassword } from '../features/forgotPassword';
 import { ResetPassword } from '../features/resetPassword';
-import { Settings } from '../features/settings';
+import { Settings, ICEServerConfigs } from '../features/settings';
 // import { CallStatMonitoring } from '../features/callStats';
 import { DetailedView } from '../features/detailedView';
 // import CallStatsMoreInfo from '../features/callStats/callStatsMoreInfo';
@@ -126,6 +126,13 @@ const routesList = [
     isPrivate: true,
     hasSidebar: true,
     component: <DetailedView />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/settings/configs',
+    isPrivate: true,
+    hasSidebar: true,
+    component: <ICEServerConfigs />,
     hasNavbar: true,
   },
 ];
