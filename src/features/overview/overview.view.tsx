@@ -9,11 +9,16 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { CalendarPickerView } from '@mui/x-date-pickers';
+import endOfWeek from 'date-fns/endOfWeek';
+import startOfWeek from 'date-fns/startOfWeek';
 
 import styles from './overview.styles';
 import Chart from './components/chart';
 import { Typography } from '../../components/Typography';
 import getUrlParams from '../../utils/urlUtils';
+import CustomDay from './weekOfMonthRange';
+import { selectApp } from '../app/app.slice';
+import { useAppSelector } from '../../app/hooks';
 
 interface IOverviewView extends WithStyles<ButtonProps & typeof styles> {
   summaryList: DayData[];
@@ -71,21 +76,6 @@ const shortChartsOptions = {
   colors: ['#5ECCC8', '#EB514A'],
 };
 
-const longChartsOptions = {
-  height: window.innerHeight / 3,
-  legend: { position: 'top', maxLines: 3 },
-  bar: { groupWidth: '75%' },
-  vAxis: { format: '#' },
-  hAxis: {
-    ticks: [1, 5, 10, 15, 20, 25, 30],
-  },
-  chartArea: {
-    height: '84%',
-    width: '92%',
-  },
-  colors: ['#5ECCC8', '#EB514A'],
-};
-
 const popperSx: any = {
   marginTop: '10px',
   color: '#5F5F5F',
@@ -128,12 +118,13 @@ const DatePicker = ({
         PaperProps={{
           sx: popperSx,
         }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            InputLabelProps={{ shrink: false }}
-            className={classes}
-          />
+        renderInput={({ inputRef, inputProps, InputProps }) => (
+          <Box
+            sx={{ display: 'flex', alignItems: 'center', marginTop: '-10px' }}
+          >
+            <input ref={inputRef} {...inputProps} />
+            {InputProps?.endAdornment}
+          </Box>
         )}
       />
     </LocalizationProvider>
@@ -150,6 +141,20 @@ interface DayData {
   total: number;
 }
 
+const enumerateDaysBetweenDates = (startDate: Date, endDate: Date) => {
+  const dates = [];
+
+  const currDate = moment(startDate).startOf('day');
+  const lastDate = moment(endDate).startOf('day');
+
+  for (currDate; currDate.diff(lastDate) <= 0; currDate.add(1, 'days')) {
+    console.log(currDate.format('YYYY-MM-DD'));
+    dates.push(currDate.clone().format('YYYY-MM-DD'));
+  }
+
+  return dates;
+};
+
 const Overview: React.FC<IOverviewView> = ({
   classes,
   summaryList,
@@ -157,6 +162,10 @@ const Overview: React.FC<IOverviewView> = ({
 }: IOverviewView) => {
   const { mockStats } = getUrlParams();
   const now = new Date();
+  const weekValue = useAppSelector(selectApp);
+  const { selectedDateOfWeek } = weekValue;
+  const startDayOfWeek = startOfWeek(selectedDateOfWeek);
+  const endDayOfWeek = endOfWeek(selectedDateOfWeek);
 
   const [startDate, setStartDate] = useState<Date>(
     moment(now).subtract(1, 'month').toDate()
@@ -173,6 +182,22 @@ const Overview: React.FC<IOverviewView> = ({
   );
   const [lineChartDate, setLineChartDate] = useState<Date>(now);
   const lineChartSelectedMonth = moment(lineChartDate).format('MMM yyyy');
+
+  const longChartsOptions = {
+    height: window.innerHeight / 3,
+    legend: { position: 'top', maxLines: 3 },
+    bar: { groupWidth: '75%' },
+    vAxis: { format: '#' },
+    hAxis: {
+      format: `${moment(lineChartSelectedMonth).format('MMM')}-`,
+      ticks: [1, 5, 10, 15, 20, 25, 30],
+    },
+    chartArea: {
+      height: '84%',
+      width: '92%',
+    },
+    colors: ['#5ECCC8', '#EB514A'],
+  };
 
   useEffect(() => {
     if (!mockStats) {
@@ -204,6 +229,12 @@ const Overview: React.FC<IOverviewView> = ({
   const testByCategoryData = extractTestDataByCategory(
     summary,
     testsByCategorySelectedDate
+  );
+
+  const testByWeekData = extractTestDataByWeekOfMonth(
+    summary,
+    startDayOfWeek,
+    endDayOfWeek
   );
 
   const lineChartData = extractLineChartData(summary, lineChartSelectedMonth);
@@ -240,20 +271,21 @@ const Overview: React.FC<IOverviewView> = ({
       >
         <Grid item xs={6}>
           <Chart
-            data={mockStats ? TestByDateSample : testByDateData}
+            data={mockStats ? TestByDateSample : testByWeekData}
             chartType="ColumnChart"
             options={shortChartsOptions}
             title="Failed vs Successful Tests by Date"
             topRightElement={
-              <DatePicker
-                views={['year', 'month']}
-                inputFormat="MMM yyyy"
-                classes={classes.datePicker}
-                value={testsByWeekdayDate}
-                onChange={setTestsByWeekdayDate}
-                maxDate={now}
-                openTo="month"
-              />
+              // <DatePicker
+              //   views={['year', 'month']}
+              //   inputFormat="MMM yyyy"
+              //   classes={classes.datePicker}
+              //   value={testsByWeekdayDate}
+              //   onChange={setTestsByWeekdayDate}
+              //   maxDate={now}
+              //   openTo="month"
+              // />
+              <CustomDay />
             }
           />
         </Grid>
@@ -324,7 +356,10 @@ function extractLineChartData(
     }, {} as { [day: string]: [number, number] });
   return [
     ['Day', 'Success', 'Fail'],
-    ...Array.from(Array(31), (_, index) => index + 1).map((day) => [
+    ...Array.from(
+      Array(moment(lineChartSelectedMonth).daysInMonth()),
+      (_, index) => index + 1
+    ).map((day) => [
       day,
       lineChartData0[day]?.[0] || 0,
       lineChartData0[day]?.[1] || 0,
@@ -397,6 +432,35 @@ function extractTestDataByWeekday(
       day,
       testByDateData0[day]?.[0] || 0,
       testByDateData0[day]?.[1] || 0,
+    ]),
+  ];
+}
+
+function extractTestDataByWeekOfMonth(
+  summary: DayDataExtended[],
+  startDayOfWeek: Date,
+  endDayOfWeek: Date
+) {
+  const days = enumerateDaysBetweenDates(startDayOfWeek, endDayOfWeek);
+
+  const testByWeekData0 = summary
+    .filter((item) => days.includes(item._id))
+    .reduce((acc, stats) => {
+      return {
+        ...acc,
+        [stats._id]: [
+          (acc[stats._id]?.[0] || 0) + stats.passed,
+          (acc[stats._id]?.[1] || 0) + stats.total - stats.passed,
+        ] as [number, number],
+      };
+    }, {} as { [_id: string]: [number, number] });
+
+  return [
+    ['Day', 'Success', 'Fail'],
+    ...days.map((day) => [
+      moment(day).format('MMMM DD'),
+      testByWeekData0[day]?.[0] || 0,
+      testByWeekData0[day]?.[1] || 0,
     ]),
   ];
 }

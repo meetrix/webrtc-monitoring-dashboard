@@ -9,6 +9,7 @@ export interface IAppState {
     type: AlertTypes;
     childern: any;
   };
+  selectedDateOfWeek: any;
 }
 
 const initialState: IAppState = {
@@ -18,6 +19,7 @@ const initialState: IAppState = {
     type: 'success',
     childern: null,
   },
+  selectedDateOfWeek: null,
 };
 
 export const appSlice = createSlice({
@@ -43,6 +45,9 @@ export const appSlice = createSlice({
     },
     appLoadingCompleted(state) {
       state.loading = false;
+    },
+    setValue(state, action) {
+      state.selectedDateOfWeek = action?.payload?.value;
     },
   },
 });
