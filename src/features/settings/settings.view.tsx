@@ -97,6 +97,7 @@ const TokenComponent = ({
                     disableHoverListener
                     disableTouchListener
                     title="Copied!"
+                    leaveDelay={1500}
                     classes={{
                       tooltip: classes.tooltip,
                     }}
@@ -145,6 +146,7 @@ const TokenComponent = ({
                   disableHoverListener
                   disableTouchListener
                   title="Copied!"
+                  leaveDelay={1500}
                   classes={{
                     tooltip: classes.tooltip,
                   }}

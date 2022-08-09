@@ -178,7 +178,7 @@ const styles = (theme: Theme) => {
       background: 'transparent',
       marginTop: '1px !important',
       color: '#5ECCC8',
-      fontSize: '14px',
+      fontSize: theme.typography.body2.fontSize,
       padding: '2px 0px',
       position: 'absolute',
       margin: '0px -18px',
