@@ -177,8 +177,7 @@ const styles = (theme: Theme) => {
     tooltip: {
       background: 'transparent',
       marginTop: '1px !important',
-      color: '#5ECCC8',
-      fontSize: '14px',
+      color: '#4caf50',
       padding: '2px 0px',
       position: 'absolute',
       margin: '0px -18px',
