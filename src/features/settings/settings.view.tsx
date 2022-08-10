@@ -92,6 +92,7 @@ const TokenComponent = ({
                       disablePortal: true,
                     }}
                     onClose={() => setTokenCopyButtonClicked(false)}
+                    onMouseLeave={() => setTokenCopyButtonClicked(false)}
                     open={tokenCopyButtonClicked}
                     disableFocusListener
                     disableHoverListener
