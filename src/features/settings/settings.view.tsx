@@ -66,7 +66,7 @@ const TokenComponent = ({
     const timeId = setTimeout(() => {
       setURLCopyButtonClicked(false);
       setTokenCopyButtonClicked(false);
-    }, 5000); // 5 seconds
+    }, 1500); // 1.5 seconds
 
     return () => {
       clearTimeout(timeId);
@@ -97,7 +97,6 @@ const TokenComponent = ({
                     disableHoverListener
                     disableTouchListener
                     title="Copied!"
-                    leaveDelay={1500}
                     classes={{
                       tooltip: classes.tooltip,
                     }}
@@ -146,7 +145,6 @@ const TokenComponent = ({
                   disableHoverListener
                   disableTouchListener
                   title="Copied!"
-                  leaveDelay={1500}
                   classes={{
                     tooltip: classes.tooltip,
                   }}
