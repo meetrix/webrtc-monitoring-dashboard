@@ -92,6 +92,8 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
   tooltipOpen,
 }: IPasswordTextField) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const tipText =
+    'Password must be at least 8 characters long,\nat least one number,\nboth lower and uppercase letters,\nand at least one special character';
 
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -107,7 +109,7 @@ export const PasswordTextField: React.FC<IPasswordTextField> = ({
         <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       )}
       <Tooltip
-        title="Password must be at least 8 characters long"
+        title={<span style={{ whiteSpace: 'pre-line' }}>{tipText}</span>}
         open={tooltipOpen}
         classes={{
           tooltip: classes.tooltip,
