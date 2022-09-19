@@ -1,6 +1,8 @@
 /* eslint-disable no-useless-escape */
 export const isPasswordValid = (input: string) => {
-  return !input || input.length < 8;
+  const PasswordValidationReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const result = PasswordValidationReg.test(input);
+  return !input || !result;
 };
 
 export const isEmailValid = (input: string) => {
