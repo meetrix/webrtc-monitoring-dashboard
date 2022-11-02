@@ -15,6 +15,18 @@ const styles = (theme: Theme) => {
       marginBottom: '20px',
       fontWeight: 500,
     },
+    topPaper: {
+      padding: 20,
+      marginBottom: '2vh',
+    },
+    bottomPaper: {
+      padding: 20,
+    },
+    tableContainer: {
+      marginTop: '2vh',
+      overflow: 'auto',
+      maxHeight: '40vh',
+    },
   });
 };
 

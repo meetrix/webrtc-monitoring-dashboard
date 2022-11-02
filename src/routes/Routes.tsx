@@ -81,14 +81,14 @@ const routesList = [
   },
   {
     path: '/dashboard',
-    isPrivate: true,
+    isPrivate: false,
     hasSidebar: true,
     component: <Home />,
     hasNavbar: true,
   },
   {
     path: '/dashboard/settings',
-    isPrivate: true,
+    isPrivate: false,
     hasSidebar: true,
     component: <Settings />,
     hasNavbar: true,
