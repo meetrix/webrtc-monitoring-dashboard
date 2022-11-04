@@ -7,7 +7,8 @@ const styles = (theme: Theme) => {
       // width: '100%',
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc(100% - 8vh)',
+      height: '100%',
+      overflow: 'auto',
     },
     titleText: {
       fontSize: theme.typography.h6.fontSize,
@@ -26,6 +27,9 @@ const styles = (theme: Theme) => {
       marginTop: '2vh',
       overflow: 'auto',
       maxHeight: '40vh',
+    },
+    chartWrapper: {
+      height: 200,
     },
   });
 };

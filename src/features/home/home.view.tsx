@@ -8,7 +8,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+
+import Chart from '../../components/Chart';
+
 import styles from './home.styles';
+import { SelectTextField } from '../../components/TextField';
 
 export type IHomeView = WithStyles<typeof styles>;
 
@@ -31,7 +35,28 @@ const SampleData = [
   },
 ];
 
+const SampleChartData = [
+  { argument: 1, value: 10 },
+  { argument: 2, value: 20 },
+  { argument: 3, value: 30 },
+];
+
+const SampleSelectUsers = [
+  {
+    label: 'aaa',
+  },
+  {
+    label: 'bbb',
+  },
+];
+
 const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
+  const [user, setUser] = React.useState('1');
+
+  const handleSelectUserChange = (event: any) => {
+    setUser(event.target.value as string);
+  };
+
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
@@ -90,8 +115,30 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
 
       <Paper elevation={0} className={classes.bottomPaper}>
         <Typography className={classes.titleText} variant="h6">
-          Analyze
+          Analyze MeetingTitle
         </Typography>
+        <Grid container spacing={4}>
+          <Grid item sm={6}>
+            <SelectTextField
+              onChange={handleSelectUserChange}
+              label="Select Users"
+              value={1}
+              selectItems={SampleSelectUsers}
+            />
+          </Grid>
+          <Grid item sm={6} />
+        </Grid>
+        <Typography variant="body1">Bandwidth utilization</Typography>
+        <Grid container spacing={4}>
+          <Grid item sm={6}>
+            <div className={classes.chartWrapper}>
+              <Chart data={SampleChartData} />
+            </div>
+          </Grid>
+          <Grid item sm={6}>
+            gggg
+          </Grid>
+        </Grid>
       </Paper>
     </div>
   );
