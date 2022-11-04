@@ -114,9 +114,27 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
       </Paper>
 
       <Paper elevation={0} className={classes.bottomPaper}>
-        <Typography className={classes.titleText} variant="h6">
-          Analyze MeetingTitle
-        </Typography>
+        <Grid container spacing={4}>
+          <Grid item sm={6}>
+            <Typography className={classes.titleText} variant="h6">
+              Analyze MeetingTitle
+            </Typography>
+          </Grid>
+          <Grid item sm={6} display="flex">
+            <div>
+              <Typography variant="body1">Date</Typography>
+              <Typography variant="body1">Time</Typography>
+              <Typography variant="body1">No of participants</Typography>
+              <Typography variant="body1">Moderators</Typography>
+            </div>
+            <div style={{ paddingLeft: '10px' }}>
+              <Typography variant="body1">: 22/08/2022</Typography>
+              <Typography variant="body1">: 14.00 - 16.34</Typography>
+              <Typography variant="body1">: 23</Typography>
+              <Typography variant="body1">: Name</Typography>
+            </div>
+          </Grid>
+        </Grid>
         <Grid container spacing={4}>
           <Grid item sm={6}>
             <SelectTextField
@@ -126,7 +144,9 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
               selectItems={SampleSelectUsers}
             />
           </Grid>
-          <Grid item sm={6} />
+          <Grid item sm={6} display="flex" alignItems="center">
+            User id: 334455
+          </Grid>
         </Grid>
         <Typography variant="body1">Bandwidth utilization</Typography>
         <Grid container spacing={4}>
