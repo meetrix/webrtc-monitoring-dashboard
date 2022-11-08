@@ -3,6 +3,7 @@ import React from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Grid, Paper, Typography } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
 import Table from '../../components/Table';
 
 import styles from './home.styles';
@@ -11,6 +12,7 @@ import { mockHomeMeetings } from '../../mocks/report';
 export type IHomeView = WithStyles<typeof styles>;
 
 const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
+  const navigate = useNavigate();
   const columns = [
     { field: 'date', headerName: 'Date', flex: 1 },
     { field: 'title', headerName: 'Title', flex: 1 },
@@ -23,7 +25,8 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
   const handleRowClick = (
     params: any // GridRowParams
   ) => {
-    console.log('kkkk', params?.row);
+    console.log('Row', params?.row);
+    navigate('/dashboard/meeting-details');
   };
 
   return (

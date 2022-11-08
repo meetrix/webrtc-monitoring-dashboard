@@ -4,11 +4,11 @@ import { createStyles, makeStyles, WithStyles, withStyles } from '@mui/styles';
 
 import { Grid, Paper, Typography } from '@mui/material';
 
-import Chart from 'react-google-charts';
 import styles from '../home.styles';
 import theme from '../../../app/theme';
 import { SelectTextField } from '../../../components/TextField';
 import RightsideView from './rightsideView';
+import Chart from '../../../components/Chart';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,10 +37,13 @@ const SampleChartData = [
 
 const SampleSelectUsers = [
   {
-    label: 'aaa',
+    label: 'User 1',
   },
   {
-    label: 'bbb',
+    label: 'User 2',
+  },
+  {
+    label: 'User 3',
   },
 ];
 
@@ -81,7 +84,7 @@ const MeetingDetails = () => {
           <SelectTextField
             onChange={handleSelectUserChange}
             label="Select Users"
-            value={1}
+            value={user}
             selectItems={SampleSelectUsers}
           />
         </Grid>
