@@ -19,6 +19,7 @@ export interface TableComponentProps
   checkboxSelection?: boolean;
   disableSelectionOnClick?: boolean;
   disableColumnFilter?: boolean;
+  onRowClick?: any;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({
@@ -30,6 +31,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
   checkboxSelection,
   disableSelectionOnClick,
   disableColumnFilter,
+  onRowClick,
   ...otherProps
 }: TableComponentProps) => {
   return (
@@ -40,6 +42,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
       disableColumnFilter={disableColumnFilter}
       checkboxSelection={checkboxSelection}
       disableSelectionOnClick={disableSelectionOnClick}
+      onRowClick={onRowClick}
     />
   );
 };

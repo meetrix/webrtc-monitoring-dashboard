@@ -19,17 +19,17 @@ const styles = (theme: Theme) => {
     topPaper: {
       padding: 20,
       marginBottom: '2vh',
-    },
-    bottomPaper: {
-      padding: 20,
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
     },
     tableContainer: {
       marginTop: '2vh',
       overflow: 'auto',
-      maxHeight: '40vh',
-    },
-    chartWrapper: {
-      height: 200,
+      flexGrow: 1,
+      '& 	.MuiDataGrid-row': {
+        cursor: 'pointer',
+      },
     },
   });
 };
