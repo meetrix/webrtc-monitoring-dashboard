@@ -1,23 +1,26 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { getUrlParams } from '../../utils/urlUtils';
 import Home from './home.view';
-import { mockCallStats } from '../../mocks/report';
-import { useAppSelector } from '../../app/hooks';
-import { selectMeetingList } from './home.slice';
+import { mockHomeMeetings } from '../../mocks/report';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { meetingListAsync, selectMeetingList } from './home.slice';
 
 export interface IHomeAsyncContainer {}
 
 const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
-  const meetingList = useAppSelector(selectMeetingList);
+  const { meetingList } = useAppSelector(selectMeetingList);
+  const dispatch = useAppDispatch();
 
-  console.log('kkkkk home container', meetingList);
+  useEffect(() => {
+    dispatch<any>(meetingListAsync(null));
+  }, []);
 
-  const HomeMock = mockStats ? mockCallStats : null;
+  const meetingListData = mockStats ? mockHomeMeetings : meetingList;
 
-  return <Home />;
+  return <Home meetingList={meetingListData} />;
 };
 
 export default memo(HomeAsyncContainer);

@@ -412,29 +412,8 @@ export const mockCallStats = [
 export const mockHomeMeetings = [
   {
     id: 1,
-    date: '02/07/2022',
-    title: 'Meeting name 1',
-    start: '14.30',
-    end: '16.45',
-    modarator: 'Modarator Name',
-    participants: '10',
-  },
-  {
-    id: 2,
-    date: '22/07/2022',
-    title: 'Meeting name 2',
-    start: '14.30',
-    end: '16.45',
-    modarator: 'Modarator Name',
-    participants: '10',
-  },
-  {
-    id: 3,
-    date: '14/07/2022',
-    title: 'Meeting name 3',
-    start: '14.30',
-    end: '16.45',
-    modarator: 'Modarator Name',
-    participants: '10',
+    createdAt: '02/07/2022',
+    roomName: 'Meeting name 1',
+    updatedAt: '08/07/2023',
   },
 ] as any;

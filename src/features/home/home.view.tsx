@@ -9,17 +9,16 @@ import Table from '../../components/Table';
 import styles from './home.styles';
 import { mockHomeMeetings } from '../../mocks/report';
 
-export type IHomeView = WithStyles<typeof styles>;
+export interface IHomeView extends WithStyles<typeof styles> {
+  meetingList: any;
+}
 
-const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
+const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
   const navigate = useNavigate();
   const columns = [
-    { field: 'date', headerName: 'Date', flex: 1 },
-    { field: 'title', headerName: 'Title', flex: 1 },
-    { field: 'start', headerName: 'Start', flex: 1 },
-    { field: 'end', headerName: 'End', flex: 1 },
-    { field: 'modarator', headerName: 'Modarator', flex: 1 },
-    { field: 'participants', headerName: 'Participants', flex: 1 },
+    { field: 'createdAt', headerName: 'Created Date', flex: 1 },
+    { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
+    { field: 'updatedAt', headerName: 'Updated Date', flex: 1 },
   ];
 
   const handleRowClick = (
@@ -28,7 +27,6 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
     console.log('Row', params?.row);
     // navigate('/dashboard/meeting-details');
   };
-
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
@@ -39,7 +37,7 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
           <Grid item sm={4} textAlign="center">
             Total Conference
             <br />
-            <Typography variant="h5">6</Typography>
+            <Typography variant="h5">{meetingList.length}</Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Users
@@ -55,7 +53,8 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
 
         <div className={classes.tableContainer}>
           <Table
-            rows={mockHomeMeetings}
+            rows={meetingList}
+            getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
