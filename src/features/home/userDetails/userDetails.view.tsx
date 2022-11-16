@@ -4,16 +4,19 @@ import { WithStyles, withStyles } from '@mui/styles';
 import { Grid, Paper, Typography } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
-import Table from '../../components/Table';
+import Table from '../../../components/Table';
 
-import styles from './home.styles';
-import { mockHomeMeetings } from '../../mocks/report';
+import styles from './userDetails.styles';
+import { mockHomeMeetings } from '../../../mocks/report';
 
-export interface IHomeView extends WithStyles<typeof styles> {
+export interface IUserDetailsView extends WithStyles<typeof styles> {
   meetingList: any;
 }
 
-const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
+const UserDetails: React.FC<IUserDetailsView> = ({
+  classes,
+  meetingList,
+}: IUserDetailsView) => {
   const navigate = useNavigate();
   const columns = [
     { field: 'createdAt', headerName: 'Created Date', flex: 1 },
@@ -25,31 +28,14 @@ const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
     params: any // GridRowParams
   ) => {
     console.log('Row', params?.row);
-    navigate('/dashboard/meeting-details');
+    // navigate('/dashboard/meeting-details');
   };
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
         <Typography className={classes.titleText} variant="h6">
-          Video conferencing debugger
+          Users debugger
         </Typography>
-        <Grid container>
-          <Grid item sm={4} textAlign="center">
-            Total Conference
-            <br />
-            <Typography variant="h5">{meetingList.length}</Typography>
-          </Grid>
-          <Grid item sm={4} textAlign="center">
-            Total Users
-            <br />
-            <Typography variant="h5">45</Typography>
-          </Grid>
-          <Grid item sm={4} textAlign="center">
-            Total Minutes
-            <br />
-            <Typography variant="h5">230</Typography>
-          </Grid>
-        </Grid>
 
         <div className={classes.tableContainer}>
           <Table
@@ -65,4 +51,4 @@ const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
   );
 };
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(UserDetails);

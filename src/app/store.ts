@@ -12,6 +12,7 @@ import { detailedViewReducer } from '../features/detailedView';
 import { summaryViewReducer } from '../features/overview';
 import { settingsReducer } from '../features/settings';
 import { homeReducer } from '../features/home';
+import { userDetailsReducer } from '../features/home/userDetails';
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     troubleshooterSummary: summaryViewReducer,
     settings: settingsReducer,
     meetingList: homeReducer,
+    userErrorList: userDetailsReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
