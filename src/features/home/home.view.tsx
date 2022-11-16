@@ -26,7 +26,7 @@ const Home: React.FC<IHomeView> = ({ classes }: IHomeView) => {
     params: any // GridRowParams
   ) => {
     console.log('Row', params?.row);
-    navigate('/dashboard/meeting-details');
+    // navigate('/dashboard/meeting-details');
   };
 
   return (
