@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Grid, Paper, Typography } from '@mui/material';
 
@@ -7,27 +7,40 @@ import { useNavigate } from 'react-router-dom';
 import Table from '../../../components/Table';
 
 import styles from './userDetails.styles';
-import { mockHomeMeetings } from '../../../mocks/report';
+import { userErrorsAsync } from './userDetails.slice';
+import { useAppDispatch } from '../../../app/hooks';
 
 export interface IUserDetailsView extends WithStyles<typeof styles> {
-  meetingList: any;
+  userList?: any;
+  userErrorList?: any;
 }
 
 const UserDetails: React.FC<IUserDetailsView> = ({
   classes,
-  meetingList,
+  userList,
+  userErrorList,
 }: IUserDetailsView) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch<any>(userErrorsAsync('636dd461d68965322643415a'));
+  }, []);
+
   const columns = [
-    { field: 'createdAt', headerName: 'Created Date', flex: 1 },
-    { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
-    { field: 'updatedAt', headerName: 'Updated Date', flex: 1 },
+    { field: 'errorValue', headerName: 'Error Value', flex: 1 },
+    { field: 'errorType', headerName: 'Error Type', flex: 1 },
+    { field: 'eventSourceType', headerName: 'Event Source Type', flex: 1 },
+    { field: 'eventSourceId', headerName: 'Event Source Id', flex: 1 },
+    { field: 'roomId', headerName: 'Room Id', flex: 1 },
+    { field: 'createdAt', headerName: 'Created At', flex: 1 },
+    { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
 
   const handleRowClick = (
     params: any // GridRowParams
   ) => {
-    console.log('Row', params?.row);
+    // console.log('Row', params?.row);
     // navigate('/dashboard/meeting-details');
   };
   return (
@@ -39,7 +52,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
         <div className={classes.tableContainer}>
           <Table
-            rows={meetingList}
+            rows={userErrorList}
             getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}

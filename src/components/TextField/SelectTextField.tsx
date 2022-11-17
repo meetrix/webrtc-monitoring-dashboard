@@ -74,7 +74,6 @@ const SelectTextField: React.FC<ISelectTextFieldProps> = ({
         className={classes.select}
       >
         {selectItems.map((data: any, index: any) => {
-          console.log('kkkk index', { index, data });
           return (
             <MenuItem value={index}>
               <em>{data.label}</em>

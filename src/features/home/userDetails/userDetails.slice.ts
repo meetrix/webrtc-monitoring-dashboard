@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
-import { getUserDetailsApi } from './userDetails.api';
+import { getUserErrorsApi } from './userDetails.api';
 
 export interface IUserDetailsState {
   loading: boolean;
@@ -13,12 +13,12 @@ const initialState: IUserDetailsState = {
   userErrorList: [],
   error: null,
 };
-export const userDetailsAsync = createAsyncThunk(
+export const userErrorsAsync = createAsyncThunk(
   'report/users/errors',
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
-      const response = await getUserDetailsApi();
+      const response = await getUserErrorsApi(data);
       return response;
     } catch (error: any) {
       return rejectWithValue(error);
@@ -26,19 +26,19 @@ export const userDetailsAsync = createAsyncThunk(
   }
 );
 
-export const UserDetailsSlice = createSlice({
+export const UserErrorsSlice = createSlice({
   name: 'report',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(userDetailsAsync.pending, (state, action) => {
+    builder.addCase(userErrorsAsync.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(userDetailsAsync.fulfilled, (state, action) => {
+    builder.addCase(userErrorsAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.userErrorList = action.payload.data.data.rooms;
+      state.userErrorList = action.payload.data.data;
     });
-    builder.addCase(userDetailsAsync.rejected, (state, action) => {
+    builder.addCase(userErrorsAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
@@ -47,6 +47,6 @@ export const UserDetailsSlice = createSlice({
 
 // export const { actions } = UserDetailsSlice;
 
-export const selectUserDetails = (state: RootState) => state.userErrorList;
+export const selectUserErrors = (state: RootState) => state.userErrorList;
 
-export default UserDetailsSlice.reducer;
+export default UserErrorsSlice.reducer;

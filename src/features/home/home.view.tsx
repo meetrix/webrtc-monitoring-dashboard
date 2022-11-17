@@ -37,7 +37,7 @@ const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
           <Grid item sm={4} textAlign="center">
             Total Conference
             <br />
-            <Typography variant="h5">{meetingList.length}</Typography>
+            <Typography variant="h5">{meetingList?.length}</Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Users

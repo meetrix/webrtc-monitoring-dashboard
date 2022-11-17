@@ -3,24 +3,19 @@
 import React, { memo, useEffect } from 'react';
 import { getUrlParams } from '../../../utils/urlUtils';
 import UserDetails from './userDetails.view';
-import { mockHomeMeetings } from '../../../mocks/report';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { userDetailsAsync, selectUserDetails } from './userDetails.slice';
+import { mockUserErrors } from '../../../mocks/report';
+import { useAppSelector } from '../../../app/hooks';
+import { selectUserErrors } from './userDetails.slice';
 
 export interface IUserDetailsAsyncContainer {}
 
 const UserDetailsAsyncContainer: React.FC<IUserDetailsAsyncContainer> = ({}: IUserDetailsAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
-  const { userErrorList } = useAppSelector(selectUserDetails);
-  const dispatch = useAppDispatch();
+  const { userErrorList } = useAppSelector(selectUserErrors);
 
-  useEffect(() => {
-    dispatch<any>(userDetailsAsync(null));
-  }, []);
+  const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
-  const meetingListData = mockStats ? mockHomeMeetings : userErrorList;
-
-  return <UserDetails meetingList={meetingListData} />;
+  return <UserDetails userErrorList={userErrorListData} />;
 };
 
 export default memo(UserDetailsAsyncContainer);
