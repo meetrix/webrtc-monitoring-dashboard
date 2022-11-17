@@ -89,14 +89,14 @@ const routesList = [
     hasNavbar: true,
   },
   {
-    path: '/dashboard/meeting/:roomId',
+    path: '/dashboard/:roomId',
     isPrivate: true,
     hasSidebar: true,
     component: <UserList />,
     hasNavbar: true,
   },
   {
-    path: '/dashboard/meeting/:roomId/:userId',
+    path: '/dashboard/:roomId/:userId',
     isPrivate: true,
     hasSidebar: true,
     component: <UserDetailsView />,

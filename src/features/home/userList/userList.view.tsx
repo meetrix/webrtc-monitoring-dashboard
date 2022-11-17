@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
@@ -37,11 +37,16 @@ const UserList: React.FC<IUserListView> = ({
   const handleRowClick = (
     params: any // RowParams
   ) => {
-    navigate(`/dashboard/meeting/${roomId}/${params?.row?._id}`);
+    navigate(`/dashboard/${roomId}/${params?.row?._id}`);
   };
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
+        <div>
+          <Button onClick={() => navigate(`/dashboard`)} variant="text">
+            back
+          </Button>
+        </div>
         <Typography className={classes.titleText} variant="h6">
           User List
         </Typography>

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
-import { Paper, Typography } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -24,7 +24,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
   const { userErrorList } = useAppSelector(selectUserErrors);
 
-  const { userId } = useParams();
+  const { userId, roomId } = useParams();
 
   useEffect(() => {
     dispatch<any>(userErrorsAsync(userId));
@@ -49,6 +49,14 @@ const UserDetails: React.FC<IUserDetailsView> = ({
   return (
     <div className={classes.root}>
       <Paper elevation={0} className={classes.topPaper}>
+        <div>
+          <Button
+            onClick={() => navigate(`/dashboard/${roomId}`)}
+            variant="text"
+          >
+            Back
+          </Button>
+        </div>
         <Typography className={classes.titleText} variant="h6">
           Users debugger
         </Typography>
