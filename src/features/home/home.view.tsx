@@ -24,8 +24,7 @@ const Home: React.FC<IHomeView> = ({ classes, meetingList }: IHomeView) => {
   const handleRowClick = (
     params: any // GridRowParams
   ) => {
-    console.log('Row', params?.row);
-    navigate('/dashboard/meeting-details');
+    navigate(`/dashboard/user-details/${params?.row?._id}`);
   };
   return (
     <div className={classes.root}>

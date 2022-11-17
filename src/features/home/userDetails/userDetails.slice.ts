@@ -20,7 +20,7 @@ export const userListAsync = createAsyncThunk(
   'report/users',
   async (data: any, { rejectWithValue, dispatch }) => {
     try {
-      const response = await getAllUsersApi();
+      const response = await getAllUsersApi(data);
       return response;
     } catch (error: any) {
       return rejectWithValue(error);

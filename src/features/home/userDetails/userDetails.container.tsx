@@ -1,6 +1,7 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { memo, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { getUrlParams } from '../../../utils/urlUtils';
 import UserDetails from './userDetails.view';
 import { mockUserErrors } from '../../../mocks/report';
@@ -18,9 +19,10 @@ const UserDetailsAsyncContainer: React.FC<IUserDetailsAsyncContainer> = ({}: IUs
   const { userList } = useAppSelector(selectUserList);
   const { userErrorList } = useAppSelector(selectUserErrors);
   const dispatch = useAppDispatch();
+  const { roomId } = useParams();
 
   useEffect(() => {
-    dispatch<any>(userListAsync(null));
+    dispatch<any>(userListAsync(roomId));
   }, []);
 
   const userErrorListData = mockStats ? mockUserErrors : userErrorList;
