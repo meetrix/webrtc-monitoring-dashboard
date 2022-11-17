@@ -27,6 +27,7 @@ export const store = configureStore({
     troubleshooterSummary: summaryViewReducer,
     settings: settingsReducer,
     meetingList: homeReducer,
+    userList: userDetailsReducer,
     userErrorList: userDetailsReducer,
     [api.reducerPath]: api.reducer
   },
