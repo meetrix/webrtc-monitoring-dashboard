@@ -44,7 +44,7 @@ const UserList: React.FC<IUserListView> = ({
       <Paper elevation={0} className={classes.topPaper}>
         <div>
           <Button onClick={() => navigate(`/dashboard`)} variant="text">
-            back
+            &#10094; back
           </Button>
         </div>
         <Typography className={classes.titleText} variant="h6">

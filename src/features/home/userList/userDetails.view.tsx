@@ -54,7 +54,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
             onClick={() => navigate(`/dashboard/${roomId}`)}
             variant="text"
           >
-            Back
+            &#10094; Back
           </Button>
         </div>
         <Typography className={classes.titleText} variant="h6">
