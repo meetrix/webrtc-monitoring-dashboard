@@ -17,7 +17,6 @@ import { DetailedView } from '../features/detailedView';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
 import { Overview } from '../features/overview';
-import MeetingDetails from '../features/home/components/meetingDetails';
 import { UserDetails } from '../features/home/userDetails';
 
 const routesList = [
@@ -86,13 +85,6 @@ const routesList = [
     isPrivate: true,
     hasSidebar: true,
     component: <Home />,
-    hasNavbar: true,
-  },
-  {
-    path: '/dashboard/meeting-details',
-    isPrivate: true,
-    hasSidebar: true,
-    component: <UserDetails />,
     hasNavbar: true,
   },
   {

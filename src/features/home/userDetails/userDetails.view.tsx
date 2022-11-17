@@ -30,7 +30,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
   const { userErrorList } = useAppSelector(selectUserErrors);
 
-  const [user, setUser] = React.useState(userList[0]?._id);
+  const [user, setUser] = React.useState('');
 
   useEffect(() => {
     dispatch<any>(userErrorsAsync(user));
@@ -67,7 +67,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
           <Select
             defaultValue={user}
             onChange={handleSelectUserChange}
-            placeholder="Select a user"
+            placeholder="All users"
             className={classes.select}
           >
             {userList.map((data: any) => {
