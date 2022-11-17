@@ -1,20 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
-import {
-  Paper,
-  Typography,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Table from '../../../components/Table';
 
-import styles from './userDetails.styles';
-import { selectUserErrors, userErrorsAsync } from './userDetails.slice';
+import styles from './userList.styles';
+import { selectUserErrors, userErrorsAsync } from './userList.slice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
 export interface IUserDetailsView extends WithStyles<typeof styles> {
@@ -30,11 +24,11 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
   const { userErrorList } = useAppSelector(selectUserErrors);
 
-  const [user, setUser] = React.useState('');
+  const { userId } = useParams();
 
   useEffect(() => {
-    dispatch<any>(userErrorsAsync(user));
-  }, [user]);
+    dispatch<any>(userErrorsAsync(userId));
+  }, []);
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
@@ -46,9 +40,6 @@ const UserDetails: React.FC<IUserDetailsView> = ({
     { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
 
-  const handleSelectUserChange = (event: any) => {
-    setUser(event.target.value as string);
-  };
   const handleRowClick = (
     params: any // RowParams
   ) => {
@@ -61,24 +52,6 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         <Typography className={classes.titleText} variant="h6">
           Users debugger
         </Typography>
-
-        <FormControl variant="outlined" className={classes.selectForm}>
-          <InputLabel id="select-user">Select a user</InputLabel>
-          <Select
-            defaultValue={user}
-            onChange={handleSelectUserChange}
-            placeholder="All users"
-            className={classes.select}
-          >
-            {userList.map((data: any) => {
-              return (
-                <MenuItem value={data._id}>
-                  <em>{data.participantName}</em>
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
 
         <div className={classes.tableContainer}>
           <Table

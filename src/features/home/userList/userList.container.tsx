@@ -10,14 +10,15 @@ import {
   selectUserErrors,
   selectUserList,
   userListAsync,
-} from './userDetails.slice';
+} from './userList.slice';
+import UserListView from './userList.view';
 
-export interface IUserDetailsAsyncContainer {}
+export interface IUserListAsyncContainer {}
 
-const UserDetailsAsyncContainer: React.FC<IUserDetailsAsyncContainer> = ({}: IUserDetailsAsyncContainer) => {
+const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserListAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
   const { userList } = useAppSelector(selectUserList);
-  const { userErrorList } = useAppSelector(selectUserErrors);
+  // const { userErrorList } = useAppSelector(selectUserErrors);
   const dispatch = useAppDispatch();
   const { roomId } = useParams();
 
@@ -25,9 +26,9 @@ const UserDetailsAsyncContainer: React.FC<IUserDetailsAsyncContainer> = ({}: IUs
     dispatch<any>(userListAsync(roomId));
   }, []);
 
-  const userErrorListData = mockStats ? mockUserErrors : userErrorList;
+  // const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
-  return <UserDetails userList={userList} />;
+  return <UserListView userList={userList} />;
 };
 
-export default memo(UserDetailsAsyncContainer);
+export default memo(UserListAsyncContainer);

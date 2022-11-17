@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
-import { getAllUsersApi, getUserErrorsApi } from './userDetails.api';
+import { getAllUsersApi, getUserErrorsApi } from './userList.api';
 
-export interface IUserDetailsState {
+export interface IUserListState {
   loading: boolean;
   userList: any;
   userErrorList: any;
   error: any;
 }
 
-const initialState: IUserDetailsState = {
+const initialState: IUserListState = {
   loading: false,
   userList: [],
   userErrorList: [],
