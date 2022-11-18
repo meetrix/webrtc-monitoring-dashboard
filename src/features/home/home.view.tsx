@@ -34,6 +34,7 @@ const Home: React.FC<IHomeView> = ({
     { field: 'updatedAt', headerName: 'Updated Date', flex: 1 },
   ];
 
+  console.log('kkkkk', meetingList);
   const handleRowClick = (
     params: any // GridRowParams
   ) => {
@@ -49,17 +50,19 @@ const Home: React.FC<IHomeView> = ({
           <Grid item sm={4} textAlign="center">
             Total Conference
             <br />
-            <Typography variant="h5">{meetingList?.length}</Typography>
+            <Typography variant="h5">{meetingList.total}</Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Users
             <br />
-            <Typography variant="h5">45</Typography>
+            <Typography variant="h5">
+              {meetingList.totalParticipants}
+            </Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Minutes
             <br />
-            <Typography variant="h5">230</Typography>
+            <Typography variant="h5">{meetingList.totalMinutes}</Typography>
           </Grid>
         </Grid>
         <div className={classes.datePicker}>
@@ -86,7 +89,7 @@ const Home: React.FC<IHomeView> = ({
 
         <div className={classes.tableContainer}>
           <Table
-            rows={meetingList}
+            rows={meetingList.rooms}
             getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}

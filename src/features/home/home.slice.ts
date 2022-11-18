@@ -36,7 +36,7 @@ export const meetingListSlice = createSlice({
     });
     builder.addCase(meetingListAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.meetingList = action.payload.data.data.rooms;
+      state.meetingList = action.payload.data.data;
     });
     builder.addCase(meetingListAsync.rejected, (state, action) => {
       state.loading = false;
