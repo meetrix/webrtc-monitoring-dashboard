@@ -15,6 +15,7 @@ const styles = (theme: Theme) => {
       color: theme.palette.primary.main,
       marginBottom: '20px',
       fontWeight: 500,
+      flexGrow: 4,
     },
     topPaper: {
       padding: 20,
@@ -30,37 +31,8 @@ const styles = (theme: Theme) => {
       '& 	.MuiDataGrid-row': {
         cursor: 'pointer',
       },
-    },
-    selectForm: {
-      width: '100%',
-      // height: '56px',
-      margin: theme.spacing(2, 0),
-      '& .MuiOutlinedInput-input': {
-        padding: '10px 0.5rem !important',
-      },
-      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.secondary.dark,
-        opacity: 38,
-      },
-      '&:hover': {
-        borderColor: theme.palette.secondary.dark,
-        opacity: 38,
-      },
-      '& .MuiFormLabel-root.Mui-focused': {
-        color: theme.palette.secondary.dark,
-      },
-      '& .MuiInputLabel-outlined': {
-        transform: 'translate(14px, 10px) scale(1)',
-      },
-      '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-        transform: 'translate(14px, -6px) scale(0.75)',
-        backgroundColor: theme.palette.common.white,
-        padding: '0 5px',
-      },
-    },
-    select: {
-      '& em': {
-        fontStyle: 'unset !important',
+      '& .fault-status-1': {
+        backgroundColor: '#ffbcbc',
       },
     },
   });

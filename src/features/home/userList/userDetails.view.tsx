@@ -33,8 +33,8 @@ const UserDetails: React.FC<IUserDetailsView> = ({
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
     { field: 'errorType', headerName: 'Error Type', flex: 1 },
-    { field: 'eventSourceType', headerName: 'Event Source Type', flex: 1 },
-    { field: 'eventSourceId', headerName: 'Event Source Id', flex: 1 },
+    { field: 'eventSourceType', headerName: 'Source Type', flex: 1 },
+    { field: 'eventSourceId', headerName: 'Source Id', flex: 1 },
     { field: 'roomId', headerName: 'Room Id', flex: 1 },
     { field: 'createdAt', headerName: 'Created At', flex: 1 },
     { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
@@ -57,9 +57,25 @@ const UserDetails: React.FC<IUserDetailsView> = ({
             &#10094; Back
           </Button>
         </div>
-        <Typography className={classes.titleText} variant="h6">
-          Users debugger
-        </Typography>
+        <div style={{ display: 'flex' }}>
+          <Typography className={classes.titleText} variant="h6">
+            Users debugger
+          </Typography>
+          <div style={{ display: 'flex' }}>
+            <div>
+              <Typography variant="body2">Participant Id</Typography>
+              <Typography variant="body2">Room Id</Typography>
+            </div>
+            <div>
+              <Typography variant="body2">
+                &nbsp;: {userErrorList[0]?.participantId}
+              </Typography>
+              <Typography variant="body2">
+                &nbsp;: {userErrorList[0]?.roomId}
+              </Typography>
+            </div>
+          </div>
+        </div>
 
         <div className={classes.tableContainer}>
           <Table

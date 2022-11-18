@@ -18,7 +18,7 @@ export const meetingListAsync = createAsyncThunk(
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
-      const response = await getMeetingsApi();
+      const response = await getMeetingsApi(data);
       return response;
     } catch (error: any) {
       return rejectWithValue(error);
@@ -36,7 +36,7 @@ export const meetingListSlice = createSlice({
     });
     builder.addCase(meetingListAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.meetingList = action.payload.data.data.rooms;
+      state.meetingList = action.payload.data.data;
     });
     builder.addCase(meetingListAsync.rejected, (state, action) => {
       state.loading = false;
