@@ -15,6 +15,7 @@ const styles = (theme: Theme) => {
       color: theme.palette.primary.main,
       marginBottom: '20px',
       fontWeight: 500,
+      flexGrow: 4,
     },
     topPaper: {
       padding: 20,

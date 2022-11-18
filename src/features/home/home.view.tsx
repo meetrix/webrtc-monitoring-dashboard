@@ -29,12 +29,12 @@ const Home: React.FC<IHomeView> = ({
 }: IHomeView) => {
   const navigate = useNavigate();
   const columns = [
-    { field: 'createdAt', headerName: 'Created Date', flex: 1 },
     { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
-    { field: 'updatedAt', headerName: 'Updated Date', flex: 1 },
+    { field: '_id', headerName: 'Id', flex: 1 },
+    { field: 'created', headerName: 'Created Date', flex: 1 },
+    { field: 'destroyed', headerName: 'End Date', flex: 1 },
   ];
 
-  console.log('kkkkk', meetingList);
   const handleRowClick = (
     params: any // GridRowParams
   ) => {

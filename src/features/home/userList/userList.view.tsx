@@ -25,13 +25,13 @@ const UserList: React.FC<IUserListView> = ({
   // const { userErrorList } = useAppSelector(selectUserErrors);
 
   const columns = [
-    { field: '_id', headerName: 'Id', flex: 1 },
     { field: 'participantName', headerName: 'Name', flex: 1 },
-    { field: 'roomName', headerName: 'Room Name', flex: 1 },
-    { field: 'eventSourceId', headerName: 'Event Source Id', flex: 1 },
-    { field: 'roomId', headerName: 'Room Id', flex: 1 },
-    { field: 'createdAt', headerName: 'Created At', flex: 1 },
-    { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
+    { field: '_id', headerName: 'User Id', flex: 2 },
+    // { field: 'roomName', headerName: 'Room Name', flex: 1 },
+    { field: 'joined', headerName: 'Joined', flex: 1 },
+    { field: 'left', headerName: 'Left', flex: 1 },
+    // { field: 'createdAt', headerName: 'Created At', flex: 1 },
+    // { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
 
   const handleRowClick = (
@@ -47,9 +47,25 @@ const UserList: React.FC<IUserListView> = ({
             &#10094; back
           </Button>
         </div>
-        <Typography className={classes.titleText} variant="h6">
-          User List
-        </Typography>
+        <div style={{ display: 'flex' }}>
+          <Typography className={classes.titleText} variant="h6">
+            User List
+          </Typography>
+          <div style={{ display: 'flex' }}>
+            <div>
+              <Typography variant="body2">Room Name</Typography>
+              <Typography variant="body2">Room Id</Typography>
+            </div>
+            <div>
+              <Typography variant="body2">
+                &nbsp;: {userList[0]?.roomName}
+              </Typography>
+              <Typography variant="body2">
+                &nbsp;: {userList[0]?.roomId}
+              </Typography>
+            </div>
+          </div>
+        </div>
 
         <div className={classes.tableContainer}>
           <Table
