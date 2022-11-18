@@ -58,6 +58,9 @@ const UserList: React.FC<IUserListView> = ({
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
+            getRowClassName={(params: any) =>
+              `fault-status-${params.row.faulty}`
+            }
           />
         </div>
       </Paper>

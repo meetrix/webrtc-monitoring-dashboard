@@ -38,6 +38,9 @@ const styles = (theme: Theme) => {
       '& 	.MuiDataGrid-row': {
         cursor: 'pointer',
       },
+      '& .fault-status-1': {
+        backgroundColor: '#ffbcbc',
+      },
     },
   });
 };
