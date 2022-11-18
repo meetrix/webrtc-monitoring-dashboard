@@ -18,7 +18,7 @@ export const meetingListAsync = createAsyncThunk(
   async (data: any, { rejectWithValue, dispatch }) => {
     // const { rejectWithValue } = thunkAPI;
     try {
-      const response = await getMeetingsApi();
+      const response = await getMeetingsApi(data);
       return response;
     } catch (error: any) {
       return rejectWithValue(error);

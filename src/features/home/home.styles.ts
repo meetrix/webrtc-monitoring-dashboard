@@ -23,6 +23,14 @@ const styles = (theme: Theme) => {
       display: 'flex',
       flexDirection: 'column',
     },
+    datePicker: {
+      margin: '3vh 0 0',
+      display: 'flex',
+      justifyContent: 'end',
+      '& .MuiOutlinedInput-input': {
+        padding: '6px 14px',
+      },
+    },
     tableContainer: {
       marginTop: '2vh',
       overflow: 'auto',
