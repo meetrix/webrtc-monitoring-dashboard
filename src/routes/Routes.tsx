@@ -17,6 +17,8 @@ import { DetailedView } from '../features/detailedView';
 import Troubleshooter from '../features/troubleshooter';
 import { Home } from '../features/home';
 import { Overview } from '../features/overview';
+import { UserList } from '../features/home/userList';
+import UserDetailsView from '../features/home/userList/userDetails.view';
 
 const routesList = [
   // {
@@ -84,6 +86,20 @@ const routesList = [
     isPrivate: true,
     hasSidebar: true,
     component: <Home />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/:roomId',
+    isPrivate: true,
+    hasSidebar: true,
+    component: <UserList />,
+    hasNavbar: true,
+  },
+  {
+    path: '/dashboard/:roomId/:userId',
+    isPrivate: true,
+    hasSidebar: true,
+    component: <UserDetailsView />,
     hasNavbar: true,
   },
   {

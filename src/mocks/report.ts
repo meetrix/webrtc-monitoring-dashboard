@@ -408,3 +408,37 @@ export const mockCallStats = [
     connectedAt: '5, March, 2022, 11.54 AM',
   },
 ] as any;
+
+export const mockHomeMeetings = [
+  {
+    _id: 1,
+    createdAt: '02/07/2022',
+    roomName: 'Meeting name 1',
+    updatedAt: '08/07/2023',
+  },
+] as any;
+
+export const mockUserErrors = [
+  {
+    _id: 1,
+    errorType: 'Sample Type',
+    errorValue: 'Sample value',
+    eventSourceId: 'Sample SourceId',
+    eventSourceType: 'Sample SourceType',
+    participantId: 'participantId',
+    roomId: 'roomId',
+    createdAt: '02/07/2022',
+    updatedAt: '08/07/2023',
+  },
+  {
+    _id: 2,
+    errorType: 'Sample Type',
+    errorValue: 'Sample value',
+    eventSourceId: 'Sample SourceId',
+    eventSourceType: 'Sample SourceType',
+    participantId: 'participantId',
+    roomId: 'roomId',
+    createdAt: '02/07/2022',
+    updatedAt: '08/07/2023',
+  },
+] as any;

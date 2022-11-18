@@ -11,6 +11,8 @@ import { resetPasswordReducer } from '../features/resetPassword';
 import { detailedViewReducer } from '../features/detailedView';
 import { summaryViewReducer } from '../features/overview';
 import { settingsReducer } from '../features/settings';
+import { homeReducer } from '../features/home';
+import { userReducer } from '../features/home/userList';
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +26,9 @@ export const store = configureStore({
     troubleshooterDetails: detailedViewReducer,
     troubleshooterSummary: summaryViewReducer,
     settings: settingsReducer,
+    meetingList: homeReducer,
+    userList: userReducer,
+    userErrorList: userReducer,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
