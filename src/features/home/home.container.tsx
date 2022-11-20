@@ -21,18 +21,18 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
     todayDate,
   ]);
 
-  const startDate = dayjs(dateRange[0]).format('YYYY-MM-DD');
-  const endDate = dayjs(dateRange[1]).format('YYYY-MM-DD');
+  const startDate = dayjs(dateRange[0]).format('YYYY-MM-DD') as string;
+  const endDate = dayjs(dateRange[1]).format('YYYY-MM-DD') as string;
 
   useEffect(() => {
     dispatch<any>(meetingListAsync({ startDate, endDate }));
   }, [dateRange]);
 
   const meetingListData = mockStats ? mockHomeMeetings : meetingList;
-
   return (
     <Home
-      meetingList={meetingListData}
+      allData={meetingListData}
+      meetingList={meetingListData?.rooms}
       dateRange={dateRange}
       setDateRange={setDateRange}
     />
