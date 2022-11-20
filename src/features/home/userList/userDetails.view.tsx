@@ -63,15 +63,25 @@ const UserDetails: React.FC<IUserDetailsView> = ({
           </Typography>
           <div style={{ display: 'flex' }}>
             <div>
+              <Typography variant="body2">Participant Name</Typography>
               <Typography variant="body2">Participant Id</Typography>
+              <Typography variant="body2">Room Name</Typography>
               <Typography variant="body2">Room Id</Typography>
             </div>
             <div>
               <Typography variant="body2">
-                &nbsp;: {userErrorList[0]?.participantId}
+                &nbsp;:{' '}
+                {userErrorList[0]?.participantId.participantName ||
+                  'Not available'}
               </Typography>
               <Typography variant="body2">
-                &nbsp;: {userErrorList[0]?.roomId}
+                &nbsp;: {userErrorList[0]?.participantId._id || 'Not available'}
+              </Typography>
+              <Typography variant="body2">
+                &nbsp;: {userErrorList[0]?.roomId.roomName || 'Not available'}
+              </Typography>
+              <Typography variant="body2">
+                &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
               </Typography>
             </div>
           </div>

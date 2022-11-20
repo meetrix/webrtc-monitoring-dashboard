@@ -58,10 +58,10 @@ const UserList: React.FC<IUserListView> = ({
             </div>
             <div>
               <Typography variant="body2">
-                &nbsp;: {userList[0]?.roomName}
+                &nbsp;: {userList[0]?.roomId.roomName || 'Not available'}
               </Typography>
               <Typography variant="body2">
-                &nbsp;: {userList[0]?.roomId}
+                &nbsp;: {userList[0]?.roomId.id || 'Not available'}
               </Typography>
             </div>
           </div>
