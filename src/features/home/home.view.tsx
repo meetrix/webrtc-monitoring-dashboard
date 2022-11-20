@@ -16,14 +16,16 @@ import styles from './home.styles';
 import { mockHomeMeetings } from '../../mocks/report';
 
 export interface IHomeView extends WithStyles<typeof styles> {
-  meetingList: any;
+  allData: any;
+  meetingList: any[];
   dateRange: any;
   setDateRange: (data: any) => void;
 }
 
 const Home: React.FC<IHomeView> = ({
   classes,
-  meetingList,
+  allData,
+  meetingList = [],
   dateRange,
   setDateRange,
 }: IHomeView) => {
@@ -50,19 +52,17 @@ const Home: React.FC<IHomeView> = ({
           <Grid item sm={4} textAlign="center">
             Total Conference
             <br />
-            <Typography variant="h5">{meetingList.total}</Typography>
+            <Typography variant="h5">{allData?.total}</Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Users
             <br />
-            <Typography variant="h5">
-              {meetingList.totalParticipants}
-            </Typography>
+            <Typography variant="h5">{allData?.totalParticipants}</Typography>
           </Grid>
           <Grid item sm={4} textAlign="center">
             Total Minutes
             <br />
-            <Typography variant="h5">{meetingList.totalMinutes}</Typography>
+            <Typography variant="h5">{allData?.totalMinutes}</Typography>
           </Grid>
         </Grid>
         <div className={classes.datePicker}>
@@ -89,13 +89,13 @@ const Home: React.FC<IHomeView> = ({
 
         <div className={classes.tableContainer}>
           <Table
-            rows={meetingList.rooms}
-            getRowId={(row: any) => row._id}
+            rows={meetingList}
+            getRowId={(row: any) => row?._id}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
             getRowClassName={(params: any) =>
-              `fault-status-${params.row.faulty}`
+              `fault-status-${params?.row?.faulty}`
             }
           />
         </div>

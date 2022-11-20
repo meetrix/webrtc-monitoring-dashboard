@@ -148,7 +148,6 @@ const enumerateDaysBetweenDates = (startDate: Date, endDate: Date) => {
   const lastDate = moment(endDate).startOf('day');
 
   for (currDate; currDate.diff(lastDate) <= 0; currDate.add(1, 'days')) {
-    console.log(currDate.format('YYYY-MM-DD'));
     dates.push(currDate.clone().format('YYYY-MM-DD'));
   }
 
