@@ -22,14 +22,14 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 }: IUserDetailsView) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const { userErrorList } = useAppSelector(selectUserErrors);
-
   const { userId, roomId } = useParams();
 
+  const [pageSize, setPageSize] = React.useState<number>(10);
+
   useEffect(() => {
-    dispatch<any>(userErrorsAsync(userId));
-  }, []);
+    dispatch<any>(userErrorsAsync({ userId, pageSize }));
+  }, [pageSize]);
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
@@ -37,7 +37,6 @@ const UserDetails: React.FC<IUserDetailsView> = ({
     { field: 'eventSourceType', headerName: 'Source Type', flex: 1 },
     { field: 'eventSourceId', headerName: 'Source Id', flex: 1 },
     { field: 'createdAt', headerName: 'Time', flex: 1 },
-    // { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
 
   const createRows = (list: any) => {
@@ -61,7 +60,6 @@ const UserDetails: React.FC<IUserDetailsView> = ({
   const handleRowClick = (
     params: any // RowParams
   ) => {
-    // console.log('Row', params?.row);
     // navigate('/dashboard/meeting-details');
   };
   return (
@@ -114,10 +112,12 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         <div className={classes.tableContainer}>
           <Table
             rows={createRows(userErrorList)}
-            // getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
+            rowsPerPageOptions={[10, 20, 50]}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
           />
         </div>
       </Paper>

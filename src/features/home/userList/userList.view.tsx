@@ -7,31 +7,28 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
 
 import styles from './userList.styles';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
 export interface IUserListView extends WithStyles<typeof styles> {
   userList?: any;
+  pageSize: any;
+  setPageSize: any;
 }
 
 const UserList: React.FC<IUserListView> = ({
   classes,
   userList,
+  pageSize,
+  setPageSize,
 }: IUserListView) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const { roomId } = useParams();
-
-  // const { userErrorList } = useAppSelector(selectUserErrors);
 
   const columns = [
     { field: 'participantName', headerName: 'Name', flex: 1 },
     { field: '_id', headerName: 'User Id', flex: 2 },
-    // { field: 'roomName', headerName: 'Room Name', flex: 1 },
     { field: 'joined', headerName: 'Joined', flex: 1 },
     { field: 'left', headerName: 'Left', flex: 1 },
-    // { field: 'createdAt', headerName: 'Created At', flex: 1 },
-    // { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
 
   const handleRowClick = (
@@ -77,6 +74,9 @@ const UserList: React.FC<IUserListView> = ({
             getRowClassName={(params: any) =>
               `fault-status-${params.row.faulty}`
             }
+            rowsPerPageOptions={[10, 20, 50]}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
           />
         </div>
       </Paper>

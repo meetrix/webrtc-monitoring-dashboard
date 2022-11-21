@@ -20,6 +20,8 @@ export interface IHomeView extends WithStyles<typeof styles> {
   meetingList: any[];
   dateRange: any;
   setDateRange: (data: any) => void;
+  pageSize: any;
+  setPageSize: any;
 }
 
 const Home: React.FC<IHomeView> = ({
@@ -28,6 +30,8 @@ const Home: React.FC<IHomeView> = ({
   meetingList = [],
   dateRange,
   setDateRange,
+  pageSize,
+  setPageSize,
 }: IHomeView) => {
   const navigate = useNavigate();
   const _columns = [
@@ -98,6 +102,9 @@ const Home: React.FC<IHomeView> = ({
             getRowClassName={(params: any) =>
               `fault-status-${params?.row?.faulty}`
             }
+            rowsPerPageOptions={[10, 20, 50]}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
           />
         </div>
       </Paper>
