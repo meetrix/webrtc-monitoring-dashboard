@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
-import { Box, Grid, Paper, TextField, Typography } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import {
-  DateRangePicker,
-  DateRange,
-} from '@mui/x-date-pickers-pro/DateRangePicker';
+import { Grid, Paper, TextField, Typography } from '@mui/material';
+import moment from 'moment';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { useNavigate } from 'react-router-dom';
 import Table from '../../components/Table';
@@ -23,6 +21,27 @@ export interface IHomeView extends WithStyles<typeof styles> {
   pageSize: any;
   setPageSize: any;
 }
+
+const popperSx: any = {
+  marginTop: '10px',
+  color: '#5F5F5F',
+  '& .MuiPickersDay-root': {
+    color: '#5F5F5F',
+  },
+  '& .MuiPickersDay-root.Mui-selected': {
+    backgroundColor: '#4A74E9 !important',
+  },
+  '& .Mui-selected': {
+    color: '#ffffff',
+    backgroundColor: '#4A74E9 !important',
+  },
+  '& .MuiIconButton-root': {
+    color: '#4A74E9',
+  },
+  '& .MuiPickersArrowSwitcher-button.Mui-disabled': {
+    color: '#00000061 !important',
+  },
+};
 
 const Home: React.FC<IHomeView> = ({
   classes,
@@ -41,6 +60,8 @@ const Home: React.FC<IHomeView> = ({
     { field: 'created', headerName: 'Created Date', flex: 0.5 },
     { field: 'destroyed', headerName: 'End Date', flex: 0.5 },
   ];
+
+  const maxDate = new Date();
 
   const handleRowClick = (
     params: any // GridRowParams
@@ -71,22 +92,52 @@ const Home: React.FC<IHomeView> = ({
           </Grid>
         </Grid>
         <div className={classes.datePicker}>
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            localeText={{ start: 'Check-in', end: 'Check-out' }}
-          >
-            <DateRangePicker
-              value={dateRange}
-              inputFormat="DD/MM/YYYY"
-              onChange={(newValue) => {
-                setDateRange(newValue);
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              value={dateRange[0]}
+              onChange={(date) => setDateRange({ 0: date })}
+              maxDate={maxDate}
+              PaperProps={{
+                sx: popperSx,
               }}
-              renderInput={(startProps, endProps) => (
-                <>
-                  <TextField {...startProps} />
-                  <Box sx={{ mx: 2 }}> to </Box>
-                  <TextField {...endProps} />
-                </>
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  InputLabelProps={{ shrink: false }}
+                  // className={classes.datePicker}
+                  inputProps={{ readOnly: true }}
+                  value={
+                    dateRange[0] !== 'Invalid date'
+                      ? moment(dateRange[0]).format('DD/MM/yyyy')
+                      : ''
+                  }
+                />
+              )}
+            />
+          </LocalizationProvider>
+          <div>&nbsp; To &nbsp;</div>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              value={dateRange[1]}
+              onChange={(date) => setDateRange({ 1: date })}
+              maxDate={maxDate}
+              PaperProps={{
+                sx: popperSx,
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  InputLabelProps={{ shrink: false }}
+                  // className={classes.datePicker}
+                  inputProps={{ readOnly: true }}
+                  value={
+                    dateRange[1] !== 'Invalid date'
+                      ? moment(dateRange[1]).format('DD/MM/yyyy')
+                      : ''
+                  }
+                />
               )}
             />
           </LocalizationProvider>

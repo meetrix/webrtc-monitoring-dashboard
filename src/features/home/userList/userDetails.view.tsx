@@ -4,8 +4,7 @@ import { WithStyles, withStyles } from '@mui/styles';
 import { Button, Paper, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import Table from '../../../components/Table';
 
 import styles from './userList.styles';
@@ -50,7 +49,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         errorType: data.errorType,
         eventSourceType: data.eventSourceType,
         eventSourceId: data.eventSourceId,
-        createdAt: dayjs(data.createdAt).format('HH:mm'),
+        createdAt: moment(data.createdAt).format('LT'),
       };
       rows.push(rowData);
     });
@@ -102,7 +101,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               </Typography>
               <Typography variant="body2">
                 &nbsp;:{' '}
-                {dayjs(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
+                {moment(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
                   'Not available'}
               </Typography>
             </div>

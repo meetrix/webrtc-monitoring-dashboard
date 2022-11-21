@@ -9,8 +9,8 @@ export const getAllUsersApi = (data: any) => {
 };
 
 export const getUserErrorsApi = (data: any) => {
-  const { participantId, pageSize } = data;
+  const { userId, pageSize } = data;
   return api.get(
-    `report/summary?participantId=${participantId}&sortBy=timestamp&offset=0&limit=${pageSize}`
+    `report/summary?participantId=${userId}&sortBy=timestamp&offset=0&limit=${pageSize}`
   );
 };
