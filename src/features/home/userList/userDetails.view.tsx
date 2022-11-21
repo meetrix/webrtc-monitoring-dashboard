@@ -5,6 +5,7 @@ import { Button, Paper, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 import Table from '../../../components/Table';
 
 import styles from './userList.styles';
@@ -35,10 +36,27 @@ const UserDetails: React.FC<IUserDetailsView> = ({
     { field: 'errorType', headerName: 'Error Type', flex: 1 },
     { field: 'eventSourceType', headerName: 'Source Type', flex: 1 },
     { field: 'eventSourceId', headerName: 'Source Id', flex: 1 },
-    { field: 'roomId', headerName: 'Room Id', flex: 1 },
-    { field: 'createdAt', headerName: 'Created At', flex: 1 },
-    { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
+    { field: 'createdAt', headerName: 'Time', flex: 1 },
+    // { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
   ];
+
+  const createRows = (list: any) => {
+    // eslint-disable-next-line prefer-const
+    let rows: any = [];
+    // eslint-disable-next-line array-callback-return
+    list?.map((data: any) => {
+      const rowData = {
+        id: data._id,
+        errorValue: data.errorValue,
+        errorType: data.errorType,
+        eventSourceType: data.eventSourceType,
+        eventSourceId: data.eventSourceId,
+        createdAt: dayjs(data.createdAt).format('HH:mm'),
+      };
+      rows.push(rowData);
+    });
+    return rows;
+  };
 
   const handleRowClick = (
     params: any // RowParams
@@ -67,6 +85,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               <Typography variant="body2">Participant Id</Typography>
               <Typography variant="body2">Room Name</Typography>
               <Typography variant="body2">Room Id</Typography>
+              <Typography variant="body2">Date</Typography>
             </div>
             <div>
               <Typography variant="body2">
@@ -83,14 +102,19 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               <Typography variant="body2">
                 &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
               </Typography>
+              <Typography variant="body2">
+                &nbsp;:{' '}
+                {dayjs(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
+                  'Not available'}
+              </Typography>
             </div>
           </div>
         </div>
 
         <div className={classes.tableContainer}>
           <Table
-            rows={userErrorList}
-            getRowId={(row: any) => row._id}
+            rows={createRows(userErrorList)}
+            // getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}

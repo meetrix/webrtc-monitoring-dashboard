@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Box, Grid, Paper, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro';
@@ -30,17 +30,18 @@ const Home: React.FC<IHomeView> = ({
   setDateRange,
 }: IHomeView) => {
   const navigate = useNavigate();
-  const columns = [
+  const _columns = [
     { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
-    { field: '_id', headerName: 'Id', flex: 1 },
-    { field: 'created', headerName: 'Created Date', flex: 1 },
-    { field: 'destroyed', headerName: 'End Date', flex: 1 },
+    { field: 'totalParticipants', headerName: 'Participants', flex: 0.5 },
+    { field: 'id', headerName: 'Id', flex: 1 },
+    { field: 'created', headerName: 'Created Date', flex: 0.5 },
+    { field: 'destroyed', headerName: 'End Date', flex: 0.5 },
   ];
 
   const handleRowClick = (
     params: any // GridRowParams
   ) => {
-    navigate(`/dashboard/${params?.row?._id}`);
+    navigate(`/dashboard/${params?.row?.id}`);
   };
   return (
     <div className={classes.root}>
@@ -90,10 +91,10 @@ const Home: React.FC<IHomeView> = ({
         <div className={classes.tableContainer}>
           <Table
             rows={meetingList}
-            getRowId={(row: any) => row?._id}
-            columns={columns}
+            columns={_columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
+            hideFooterSelectedRowCount
             getRowClassName={(params: any) =>
               `fault-status-${params?.row?.faulty}`
             }

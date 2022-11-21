@@ -22,6 +22,7 @@ export interface TableComponentProps
   disableColumnFilter?: boolean;
   onRowClick?: any;
   getRowClassName?: any;
+  hideFooterSelectedRowCount?: boolean;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({
@@ -35,6 +36,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
   disableColumnFilter,
   onRowClick,
   getRowClassName,
+  hideFooterSelectedRowCount,
   ...otherProps
 }: TableComponentProps) => {
   return (
@@ -48,6 +50,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
       disableSelectionOnClick={disableSelectionOnClick}
       onRowClick={onRowClick}
       getRowClassName={getRowClassName}
+      hideFooterSelectedRowCount={hideFooterSelectedRowCount}
     />
   );
 };

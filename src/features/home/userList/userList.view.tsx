@@ -37,7 +37,7 @@ const UserList: React.FC<IUserListView> = ({
   const handleRowClick = (
     params: any // RowParams
   ) => {
-    navigate(`/dashboard/${roomId}/${params?.row?._id}`);
+    navigate(`/dashboard/${roomId}/${params?.row?.id}`);
   };
   return (
     <div className={classes.root}>

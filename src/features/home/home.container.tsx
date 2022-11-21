@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { memo, useEffect } from 'react';
@@ -28,11 +29,29 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
     dispatch<any>(meetingListAsync({ startDate, endDate }));
   }, [dateRange]);
 
+  const createRows = (list: any) => {
+    // eslint-disable-next-line prefer-const
+    let rows: any = [];
+    // eslint-disable-next-line array-callback-return
+    list?.map((data: any) => {
+      const rowData = {
+        id: data.id,
+        roomName: data.roomName,
+        created: dayjs(data.created).format('YYYY-MM-DD'),
+        destroyed: data.destroyed ? dayjs(data.destroyed).format('YYYY-MM-DD') : 'On going',
+        totalParticipants: data.totalParticipants,
+        faulty: data.faulty,
+      };
+      rows.push(rowData);
+    });
+    return rows;
+  };
+
   const meetingListData = mockStats ? mockHomeMeetings : meetingList;
   return (
     <Home
       allData={meetingListData}
-      meetingList={meetingListData?.rooms}
+      meetingList={createRows(meetingListData.rooms)}
       dateRange={dateRange}
       setDateRange={setDateRange}
     />
