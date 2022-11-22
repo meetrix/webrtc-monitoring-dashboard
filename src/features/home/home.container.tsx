@@ -28,7 +28,6 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
 
 
   useEffect(() => {
-    console.log('kkkk', startDate);
     dispatch<any>(meetingListAsync({ startDate, endDate, pageSize }));
   }, [dateRange, pageSize]);
 
@@ -40,8 +39,8 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       const rowData = {
         id: data.id,
         roomName: data.roomName,
-        created: moment(data.created).format('YYYY-MM-DD'),
-        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD') : 'On going',
+        created: moment(data.created).format('YYYY-MM-DD, h:mm a'),
+        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm a') : 'On going',
         participants: data.participants,
         faulty: data.faulty,
       };

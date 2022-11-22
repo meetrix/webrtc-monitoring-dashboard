@@ -55,10 +55,10 @@ const Home: React.FC<IHomeView> = ({
   const navigate = useNavigate();
   const _columns = [
     { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
-    { field: 'participants', headerName: 'Participants', flex: 0.5 },
-    { field: 'id', headerName: 'Id', flex: 1 },
-    { field: 'created', headerName: 'Created Date', flex: 0.5 },
-    { field: 'destroyed', headerName: 'End Date', flex: 0.5 },
+    { field: 'participants', headerName: 'Participants', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2 },
+    { field: 'created', headerName: 'Created Date', flex: 2 },
+    { field: 'destroyed', headerName: 'End Date', flex: 2 },
   ];
 
   const maxDate = new Date();

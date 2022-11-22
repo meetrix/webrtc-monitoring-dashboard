@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { memo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 import { getUrlParams } from '../../../utils/urlUtils';
 import UserDetails from './userDetails.view';
 import { mockUserErrors } from '../../../mocks/report';
@@ -30,9 +31,29 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
 
   // const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
+  const createRows = (list: any) => {
+    // eslint-disable-next-line prefer-const
+    let rows: any = [];
+    // eslint-disable-next-line array-callback-return
+    list?.map((data: any) => {
+      const rowData = {
+        id: data._id,
+        participantName: data.participantName,
+        joined: moment(data.joined).format('YYYY-MM-DD, h:mm a'),
+        left: data.left
+          ? moment(data.left).format('YYYY-MM-DD, h:mm a')
+          : 'On going',
+        roomId: data.roomId,
+        faulty: data.faulty,
+      };
+      rows.push(rowData);
+    });
+    return rows;
+  };
+
   return (
     <UserListView
-      userList={userList}
+      userList={createRows(userList)}
       pageSize={pageSize}
       setPageSize={setPageSize}
     />

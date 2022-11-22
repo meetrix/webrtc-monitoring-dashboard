@@ -26,15 +26,15 @@ const UserList: React.FC<IUserListView> = ({
 
   const columns = [
     { field: 'participantName', headerName: 'Name', flex: 1 },
-    { field: '_id', headerName: 'User Id', flex: 2 },
-    { field: 'joined', headerName: 'Joined', flex: 1 },
-    { field: 'left', headerName: 'Left', flex: 1 },
+    { field: 'id', headerName: 'User Id', flex: 2 },
+    { field: 'joined', headerName: 'Joined', flex: 2 },
+    { field: 'left', headerName: 'Left', flex: 2 },
   ];
 
   const handleRowClick = (
     params: any // RowParams
   ) => {
-    navigate(`/dashboard/${roomId}/${params?.row?._id}`);
+    navigate(`/dashboard/${roomId}/${params?.row?.id}`);
   };
   return (
     <div className={classes.root}>
@@ -67,7 +67,7 @@ const UserList: React.FC<IUserListView> = ({
         <div className={classes.tableContainer}>
           <Table
             rows={userList}
-            getRowId={(row: any) => row._id}
+            // getRowId={(row: any) => row._id}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}

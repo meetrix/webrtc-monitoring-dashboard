@@ -32,10 +32,10 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
-    { field: 'errorType', headerName: 'Error Type', flex: 1 },
+    { field: 'errorType', headerName: 'Error Type', flex: 2 },
     { field: 'eventSourceType', headerName: 'Source Type', flex: 1 },
     { field: 'eventSourceId', headerName: 'Source Id', flex: 1 },
-    { field: 'createdAt', headerName: 'Time', flex: 1 },
+    { field: 'createdAt', headerName: 'Time', flex: 2 },
   ];
 
   const createRows = (list: any) => {
@@ -49,7 +49,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         errorType: data.errorType,
         eventSourceType: data.eventSourceType,
         eventSourceId: data.eventSourceId,
-        createdAt: moment(data.createdAt).format('LT'),
+        createdAt: moment(data.createdAt).format('YYYY-MM-DD, h:mm a'),
       };
       rows.push(rowData);
     });
