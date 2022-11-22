@@ -72,38 +72,48 @@ const UserDetails: React.FC<IUserDetailsView> = ({
             &#10094; Back
           </Button>
         </div>
-        <div style={{ display: 'flex' }}>
+        <div>
           <Typography className={classes.titleText} variant="h6">
             Users debugger
           </Typography>
-          <div style={{ display: 'flex' }}>
-            <div>
-              <Typography variant="body2">Participant Name</Typography>
-              <Typography variant="body2">Participant Id</Typography>
-              <Typography variant="body2">Room Name</Typography>
-              <Typography variant="body2">Room Id</Typography>
-              <Typography variant="body2">Date</Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex' }}>
+              <div>
+                <Typography variant="body2">Participant Name</Typography>
+                <Typography variant="body2">Participant Id</Typography>
+                {/* <Typography variant="body2">Date</Typography> */}
+              </div>
+              <div>
+                <Typography variant="body2">
+                  &nbsp;:{' '}
+                  {userErrorList[0]?.participantId.participantName ||
+                    'Not available'}
+                </Typography>
+                <Typography variant="body2">
+                  &nbsp;:{' '}
+                  {userErrorList[0]?.participantId._id || 'Not available'}
+                </Typography>
+              </div>
             </div>
-            <div>
-              <Typography variant="body2">
-                &nbsp;:{' '}
-                {userErrorList[0]?.participantId.participantName ||
-                  'Not available'}
-              </Typography>
-              <Typography variant="body2">
-                &nbsp;: {userErrorList[0]?.participantId._id || 'Not available'}
-              </Typography>
-              <Typography variant="body2">
-                &nbsp;: {userErrorList[0]?.roomId.roomName || 'Not available'}
-              </Typography>
-              <Typography variant="body2">
-                &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
-              </Typography>
-              <Typography variant="body2">
+            <div style={{ display: 'flex' }}>
+              <div>
+                <Typography variant="body2">Room Name</Typography>
+                <Typography variant="body2">Room Id</Typography>
+                {/* <Typography variant="body2">Date</Typography> */}
+              </div>
+              <div>
+                <Typography variant="body2">
+                  &nbsp;: {userErrorList[0]?.roomId.roomName || 'Not available'}
+                </Typography>
+                <Typography variant="body2">
+                  &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
+                </Typography>
+                {/* <Typography variant="body2">
                 &nbsp;:{' '}
                 {moment(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
                   'Not available'}
-              </Typography>
+              </Typography> */}
+              </div>
             </div>
           </div>
         </div>
