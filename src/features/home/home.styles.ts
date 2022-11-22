@@ -27,6 +27,7 @@ const styles = (theme: Theme) => {
       margin: '3vh 0 0',
       display: 'flex',
       justifyContent: 'end',
+      alignItems: 'center',
       '& .MuiOutlinedInput-input': {
         padding: '6px 14px',
       },

@@ -22,13 +22,21 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
   const dispatch = useAppDispatch();
   const { roomId } = useParams();
 
+  const [pageSize, setPageSize] = React.useState<number>(10);
+
   useEffect(() => {
-    dispatch<any>(userListAsync(roomId));
-  }, []);
+    dispatch<any>(userListAsync({ roomId, pageSize }));
+  }, [pageSize]);
 
   // const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
-  return <UserListView userList={userList} />;
+  return (
+    <UserListView
+      userList={userList}
+      pageSize={pageSize}
+      setPageSize={setPageSize}
+    />
+  );
 };
 
 export default memo(UserListAsyncContainer);

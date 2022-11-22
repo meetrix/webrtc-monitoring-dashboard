@@ -22,34 +22,17 @@ export interface TableComponentProps
   disableColumnFilter?: boolean;
   onRowClick?: any;
   getRowClassName?: any;
+  hideFooterSelectedRowCount?: boolean;
+  rowsPerPageOptions?: any;
+  onPageSizeChange?: any;
+  pageSize?: any;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({
   classes,
-  onClick,
-  rows,
-  getRowId,
-  columns,
-  checkboxSelection,
-  disableSelectionOnClick,
-  disableColumnFilter,
-  onRowClick,
-  getRowClassName,
   ...otherProps
 }: TableComponentProps) => {
-  return (
-    <DataGrid
-      rows={rows}
-      getRowId={getRowId}
-      columns={columns}
-      className={classes.root}
-      disableColumnFilter={disableColumnFilter}
-      checkboxSelection={checkboxSelection}
-      disableSelectionOnClick={disableSelectionOnClick}
-      onRowClick={onRowClick}
-      getRowClassName={getRowClassName}
-    />
-  );
+  return <DataGrid className={classes.root} pagination {...otherProps} />;
 };
 
 export default memo(withStyles(styles)(TableComponent));

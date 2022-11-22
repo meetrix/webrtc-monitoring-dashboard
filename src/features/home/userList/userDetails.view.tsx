@@ -4,7 +4,7 @@ import { WithStyles, withStyles } from '@mui/styles';
 import { Button, Paper, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import moment from 'moment';
 import Table from '../../../components/Table';
 
 import styles from './userList.styles';
@@ -21,29 +21,44 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 }: IUserDetailsView) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const { userErrorList } = useAppSelector(selectUserErrors);
-
   const { userId, roomId } = useParams();
 
+  const [pageSize, setPageSize] = React.useState<number>(10);
+
   useEffect(() => {
-    dispatch<any>(userErrorsAsync(userId));
-  }, []);
+    dispatch<any>(userErrorsAsync({ userId, pageSize }));
+  }, [pageSize]);
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
     { field: 'errorType', headerName: 'Error Type', flex: 1 },
     { field: 'eventSourceType', headerName: 'Source Type', flex: 1 },
     { field: 'eventSourceId', headerName: 'Source Id', flex: 1 },
-    { field: 'roomId', headerName: 'Room Id', flex: 1 },
-    { field: 'createdAt', headerName: 'Created At', flex: 1 },
-    { field: 'updatedAt', headerName: 'Updated At', flex: 1 },
+    { field: 'createdAt', headerName: 'Time', flex: 1 },
   ];
+
+  const createRows = (list: any) => {
+    // eslint-disable-next-line prefer-const
+    let rows: any = [];
+    // eslint-disable-next-line array-callback-return
+    list?.map((data: any) => {
+      const rowData = {
+        id: data._id,
+        errorValue: data.errorValue,
+        errorType: data.errorType,
+        eventSourceType: data.eventSourceType,
+        eventSourceId: data.eventSourceId,
+        createdAt: moment(data.createdAt).format('LT'),
+      };
+      rows.push(rowData);
+    });
+    return rows;
+  };
 
   const handleRowClick = (
     params: any // RowParams
   ) => {
-    // console.log('Row', params?.row);
     // navigate('/dashboard/meeting-details');
   };
   return (
@@ -67,6 +82,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               <Typography variant="body2">Participant Id</Typography>
               <Typography variant="body2">Room Name</Typography>
               <Typography variant="body2">Room Id</Typography>
+              <Typography variant="body2">Date</Typography>
             </div>
             <div>
               <Typography variant="body2">
@@ -83,17 +99,24 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               <Typography variant="body2">
                 &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
               </Typography>
+              <Typography variant="body2">
+                &nbsp;:{' '}
+                {moment(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
+                  'Not available'}
+              </Typography>
             </div>
           </div>
         </div>
 
         <div className={classes.tableContainer}>
           <Table
-            rows={userErrorList}
-            getRowId={(row: any) => row._id}
+            rows={createRows(userErrorList)}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
+            rowsPerPageOptions={[10, 20, 50]}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
           />
         </div>
       </Paper>
