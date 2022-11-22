@@ -42,7 +42,7 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
         roomName: data.roomName,
         created: moment(data.created).format('YYYY-MM-DD'),
         destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD') : 'On going',
-        totalParticipants: data.totalParticipants,
+        participants: data.participants,
         faulty: data.faulty,
       };
       rows.push(rowData);
