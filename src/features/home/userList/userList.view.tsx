@@ -15,6 +15,7 @@ export interface IUserListView extends WithStyles<typeof styles> {
   page: number;
   setPage: any;
   rowCount?: number;
+  loading: boolean;
 }
 
 const UserList: React.FC<IUserListView> = ({
@@ -25,6 +26,7 @@ const UserList: React.FC<IUserListView> = ({
   page,
   setPage,
   rowCount,
+  loading,
 }: IUserListView) => {
   const navigate = useNavigate();
 
@@ -88,6 +90,7 @@ const UserList: React.FC<IUserListView> = ({
             page={page}
             onPageChange={(newPage: any) => setPage(newPage)}
             rowCount={rowCount}
+            loading={loading}
           />
         </div>
       </Paper>

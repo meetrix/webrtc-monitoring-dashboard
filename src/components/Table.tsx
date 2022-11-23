@@ -30,6 +30,7 @@ export interface TableComponentProps
   page?: any;
   onPageChange?: any;
   rowCount?: number;
+  loading?: boolean;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({

@@ -13,7 +13,7 @@ export interface IHomeAsyncContainer {}
 
 const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
-  const { meetingList } = useAppSelector(selectMeetingList);
+  const { meetingList, loading } = useAppSelector(selectMeetingList);
   const dispatch = useAppDispatch();
 
   const todayDate = new Date();
@@ -61,6 +61,7 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       pageSize={pageSize}
       setPage={setPage}
       setPageSize={setPageSize}
+      loading={loading}
     />
   );
 };

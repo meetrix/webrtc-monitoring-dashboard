@@ -22,6 +22,7 @@ export interface IHomeView extends WithStyles<typeof styles> {
   page: number;
   setPage: any;
   setPageSize: any;
+  loading: boolean;
 }
 
 const popperSx: any = {
@@ -55,6 +56,7 @@ const Home: React.FC<IHomeView> = ({
   pageSize,
   setPage,
   setPageSize,
+  loading,
 }: IHomeView) => {
   const navigate = useNavigate();
   const _columns = [
@@ -164,6 +166,7 @@ const Home: React.FC<IHomeView> = ({
             onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
             onPageChange={(newPage: any) => setPage(newPage)}
             rowCount={allData?.total}
+            loading={loading}
           />
         </div>
       </Paper>

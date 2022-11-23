@@ -18,7 +18,7 @@ export interface IUserListAsyncContainer {}
 
 const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserListAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
-  const { userList } = useAppSelector(selectUserList);
+  const { userList, loading } = useAppSelector(selectUserList);
   // const { userErrorList } = useAppSelector(selectUserErrors);
   const dispatch = useAppDispatch();
   const { roomId } = useParams();
@@ -60,6 +60,7 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
       page={page}
       setPage={setPage}
       rowCount={userList.total}
+      loading={loading}
     />
   );
 };

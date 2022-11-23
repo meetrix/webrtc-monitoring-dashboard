@@ -21,7 +21,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 }: IUserDetailsView) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userErrorList } = useAppSelector(selectUserErrors);
+  const { userErrorList, loading } = useAppSelector(selectUserErrors);
   const { userId, roomId } = useParams();
 
   const [pageSize, setPageSize] = React.useState<number>(10);
@@ -134,6 +134,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
             page={page}
             onPageChange={(newPage: any) => setPage(newPage)}
             rowCount={rowCount}
+            loading={loading}
           />
         </div>
       </Paper>
