@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import clsx from 'clsx';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, DataGridProps } from '@mui/x-data-grid';
 import { ButtonProps, Theme } from '@mui/material';
 import { withStyles, WithStyles, createStyles } from '@mui/styles';
 
@@ -11,7 +11,7 @@ const styles = (theme: Theme) => {
 };
 
 export interface TableComponentProps
-  extends WithStyles<ButtonProps & typeof styles> {
+  extends WithStyles<DataGridProps & typeof styles> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   _id?: string;
   rows: Array<any>;
@@ -26,6 +26,10 @@ export interface TableComponentProps
   rowsPerPageOptions?: any;
   onPageSizeChange?: any;
   pageSize?: any;
+  paginationMode?: 'client' | 'server';
+  page?: any;
+  onPageChange?: any;
+  rowCount?: number;
 }
 
 export const TableComponent: React.FC<TableComponentProps> = ({

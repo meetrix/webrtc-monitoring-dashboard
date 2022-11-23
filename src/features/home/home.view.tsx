@@ -18,7 +18,9 @@ export interface IHomeView extends WithStyles<typeof styles> {
   meetingList: any[];
   dateRange: any;
   setDateRange: (data: any) => void;
-  pageSize: any;
+  pageSize: number;
+  page: number;
+  setPage: any;
   setPageSize: any;
 }
 
@@ -49,7 +51,9 @@ const Home: React.FC<IHomeView> = ({
   meetingList = [],
   dateRange,
   setDateRange,
+  page,
   pageSize,
+  setPage,
   setPageSize,
 }: IHomeView) => {
   const navigate = useNavigate();
@@ -154,8 +158,12 @@ const Home: React.FC<IHomeView> = ({
               `fault-status-${params?.row?.faulty}`
             }
             rowsPerPageOptions={[10, 20, 50]}
+            paginationMode="server"
+            page={page}
             pageSize={pageSize}
             onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
+            onPageChange={(newPage: any) => setPage(newPage)}
+            rowCount={allData?.total}
           />
         </div>
       </Paper>

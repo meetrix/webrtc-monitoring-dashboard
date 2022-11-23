@@ -18,6 +18,7 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
 
   const todayDate = new Date();
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [page, setPage] = React.useState(0);
   const [dateRange, setDateRange] = React.useState<any>([
     moment(todayDate).subtract(1, 'week').calendar(),
     todayDate,
@@ -28,8 +29,8 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
 
 
   useEffect(() => {
-    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize }));
-  }, [dateRange, pageSize]);
+    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+  }, [dateRange, pageSize, page]);
 
   const createRows = (list: any) => {
     // eslint-disable-next-line prefer-const
@@ -56,7 +57,9 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       meetingList={createRows(meetingListData.rooms)}
       dateRange={dateRange}
       setDateRange={setDateRange}
+      page={page}
       pageSize={pageSize}
+      setPage={setPage}
       setPageSize={setPageSize}
     />
   );
