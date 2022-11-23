@@ -4,7 +4,7 @@ import api from '../../../app/axios';
 export const getAllUsersApi = (data: any) => {
   const { roomId, pageSize, page } = data;
   return api.get(
-    `report/participant?limit=10&offset=0&sortBy=created&direction=desc&direction=ASC&roomId=${roomId}&offset=${
+    `report/participant?&sortBy=created&direction=desc&roomId=${roomId}&offset=${
       page * pageSize
     }&limit=${pageSize}`
   );
