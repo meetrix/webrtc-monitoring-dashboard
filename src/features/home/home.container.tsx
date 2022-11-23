@@ -13,11 +13,12 @@ export interface IHomeAsyncContainer {}
 
 const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContainer) => {
   const { clientId, domain, mockStats } = getUrlParams();
-  const { meetingList } = useAppSelector(selectMeetingList);
+  const { meetingList, loading } = useAppSelector(selectMeetingList);
   const dispatch = useAppDispatch();
 
   const todayDate = new Date();
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [page, setPage] = React.useState(0);
   const [dateRange, setDateRange] = React.useState<any>([
     moment(todayDate).subtract(1, 'week').calendar(),
     todayDate,
@@ -28,9 +29,8 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
 
 
   useEffect(() => {
-    console.log('kkkk', startDate);
-    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize }));
-  }, [dateRange, pageSize]);
+    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+  }, [dateRange, pageSize, page]);
 
   const createRows = (list: any) => {
     // eslint-disable-next-line prefer-const
@@ -40,9 +40,9 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       const rowData = {
         id: data.id,
         roomName: data.roomName,
-        created: moment(data.created).format('YYYY-MM-DD'),
-        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD') : 'On going',
-        totalParticipants: data.totalParticipants,
+        created: moment(data.created).format('YYYY-MM-DD, h:mm a'),
+        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm a') : 'On going',
+        participants: data.participants,
         faulty: data.faulty,
       };
       rows.push(rowData);
@@ -57,8 +57,11 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       meetingList={createRows(meetingListData.rooms)}
       dateRange={dateRange}
       setDateRange={setDateRange}
+      page={page}
       pageSize={pageSize}
+      setPage={setPage}
       setPageSize={setPageSize}
+      loading={loading}
     />
   );
 };

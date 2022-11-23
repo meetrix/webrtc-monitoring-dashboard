@@ -18,8 +18,11 @@ export interface IHomeView extends WithStyles<typeof styles> {
   meetingList: any[];
   dateRange: any;
   setDateRange: (data: any) => void;
-  pageSize: any;
+  pageSize: number;
+  page: number;
+  setPage: any;
   setPageSize: any;
+  loading: boolean;
 }
 
 const popperSx: any = {
@@ -49,16 +52,19 @@ const Home: React.FC<IHomeView> = ({
   meetingList = [],
   dateRange,
   setDateRange,
+  page,
   pageSize,
+  setPage,
   setPageSize,
+  loading,
 }: IHomeView) => {
   const navigate = useNavigate();
   const _columns = [
-    { field: 'roomName', headerName: 'Meeting Title', flex: 1 },
-    { field: 'totalParticipants', headerName: 'Participants', flex: 0.5 },
-    { field: 'id', headerName: 'Id', flex: 1 },
-    { field: 'created', headerName: 'Created Date', flex: 0.5 },
-    { field: 'destroyed', headerName: 'End Date', flex: 0.5 },
+    { field: 'roomName', headerName: 'Title', flex: 1 },
+    { field: 'participants', headerName: 'Participants', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2 },
+    { field: 'created', headerName: 'Created Date', flex: 2 },
+    { field: 'destroyed', headerName: 'End Date', flex: 2 },
   ];
 
   const maxDate = new Date();
@@ -154,8 +160,13 @@ const Home: React.FC<IHomeView> = ({
               `fault-status-${params?.row?.faulty}`
             }
             rowsPerPageOptions={[10, 20, 50]}
+            paginationMode="server"
+            page={page}
             pageSize={pageSize}
             onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
+            onPageChange={(newPage: any) => setPage(newPage)}
+            rowCount={allData?.total}
+            loading={loading}
           />
         </div>
       </Paper>
