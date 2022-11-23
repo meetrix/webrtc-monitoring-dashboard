@@ -24,10 +24,11 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
   const { roomId } = useParams();
 
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [page, setPage] = React.useState(0);
 
   useEffect(() => {
-    dispatch<any>(userListAsync({ roomId, pageSize }));
-  }, [pageSize]);
+    dispatch<any>(userListAsync({ roomId, pageSize, page }));
+  }, [pageSize, page]);
 
   // const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
@@ -53,9 +54,12 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
 
   return (
     <UserListView
-      userList={createRows(userList)}
+      userList={createRows(userList.participants)}
       pageSize={pageSize}
       setPageSize={setPageSize}
+      page={page}
+      setPage={setPage}
+      rowCount={userList.total}
     />
   );
 };

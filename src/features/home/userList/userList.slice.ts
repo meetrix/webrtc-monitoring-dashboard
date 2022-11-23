@@ -51,7 +51,7 @@ export const UserErrorsSlice = createSlice({
     });
     builder.addCase(userListAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.userList = action.payload.data.data.participants;
+      state.userList = action.payload.data.data;
     });
     builder.addCase(userListAsync.rejected, (state, action) => {
       state.loading = false;
@@ -64,7 +64,7 @@ export const UserErrorsSlice = createSlice({
     });
     builder.addCase(userErrorsAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.userErrorList = action.payload.data.data;
+      state.userErrorList = action.payload.data;
     });
     builder.addCase(userErrorsAsync.rejected, (state, action) => {
       state.loading = false;

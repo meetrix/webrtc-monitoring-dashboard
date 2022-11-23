@@ -25,10 +25,14 @@ const UserDetails: React.FC<IUserDetailsView> = ({
   const { userId, roomId } = useParams();
 
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [page, setPage] = React.useState(0);
+
+  const tableData = userErrorList?.data || [];
+  const rowCount = userErrorList?.totalDataCount || 0;
 
   useEffect(() => {
-    dispatch<any>(userErrorsAsync({ userId, pageSize }));
-  }, [pageSize]);
+    dispatch<any>(userErrorsAsync({ userId, pageSize, page }));
+  }, [pageSize, page]);
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
@@ -86,12 +90,11 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               <div>
                 <Typography variant="body2">
                   &nbsp;:{' '}
-                  {userErrorList[0]?.participantId.participantName ||
+                  {tableData[0]?.participantId.participantName ||
                     'Not available'}
                 </Typography>
                 <Typography variant="body2">
-                  &nbsp;:{' '}
-                  {userErrorList[0]?.participantId._id || 'Not available'}
+                  &nbsp;: {tableData[0]?.participantId._id || 'Not available'}
                 </Typography>
               </div>
             </div>
@@ -103,14 +106,14 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               </div>
               <div>
                 <Typography variant="body2">
-                  &nbsp;: {userErrorList[0]?.roomId.roomName || 'Not available'}
+                  &nbsp;: {tableData[0]?.roomId.roomName || 'Not available'}
                 </Typography>
                 <Typography variant="body2">
-                  &nbsp;: {userErrorList[0]?.roomId.id || 'Not available'}
+                  &nbsp;: {tableData[0]?.roomId.id || 'Not available'}
                 </Typography>
                 {/* <Typography variant="body2">
                 &nbsp;:{' '}
-                {moment(userErrorList[0]?.createdAt).format('YYYY-MM-DD') ||
+                {moment(tableData[0]?.createdAt).format('YYYY-MM-DD') ||
                   'Not available'}
               </Typography> */}
               </div>
@@ -120,13 +123,17 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
         <div className={classes.tableContainer}>
           <Table
-            rows={createRows(userErrorList)}
+            rows={createRows(tableData)}
             columns={columns}
             onRowClick={handleRowClick}
             disableSelectionOnClick={false}
             rowsPerPageOptions={[10, 20, 50]}
             pageSize={pageSize}
             onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
+            paginationMode="server"
+            page={page}
+            onPageChange={(newPage: any) => setPage(newPage)}
+            rowCount={rowCount}
           />
         </div>
       </Paper>

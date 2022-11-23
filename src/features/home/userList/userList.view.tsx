@@ -12,6 +12,9 @@ export interface IUserListView extends WithStyles<typeof styles> {
   userList?: any;
   pageSize: any;
   setPageSize: any;
+  page: number;
+  setPage: any;
+  rowCount?: number;
 }
 
 const UserList: React.FC<IUserListView> = ({
@@ -19,6 +22,9 @@ const UserList: React.FC<IUserListView> = ({
   userList,
   pageSize,
   setPageSize,
+  page,
+  setPage,
+  rowCount,
 }: IUserListView) => {
   const navigate = useNavigate();
 
@@ -31,6 +37,7 @@ const UserList: React.FC<IUserListView> = ({
     { field: 'left', headerName: 'Left', flex: 2 },
   ];
 
+  console.log('kkkkk', { userList, rowCount });
   const handleRowClick = (
     params: any // RowParams
   ) => {
@@ -77,6 +84,10 @@ const UserList: React.FC<IUserListView> = ({
             rowsPerPageOptions={[10, 20, 50]}
             pageSize={pageSize}
             onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
+            paginationMode="server"
+            page={page}
+            onPageChange={(newPage: any) => setPage(newPage)}
+            rowCount={rowCount}
           />
         </div>
       </Paper>
