@@ -39,7 +39,6 @@ const UserList: React.FC<IUserListView> = ({
     { field: 'left', headerName: 'Left', flex: 2 },
   ];
 
-  console.log('kkkkk', { userList, rowCount });
   const handleRowClick = (
     params: any // RowParams
   ) => {

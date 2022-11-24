@@ -16,17 +16,12 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
   const { meetingList, loading } = useAppSelector(selectMeetingList);
   const dispatch = useAppDispatch();
 
-  const todayDate = new Date();
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState(0);
-  const [dateRange, setDateRange] = React.useState<any>([
-    moment(todayDate).subtract(1, 'week').calendar(),
-    todayDate,
-  ]);
+  const [dateRange, setDateRange] = React.useState<any>([]);
 
-  const startDate = moment(dateRange[0]).format('YYYY-MM-DD') as string;
-  const endDate = moment(dateRange[1]).format('YYYY-MM-DD') as string;
-
+  const startDate = dateRange[0] as string;
+  const endDate = dateRange[1] as string;
 
   useEffect(() => {
     dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));

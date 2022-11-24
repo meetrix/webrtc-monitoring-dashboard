@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Grid, Paper, TextField, Typography } from '@mui/material';
 import moment from 'moment';
@@ -67,7 +67,19 @@ const Home: React.FC<IHomeView> = ({
     { field: 'destroyed', headerName: 'End Date', flex: 2 },
   ];
 
-  const maxDate = new Date();
+  const todayDate = new Date();
+
+  const defaultStartDate = moment(todayDate).subtract(1, 'week').calendar();
+
+  const [startDate, setStartDate] = React.useState<any>(defaultStartDate);
+  const [endDate, setEndDate] = React.useState<any>(todayDate);
+
+  useEffect(() => {
+    setDateRange([
+      moment(startDate).format('YYYY-MM-DD'),
+      moment(endDate).format('YYYY-MM-DD'),
+    ]);
+  }, [startDate, endDate]);
 
   const handleRowClick = (
     params: any // GridRowParams
@@ -101,9 +113,9 @@ const Home: React.FC<IHomeView> = ({
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
-              value={dateRange[0]}
-              onChange={(date) => setDateRange({ 0: date })}
-              maxDate={maxDate}
+              value={endDate}
+              onChange={(date) => setStartDate(date)}
+              maxDate={endDate}
               PaperProps={{
                 sx: popperSx,
               }}
@@ -114,21 +126,20 @@ const Home: React.FC<IHomeView> = ({
                   // className={classes.datePicker}
                   inputProps={{ readOnly: true }}
                   value={
-                    dateRange[0] !== 'Invalid date'
-                      ? moment(dateRange[0]).format('DD/MM/yyyy')
+                    startDate !== 'Invalid date'
+                      ? moment(startDate).format('YYYY-MM-DD')
                       : ''
                   }
                 />
               )}
             />
-          </LocalizationProvider>
-          <div>&nbsp; To &nbsp;</div>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div>&nbsp; To &nbsp;</div>
+
             <DatePicker
               inputFormat="dd/MM/yyyy"
-              value={dateRange[1]}
-              onChange={(date) => setDateRange({ 1: date })}
-              maxDate={maxDate}
+              value={endDate}
+              onChange={(date) => setEndDate(date)}
+              maxDate={todayDate}
               PaperProps={{
                 sx: popperSx,
               }}
@@ -139,8 +150,8 @@ const Home: React.FC<IHomeView> = ({
                   // className={classes.datePicker}
                   inputProps={{ readOnly: true }}
                   value={
-                    dateRange[1] !== 'Invalid date'
-                      ? moment(dateRange[1]).format('DD/MM/yyyy')
+                    endDate !== 'Invalid date'
+                      ? moment(endDate).format('YYYY-MM-DD')
                       : ''
                   }
                 />
