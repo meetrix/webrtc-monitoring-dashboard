@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+    webrtcmonitor-dashboard:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        ports:
+            - 8084:80
+        environment:
+            - PUBLIC_URL=/
+            - REACT_APP_API_BASE_URL=https://production.example.com
+            - REACT_APP_SOCKET_BASE_URL=https://production.example.com
