@@ -1,13 +1,31 @@
+const API_BASE_URL =
+  process.env.REACT_APP_ENVIRONMENT === 'production'
+    ? window._env_.REACT_APP_API_BASE_URL
+    : process.env.REACT_APP_API_BASE_URL || 'http://localhost:9100';
+
+const API_BASE_URL_V1 =
+  process.env.REACT_APP_ENVIRONMENT === 'production'
+    ? `${window._env_.REACT_APP_API_BASE_URL}/v1`
+    : (process.env.REACT_APP_API_BASE_URL &&
+        `${process.env.REACT_APP_API_BASE_URL}/v1`) ||
+      'http://localhost:9100/v1';
+
+const SOCKET_BASE_URL =
+  process.env.REACT_APP_ENVIRONMENT === 'production'
+    ? window._env_.REACT_APP_SOCKET_BASE_URL
+    : process.env.REACT_APP_SOCKET_BASE_URL || 'http://localhost:9100/users';
+
+const PUBLIC_URL =
+  process.env.REACT_APP_ENVIRONMENT === 'production'
+    ? window._env_.PUBLIC_URL
+    : process.env.PUBLIC_URL;
 export default {
   api: {
-    baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:9100',
-    baseURLv1:
-      (process.env.REACT_APP_API_BASE_URL &&
-        `${process.env.REACT_APP_API_BASE_URL}/v1`) ||
-      'http://localhost:9100/v1',
+    baseURL: API_BASE_URL,
+    baseURLv1: API_BASE_URL_V1,
   },
   socket: {
-    url: process.env.REACT_APP_SOCKET_BASE_URL || 'http://localhost:9100/users',
+    url: SOCKET_BASE_URL,
     options: {
       path: '/stats',
       auth: {
@@ -16,4 +34,5 @@ export default {
       },
     },
   },
+  publicUrl: PUBLIC_URL,
 };

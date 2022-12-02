@@ -9,5 +9,5 @@ services:
             - 8084:80
         environment:
             - PUBLIC_URL=/
-            - REACT_APP_API_BASE_URL=https://production.example.com
-            - REACT_APP_SOCKET_BASE_URL=https://production.example.com
+            - REACT_APP_API_BASE_URL=https://example.com
+            - REACT_APP_SOCKET_BASE_URL=https://example.com

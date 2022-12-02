@@ -18,6 +18,7 @@ import styles from './settings.styles';
 import { TextField } from '../../components/TextField';
 import { Button } from '../../components/Button';
 import { IPlugin } from './settings.slice';
+import config from '../../config';
 
 export interface ISettingsView extends WithStyles<ButtonProps & typeof styles> {
   tokenList: IPlugin[] | null;
@@ -37,6 +38,7 @@ const TokenComponent = ({
 }) => {
   const { domain, _id /* ,createdAt */ } = data;
   const navigate = useNavigate();
+  const { publicUrl } = config;
   const [tokenCopyButtonClicked, setTokenCopyButtonClicked] = useState(false);
   const [urlCopyButtonClicked, setURLCopyButtonClicked] = useState(false);
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -73,7 +75,7 @@ const TokenComponent = ({
     };
   }, [urlCopyButtonClicked, tokenCopyButtonClicked]);
 
-  const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+  const publicUrl2 = new URL(publicUrl, window.location.href);
 
   return (
     <div className={classes.tokenRoot}>
@@ -154,7 +156,7 @@ const TokenComponent = ({
                     className={classes.copyIcon}
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        `${publicUrl.origin}/troubleshooter?token=${_id}`
+                        `${publicUrl2.origin}/troubleshooter?token=${_id}`
                       );
                       setURLCopyButtonClicked(true);
                     }}
