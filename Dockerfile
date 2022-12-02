@@ -2,7 +2,7 @@ FROM node:12-bullseye-slim as node-base
 
 RUN apt update && \
     apt install -y bzip2 git && git config --global credential.helper store && \
-    echo "https://ddilushan:glpat-A_rLAVpjubz1kyrxahHo@gitlab.com" > ~/.git-credentials
+    echo "https://devmeetrix:glpat-q_SLc8Mt3tpUhoexvERh@gitlab.com" > ~/.git-credentials
 WORKDIR /webrtc
 COPY package*.json .npmrc ./
 RUN npm install
@@ -12,6 +12,7 @@ COPY src ./src
 COPY public ./public
 RUN npm run build
 RUN rm -rf node_modules
+RUN rm ~/.git-credentials
 
 FROM nginx
 WORKDIR /usr/share/nginx/html
