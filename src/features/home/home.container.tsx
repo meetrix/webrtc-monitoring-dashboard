@@ -24,10 +24,14 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
   const endDate = dateRange[1] as string;
 
   useEffect(() => {
+    getMeetingList()
+  }, [dateRange, pageSize, page]);
+
+  const getMeetingList = () => {
     if (dateRange[0]) {
       dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
     }
-  }, [dateRange, pageSize, page]);
+  }
 
   const createRows = (list: any) => {
     // eslint-disable-next-line prefer-const
@@ -59,6 +63,7 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       setPage={setPage}
       setPageSize={setPageSize}
       loading={loading}
+      onRefreshClick={getMeetingList}
     />
   );
 };

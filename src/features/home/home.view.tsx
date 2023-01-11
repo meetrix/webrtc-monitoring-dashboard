@@ -1,17 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
-import { Grid, Paper, TextField, Typography } from '@mui/material';
+import {
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
 import moment from 'moment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { useNavigate } from 'react-router-dom';
+import { Refresh } from '@mui/icons-material';
 import Table from '../../components/Table';
 
 import styles from './home.styles';
 import { mockHomeMeetings } from '../../mocks/report';
+import { Button } from '../../components/Button';
 
 export interface IHomeView extends WithStyles<typeof styles> {
   allData: any;
@@ -23,6 +32,7 @@ export interface IHomeView extends WithStyles<typeof styles> {
   setPage: any;
   setPageSize: any;
   loading: boolean;
+  onRefreshClick: () => void;
 }
 
 const popperSx: any = {
@@ -57,6 +67,7 @@ const Home: React.FC<IHomeView> = ({
   setPage,
   setPageSize,
   loading,
+  onRefreshClick,
 }: IHomeView) => {
   const navigate = useNavigate();
   const _columns = [
@@ -110,6 +121,14 @@ const Home: React.FC<IHomeView> = ({
           </Grid>
         </Grid>
         <div className={classes.datePicker}>
+          <Button
+            id="refresh-home-table"
+            startIcon={<Refresh />}
+            label="Refresh"
+            onClick={onRefreshClick}
+            customStyles={classes.refreshButton}
+          />
+
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
