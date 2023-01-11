@@ -24,7 +24,9 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
   const endDate = dateRange[1] as string;
 
   useEffect(() => {
-    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+    if (dateRange[0]) {
+      dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+    }
   }, [dateRange, pageSize, page]);
 
   const createRows = (list: any) => {
