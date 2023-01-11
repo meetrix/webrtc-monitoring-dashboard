@@ -370,7 +370,9 @@ const DetailedView: React.FC<IDetailedView> = ({
                           )}
                         </TableCell>
                         <TableCell align="center">
-                          {moment(row.createdAt).format('D,MMM,YYYY,hh:mm A')}
+                          {moment(row.createdAt).format(
+                            'D,MMM,YYYY,hh:mm:ss A'
+                          )}
                         </TableCell>
                         {/* <TableCell
                         align="center"

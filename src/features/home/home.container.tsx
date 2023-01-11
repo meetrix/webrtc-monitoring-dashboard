@@ -37,8 +37,8 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       const rowData = {
         id: data.id,
         roomName: data.roomName,
-        created: moment(data.created).format('YYYY-MM-DD, h:mm a'),
-        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm a') : 'On going',
+        created: moment(data.created).format('YYYY-MM-DD, h:mm:ss a'),
+        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm:ss a') : 'On going',
         participants: data.participants,
         faulty: data.faulty,
       };

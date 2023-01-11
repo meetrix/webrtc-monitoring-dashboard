@@ -40,9 +40,9 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
       const rowData = {
         id: data._id,
         participantName: data.participantName,
-        joined: moment(data.joined).format('YYYY-MM-DD, h:mm a'),
+        joined: moment(data.joined).format('YYYY-MM-DD, h:mm:ss a'),
         left: data.left
-          ? moment(data.left).format('YYYY-MM-DD, h:mm a')
+          ? moment(data.left).format('YYYY-MM-DD, h:mm:ss a')
           : 'On going',
         roomId: data.roomId,
         faulty: data.faulty,

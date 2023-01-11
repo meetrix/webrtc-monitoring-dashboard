@@ -53,7 +53,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         errorType: data.errorType,
         eventSourceType: data.eventSourceType,
         eventSourceId: data.eventSourceId,
-        createdAt: moment(data.createdAt).format('YYYY-MM-DD, h:mm a'),
+        createdAt: moment(data.createdAt).format('YYYY-MM-DD, h:mm:ss a'),
       };
       rows.push(rowData);
     });
