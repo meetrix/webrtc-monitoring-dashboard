@@ -25,3 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .npmrc
+public/env-config.js

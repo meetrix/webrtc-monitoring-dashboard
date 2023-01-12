@@ -2,6 +2,19 @@
 
 Dashboard that is used to present data captured via [@meetrix/lib-monitoring](https://gitlab.com/meetrix/products/webrtc-monitoring/lib-monitoring)
 
+## Project can be run on following OS
+
+1. Ubuntu
+2. MacOS
+3. Windows
+
+## Prerequisites
+
+The following pre-requisites should be setup through your terminal on your development machine. Please refer to tool installation guides by the developers to set these up. 
+
+1. Git
+2. Node 12
+
 ## Project setup
 
 1. Create a [personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token) (required for two-factor authentication (2FA)), with the scope set to `api`. You can save this for future use too.
