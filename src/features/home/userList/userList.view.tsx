@@ -62,7 +62,7 @@ const UserList: React.FC<IUserListView> = ({
           </Typography>
           <div style={{ display: 'flex' }}>
             <BasicButton
-              id="refresh-home-table"
+              id="refresh-user-list-table"
               startIcon={<Refresh />}
               label="Refresh"
               onClick={setIsRefreshClicked}

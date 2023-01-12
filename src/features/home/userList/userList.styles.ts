@@ -36,7 +36,7 @@ const styles = (theme: Theme) => {
       },
     },
     refreshButton: {
-      marginRight: 10,
+      marginRight: 15,
       height: '70%',
       '& .MuiButton-root': {
         padding: '8px 16px',
