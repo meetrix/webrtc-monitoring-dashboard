@@ -3,13 +3,12 @@ import readline from 'readline';
 
 async function appendLine(outputFileName, line) {
   // Each line in input.txt will be successively available here as `line`.
-  fs.appendFile(outputFileName, `${line}\n`, (err) => {
-    if (err) {
-      // success
-    } else {
-      // done
-    }
-  });
+  try {
+    return await fs.promises.appendFile(outputFileName, `${line}\n`);
+  } catch (err) {
+    console.error('Error occurred while reading directory!', err);
+    return 'fail';
+  }
 }
 
 async function processLineByLine() {
@@ -17,7 +16,9 @@ async function processLineByLine() {
   const inputFileName = '.env';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  fs.truncate(outputFileName, 0, () => {});
+  if (fs.existsSync('public/env-config.js')) {
+    await fs.promises.truncate(outputFileName, 0);
+  }
   await appendLine(outputFileName, 'window._env_ = {');
   const fileStream = fs.createReadStream(inputFileName);
 
