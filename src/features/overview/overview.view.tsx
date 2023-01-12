@@ -11,6 +11,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { CalendarPickerView } from '@mui/x-date-pickers';
 import endOfWeek from 'date-fns/endOfWeek';
 import startOfWeek from 'date-fns/startOfWeek';
+import { Refresh } from '@mui/icons-material';
 
 import styles from './overview.styles';
 import Chart from './components/chart';
@@ -19,6 +20,7 @@ import getUrlParams from '../../utils/urlUtils';
 import CustomDay from './weekOfMonthRange';
 import { selectApp } from '../app/app.slice';
 import { useAppSelector } from '../../app/hooks';
+import { Button } from '../../components/Button';
 
 interface IOverviewView extends WithStyles<ButtonProps & typeof styles> {
   summaryList: DayData[];
@@ -182,6 +184,11 @@ const Overview: React.FC<IOverviewView> = ({
   const [lineChartDate, setLineChartDate] = useState<Date>(now);
   const lineChartSelectedMonth = moment(lineChartDate).format('MMM yyyy');
 
+  const [testByCategoryData, setTestByCategoryData] = useState<any>([]);
+  const [testByWeekData, setTestByWeekData] = useState<any>();
+  const [lineChartData, setLineChartData] = useState<any>([]);
+  const [isRefreshClicked, setIsRefreshClicked] = useState(false);
+
   const longChartsOptions = {
     height: window.innerHeight / 3,
     legend: { position: 'top', maxLines: 3 },
@@ -219,30 +226,37 @@ const Overview: React.FC<IOverviewView> = ({
         ...dayData,
       };
     }) || [];
+  useEffect(() => {
+    setTestByWeekData(
+      extractTestDataByWeekOfMonth(summary, startDayOfWeek, endDayOfWeek)
+    );
+  }, [isRefreshClicked, weekValue]);
 
-  const testByDateData = extractTestDataByWeekday(
-    summary,
-    testsByWeekdaySelectedMonth
-  );
+  useEffect(() => {
+    setTestByCategoryData(
+      extractTestDataByCategory(summary, testsByCategorySelectedDate)
+    );
+  }, [isRefreshClicked, testsByCategorySelectedDate]);
 
-  const testByCategoryData = extractTestDataByCategory(
-    summary,
-    testsByCategorySelectedDate
-  );
+  useEffect(() => {
+    setLineChartData(extractLineChartData(summary, lineChartSelectedMonth));
+  }, [isRefreshClicked, lineChartSelectedMonth]);
 
-  const testByWeekData = extractTestDataByWeekOfMonth(
-    summary,
-    startDayOfWeek,
-    endDayOfWeek
-  );
-
-  const lineChartData = extractLineChartData(summary, lineChartSelectedMonth);
+  // const lineChartData = extractLineChartData(summary, lineChartSelectedMonth);
 
   return (
     <div className={classes.root}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <div className={classes.pathText}>Troubleshooter &gt; Overview</div>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+          <Button
+            id="refresh-home-table"
+            startIcon={<Refresh />}
+            label="Refresh"
+            onClick={() => setIsRefreshClicked(!isRefreshClicked)}
+            customStyles={classes.refreshButton}
+          />
+
           <Typography variant="body1">From: &nbsp;</Typography>
           <DatePicker
             classes={classes.datePicker}
@@ -441,7 +455,6 @@ function extractTestDataByWeekOfMonth(
   endDayOfWeek: Date
 ) {
   const days = enumerateDaysBetweenDates(startDayOfWeek, endDayOfWeek);
-
   const testByWeekData0 = summary
     .filter((item) => days.includes(item._id))
     .reduce((acc, stats) => {
@@ -453,7 +466,6 @@ function extractTestDataByWeekOfMonth(
         ] as [number, number],
       };
     }, {} as { [_id: string]: [number, number] });
-
   return [
     ['Day', 'Success', 'Fail'],
     ...days.map((day) => [
