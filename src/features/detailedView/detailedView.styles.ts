@@ -168,6 +168,17 @@ const styles = (theme: Theme) => {
     gridItem: {
       marginBottom: '10px',
     },
+    refreshButton: {
+      flexGrow: 1,
+      '& .MuiButton-root': {
+        padding: '8px 16px',
+        color: theme.palette.common.black,
+        '&:hover': {
+          backgroundColor: theme.palette.secondary.light,
+          borderColor: theme.palette.secondary.light,
+        },
+      },
+    },
   });
 };
 

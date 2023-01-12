@@ -26,7 +26,7 @@ const styles = (theme: Theme) => {
     datePicker: {
       margin: '3vh 0 0',
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       alignItems: 'center',
       '& .MuiOutlinedInput-input': {
         padding: '6px 14px',
@@ -44,7 +44,7 @@ const styles = (theme: Theme) => {
       },
     },
     refreshButton: {
-      flexGrow: 1,
+      marginRight: 10,
       '& .MuiButton-root': {
         padding: '8px 16px',
         color: theme.palette.common.black,

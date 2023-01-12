@@ -250,7 +250,7 @@ const Overview: React.FC<IOverviewView> = ({
         <div className={classes.pathText}>Troubleshooter &gt; Overview</div>
         <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
           <Button
-            id="refresh-home-table"
+            id="refresh-overview"
             startIcon={<Refresh />}
             label="Refresh"
             onClick={() => setIsRefreshClicked(!isRefreshClicked)}
