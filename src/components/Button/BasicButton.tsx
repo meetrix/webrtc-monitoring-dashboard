@@ -73,7 +73,7 @@ const styles = (theme: Theme) => {
 export interface ButtonComponentProps
   extends WithStyles<ButtonProps & typeof styles> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  id: string;
+  id?: string;
   label?: string;
   fullWidth?: boolean;
   color?: Color;

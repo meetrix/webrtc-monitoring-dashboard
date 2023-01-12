@@ -2,9 +2,11 @@
 import React, { useEffect } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Button, Paper, Typography } from '@mui/material';
+import { Refresh } from '@mui/icons-material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
+import { Button as BasicButton } from '../../../components/Button';
 
 import styles from './userList.styles';
 
@@ -16,6 +18,7 @@ export interface IUserListView extends WithStyles<typeof styles> {
   setPage: any;
   rowCount?: number;
   loading: boolean;
+  setIsRefreshClicked?: () => void;
 }
 
 const UserList: React.FC<IUserListView> = ({
@@ -27,6 +30,7 @@ const UserList: React.FC<IUserListView> = ({
   setPage,
   rowCount,
   loading,
+  setIsRefreshClicked,
 }: IUserListView) => {
   const navigate = useNavigate();
 
@@ -57,6 +61,13 @@ const UserList: React.FC<IUserListView> = ({
             User List
           </Typography>
           <div style={{ display: 'flex' }}>
+            <BasicButton
+              id="refresh-home-table"
+              startIcon={<Refresh />}
+              label="Refresh"
+              onClick={setIsRefreshClicked}
+              customStyles={classes.refreshButton}
+            />
             <div>
               <Typography variant="body2">Room Name</Typography>
               <Typography variant="body2">Room Id</Typography>

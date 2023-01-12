@@ -1,6 +1,6 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { getUrlParams } from '../../../utils/urlUtils';
@@ -25,10 +25,11 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
 
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState(0);
+  const [isRefreshClicked, setIsRefreshClicked] = useState(false);
 
   useEffect(() => {
     dispatch<any>(userListAsync({ roomId, pageSize, page }));
-  }, [pageSize, page]);
+  }, [pageSize, page, isRefreshClicked]);
 
   // const userErrorListData = mockStats ? mockUserErrors : userErrorList;
 
@@ -61,6 +62,7 @@ const UserListAsyncContainer: React.FC<IUserListAsyncContainer> = ({}: IUserList
       setPage={setPage}
       rowCount={userList.total}
       loading={loading}
+      setIsRefreshClicked={() => setIsRefreshClicked(!isRefreshClicked)}
     />
   );
 };
