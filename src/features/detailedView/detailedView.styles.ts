@@ -169,9 +169,10 @@ const styles = (theme: Theme) => {
       marginBottom: '10px',
     },
     refreshButton: {
-      flexGrow: 1,
+      marginRight: 15,
+      opacity: 0.8,
       '& .MuiButton-root': {
-        padding: '8px 16px',
+        padding: '4px 16px',
         color: theme.palette.common.black,
         '&:hover': {
           backgroundColor: theme.palette.secondary.light,

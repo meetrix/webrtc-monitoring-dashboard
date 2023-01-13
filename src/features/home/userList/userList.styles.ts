@@ -33,19 +33,26 @@ const styles = (theme: Theme) => {
       },
       '& .fault-status-1': {
         backgroundColor: '#ffbcbc',
+        '&:hover': {
+          backgroundColor: '#faaaaa',
+        },
       },
     },
     refreshButton: {
       marginRight: 15,
-      height: '70%',
+      height: '73%',
       '& .MuiButton-root': {
         padding: '8px 16px',
         color: theme.palette.common.black,
+        borderColor: 'rgba(0, 0, 0, 0.23)',
         '&:hover': {
           backgroundColor: theme.palette.secondary.light,
           borderColor: theme.palette.secondary.light,
         },
       },
+    },
+    refreshButtonUserDetails: {
+      height: '93%',
     },
   });
 };
