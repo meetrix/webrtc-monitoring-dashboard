@@ -25,6 +25,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import { Refresh } from '@mui/icons-material';
 import moment from 'moment';
 import clsx from 'clsx';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -37,6 +38,7 @@ import styles from './detailedView.styles';
 import DetailedViewTableHead from './detailedViewTableHead';
 import TablePaginationActions from './detailedViewPagination';
 import { isHexadecimal } from '../../helper/validation';
+import { Button } from '../../components/Button';
 
 interface IDetailedView extends WithStyles<ButtonProps & typeof styles> {
   detailViewList: any;
@@ -82,6 +84,8 @@ const DetailedView: React.FC<IDetailedView> = ({
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const startDateFormat = moment(startDate).format('DD/MM/yyyy');
   const endDateFormat = moment(endDate).format('DD/MM/yyyy');
+
+  const [isRefreshClicked, setIsRefreshClicked] = useState(false);
 
   useEffect(() => {
     if (detailViewList && detailViewList.sessions.length) {
@@ -130,7 +134,16 @@ const DetailedView: React.FC<IDetailedView> = ({
       testId: search.length === 24 && isHexadecimal(search) ? search : '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, orderBy, sortDirection, startDate, endDate, search]);
+  }, [
+    page,
+    rowsPerPage,
+    orderBy,
+    sortDirection,
+    startDate,
+    endDate,
+    search,
+    isRefreshClicked,
+  ]);
 
   const handleOrderButtonClick = () => {
     if (sortDirection === 1) {
@@ -232,8 +245,17 @@ const DetailedView: React.FC<IDetailedView> = ({
               display: 'flex',
               paddingRight: '10px',
               justifyContent: 'flex-end',
+              alignItems: 'center',
             }}
           >
+            <Button
+              id="refresh-detailed-view-table"
+              startIcon={<Refresh />}
+              label="Refresh"
+              onClick={() => setIsRefreshClicked(!isRefreshClicked)}
+              customStyles={classes.refreshButton}
+            />
+
             <div className={classes.paperTextDark}>Sort by: &nbsp;</div>
             <Box>
               <Select
@@ -370,7 +392,9 @@ const DetailedView: React.FC<IDetailedView> = ({
                           )}
                         </TableCell>
                         <TableCell align="center">
-                          {moment(row.createdAt).format('D,MMM,YYYY,hh:mm A')}
+                          {moment(row.createdAt).format(
+                            'D,MMM,YYYY,hh:mm:ss A'
+                          )}
                         </TableCell>
                         {/* <TableCell
                         align="center"

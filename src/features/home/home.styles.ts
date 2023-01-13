@@ -26,7 +26,7 @@ const styles = (theme: Theme) => {
     datePicker: {
       margin: '3vh 0 0',
       display: 'flex',
-      justifyContent: 'end',
+      justifyContent: 'flex-end',
       alignItems: 'center',
       '& .MuiOutlinedInput-input': {
         padding: '6px 14px',
@@ -41,6 +41,17 @@ const styles = (theme: Theme) => {
       },
       '& .fault-status-1': {
         backgroundColor: '#ffbcbc',
+      },
+    },
+    refreshButton: {
+      marginRight: 10,
+      '& .MuiButton-root': {
+        padding: '8px 16px',
+        color: theme.palette.common.black,
+        '&:hover': {
+          backgroundColor: theme.palette.secondary.light,
+          borderColor: theme.palette.secondary.light,
+        },
       },
     },
   });

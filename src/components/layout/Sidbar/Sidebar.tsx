@@ -86,12 +86,12 @@ const Sidebar = ({ classes }: ISidebarProps) => {
       icon: <HomeRoundedIcon />,
       subItem: false,
     },
-    {
-      label: 'Troubleshooter',
-      path: '',
-      icon: '',
-      subItem: true,
-    },
+    // {
+    //   label: 'Troubleshooter',
+    //   path: '',
+    //   icon: '',
+    //   subItem: true,
+    // },
     {
       label: 'Overview',
       path: '/overview',

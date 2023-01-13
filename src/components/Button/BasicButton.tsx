@@ -28,10 +28,10 @@ const styles = (theme: Theme) => {
         borderWidth: 1,
         '&:hover': {
           backgroundColor: theme.palette.primary.light,
-          borderColor: theme.palette.primary.light,
+          borderColor: theme.palette.secondary.light,
         },
         '&:focus': {
-          backgroundColor: theme.palette.primary.light,
+          backgroundColor: 'transparent',
           borderColor: theme.palette.primary.main,
         },
       },
@@ -73,7 +73,7 @@ const styles = (theme: Theme) => {
 export interface ButtonComponentProps
   extends WithStyles<ButtonProps & typeof styles> {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  id: string;
+  id?: string;
   label?: string;
   fullWidth?: boolean;
   color?: Color;
@@ -82,6 +82,7 @@ export interface ButtonComponentProps
   disabled?: boolean;
   customStyles?: string;
   align?: Alignment;
+  startIcon?: any;
 }
 
 export const BasicButton: React.FC<ButtonComponentProps> = ({
