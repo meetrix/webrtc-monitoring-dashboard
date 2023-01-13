@@ -24,8 +24,14 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
   const endDate = dateRange[1] as string;
 
   useEffect(() => {
-    dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+    getMeetingList()
   }, [dateRange, pageSize, page]);
+
+  const getMeetingList = () => {
+    if (dateRange[0]) {
+      dispatch<any>(meetingListAsync({ startDate, endDate, pageSize, page }));
+    }
+  }
 
   const createRows = (list: any) => {
     // eslint-disable-next-line prefer-const
@@ -35,8 +41,8 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       const rowData = {
         id: data.id,
         roomName: data.roomName,
-        created: moment(data.created).format('YYYY-MM-DD, h:mm a'),
-        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm a') : 'On going',
+        created: moment(data.created).format('YYYY-MM-DD, h:mm:ss a'),
+        destroyed: data.destroyed ? moment(data.destroyed).format('YYYY-MM-DD, h:mm:ss a') : 'On going',
         participants: data.participants,
         faulty: data.faulty,
       };
@@ -57,6 +63,7 @@ const HomeAsyncContainer: React.FC<IHomeAsyncContainer> = ({}: IHomeAsyncContain
       setPage={setPage}
       setPageSize={setPageSize}
       loading={loading}
+      onRefreshClick={getMeetingList}
     />
   );
 };

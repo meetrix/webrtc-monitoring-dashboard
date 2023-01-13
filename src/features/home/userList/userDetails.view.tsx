@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WithStyles, withStyles } from '@mui/styles';
 import { Button, Paper, Typography } from '@mui/material';
+import { Refresh } from '@mui/icons-material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import Table from '../../../components/Table';
+import { Button as BasicButton } from '../../../components/Button';
 
 import styles from './userList.styles';
 import { selectUserErrors, userErrorsAsync } from './userList.slice';
@@ -26,13 +28,14 @@ const UserDetails: React.FC<IUserDetailsView> = ({
 
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState(0);
+  const [isRefreshClicked, setIsRefreshClicked] = useState(false);
 
   const tableData = userErrorList?.data || [];
   const rowCount = userErrorList?.totalDataCount || 0;
 
   useEffect(() => {
     dispatch<any>(userErrorsAsync({ userId, pageSize, page }));
-  }, [pageSize, page]);
+  }, [pageSize, page, isRefreshClicked]);
 
   const columns = [
     { field: 'errorValue', headerName: 'Error Value', flex: 1 },
@@ -53,7 +56,7 @@ const UserDetails: React.FC<IUserDetailsView> = ({
         errorType: data.errorType,
         eventSourceType: data.eventSourceType,
         eventSourceId: data.eventSourceId,
-        createdAt: moment(data.createdAt).format('YYYY-MM-DD, h:mm a'),
+        createdAt: moment(data.createdAt).format('YYYY-MM-DD, h:mm:ss a'),
       };
       rows.push(rowData);
     });
@@ -99,6 +102,13 @@ const UserDetails: React.FC<IUserDetailsView> = ({
               </div>
             </div>
             <div style={{ display: 'flex' }}>
+              <BasicButton
+                id="refresh-user-details-table"
+                startIcon={<Refresh />}
+                label="Refresh"
+                onClick={() => setIsRefreshClicked(!isRefreshClicked)}
+                customStyles={classes.refreshButton}
+              />
               <div>
                 <Typography variant="body2">Room Name</Typography>
                 <Typography variant="body2">Room Id</Typography>
