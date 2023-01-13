@@ -6,6 +6,7 @@ async function appendLine(outputFileName, line) {
   try {
     return await fs.promises.appendFile(outputFileName, `${line}\n`);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error occurred while reading directory!', err);
     return 'fail';
   }
