@@ -6,6 +6,7 @@ import { Refresh } from '@mui/icons-material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import clsx from 'clsx';
 import Table from '../../../components/Table';
 import { Button as BasicButton } from '../../../components/Button';
 
@@ -107,7 +108,10 @@ const UserDetails: React.FC<IUserDetailsView> = ({
                 startIcon={<Refresh />}
                 label="Refresh"
                 onClick={() => setIsRefreshClicked(!isRefreshClicked)}
-                customStyles={classes.refreshButton}
+                customStyles={clsx(
+                  classes.refreshButton,
+                  classes.refreshButtonUserDetails
+                )}
               />
               <div>
                 <Typography variant="body2">Room Name</Typography>
