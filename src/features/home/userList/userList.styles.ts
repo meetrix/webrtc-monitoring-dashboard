@@ -33,6 +33,9 @@ const styles = (theme: Theme) => {
       },
       '& .fault-status-1': {
         backgroundColor: '#ffbcbc',
+        '&:hover': {
+          backgroundColor: '#faaaaa',
+        },
       },
     },
     refreshButton: {

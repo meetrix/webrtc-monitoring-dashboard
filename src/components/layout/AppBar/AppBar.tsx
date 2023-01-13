@@ -91,6 +91,10 @@ const styles = (theme: Theme) => {
       transform: 'none !important',
       top: '52px !important',
     },
+    userName: {
+      textTransform: 'capitalize',
+      marginLeft: 7,
+    },
   });
 };
 
@@ -199,7 +203,7 @@ const AppBarView = ({
                     alt={user?.profile?.name}
                     src={user?.profile?.picture}
                   />
-                  <div style={{ marginLeft: '7px' }}>
+                  <div className={classes.userName}>
                     {filterFirstName(user?.profile?.name)}
                   </div>
                 </MenuItem>
