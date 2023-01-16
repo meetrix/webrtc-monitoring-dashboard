@@ -1,10 +1,12 @@
 import React from 'react';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
+const v4 = require('uuid');
 import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 
 const debug = debugLib('Logger');
 debug.enabled = true;

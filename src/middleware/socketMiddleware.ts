@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import { MiddlewareAPI, Dispatch, Middleware, AnyAction } from 'redux';
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 import config from '../config';
 import { SOCKET_CONNECTED, SOCKET_DISCONNECTED, SOCKET_EMIT } from '../actions';
 import { getToken } from '../utils/localStorageUtils';

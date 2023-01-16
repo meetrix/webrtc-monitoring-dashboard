@@ -6,7 +6,8 @@ import {
   SOCKET_ROOM_JOIN,
 } from '@meetrix/webrtc-monitoring-common-lib';
 import { TimelineEvent } from '@peermetrics/webrtc-stats';
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 import { getUrlParams } from '../../../utils/urlUtils';
 import getSocket from '../../socketService';
 import { api } from '../api';

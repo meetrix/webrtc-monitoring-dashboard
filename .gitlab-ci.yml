@@ -17,7 +17,7 @@ staging_package:
     #       echo "${CI_API_V4_URL#http*:}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
     #     } >> .npmrc
     #   fi
-    - CI=false && npm ci --include=dev
+    - CI=false && npm i --include=dev
     # - cd node_modules/@peermetrics/webrtc-stats && npm install && npm run build && cd ../../..
     - CI=false npm run build
     - cd build
@@ -65,7 +65,7 @@ production_package:
     #       echo "${CI_API_V4_URL#http*:}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
     #     } >> .npmrc
     #   fi
-    - CI=false && npm ci --include=dev
+    - CI=false && npm i --include=dev
     # - cd node_modules/@peermetrics/webrtc-stats && npm install && npm run build && cd ../../..
     - CI=false npm run build
     - cd build

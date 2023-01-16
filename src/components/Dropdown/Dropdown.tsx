@@ -81,8 +81,10 @@ const Dropdown = ({
       className={clsx(
         classes.popper,
         profileDropdown && classes.popperPosition
-      )}
-    >
+      )} 
+      onResize={undefined}
+      onResizeCapture={undefined}    
+      >
       {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}

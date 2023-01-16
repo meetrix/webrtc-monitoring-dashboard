@@ -1,4 +1,5 @@
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 import React, { useContext, useEffect, useState } from 'react';
 import config from '../../config';
 import { ACCOUNT_PROFILE } from '../../constants/apiRoutes';

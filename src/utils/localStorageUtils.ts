@@ -1,4 +1,5 @@
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 
 const debug = debugLib('localStorageUtils:');
 debug.enabled = true;

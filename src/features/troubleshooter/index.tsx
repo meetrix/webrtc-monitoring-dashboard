@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Monitor from '@meetrix/lib-monitoring/dist/lib/lib-call-quality-monitoring';
+import Monitor from '@meetrix/lib-monitoring';
 
 import config from '../../config';
 

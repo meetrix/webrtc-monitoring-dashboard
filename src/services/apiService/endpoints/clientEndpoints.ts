@@ -4,7 +4,8 @@ import {
   SOCKET_CLIENT_JOINED,
   SOCKET_CLIENT_LEFT,
 } from '@meetrix/webrtc-monitoring-common-lib';
-import debugLib from 'debug';
+// import debugLib from 'debug';
+const debugLib = require('debug');
 import { api } from '../api';
 import getSocket from '../../socketService';
 

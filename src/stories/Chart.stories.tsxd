@@ -1,6 +1,6 @@
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Box } from '@mui/material';
-import React from 'react';
 import Chart, { ChartComponentProps } from '../components/Chart';
 
 export default {

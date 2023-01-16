@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import * as ReactGA from 'react-ga';
-import TagManager from 'react-gtm-module';
+// import TagManager from 'react-gtm-module';
+const TagManager = require('react-gtm-module');
 import { AppContainer } from './features/app';
 import { MainLayout } from './components/layout';
 import Routes from './routes';
