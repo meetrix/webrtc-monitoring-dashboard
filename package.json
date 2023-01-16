@@ -40,7 +40,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "DISABLE_ESLINT_PLUGIN=true npm run envconfig && react-scripts start",
+    "start": "npm run envconfig && DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
