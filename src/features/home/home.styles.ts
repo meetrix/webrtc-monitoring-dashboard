@@ -41,13 +41,17 @@ const styles = (theme: Theme) => {
       },
       '& .fault-status-1': {
         backgroundColor: '#ffbcbc',
+        '&:hover': {
+          backgroundColor: '#faaaaa',
+        },
       },
     },
     refreshButton: {
-      marginRight: 10,
+      marginRight: 15,
       '& .MuiButton-root': {
         padding: '8px 16px',
         color: theme.palette.common.black,
+        borderColor: 'rgba(0, 0, 0, 0.23)',
         '&:hover': {
           backgroundColor: theme.palette.secondary.light,
           borderColor: theme.palette.secondary.light,
