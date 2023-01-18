@@ -13,14 +13,16 @@ Dashboard that is used to present data captured via [@meetrix/lib-monitoring](ht
 The following pre-requisites should be setup through your terminal on your development machine. Please refer to tool installation guides by the developers to set these up. 
 
 1. Git
-2. Node 12
+2. Node 16
 
 ## Project setup
    ```shell
    # Copy the .env.example contents into the .env
    1. cat .env.example > .env
    
-   2. npm start
+   2. npm install
+
+   3. npm start
    ```
 ## Usage and development with `lib`, `backend` and `common-lib`
 
